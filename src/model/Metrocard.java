@@ -1,26 +1,56 @@
 package model;
 
-import java.util.Map;
-import java.util.TreeMap;
+import java.time.Month;
+import java.time.Year;
 
 public class Metrocard {
-    private int id = 0;
-    Map<Integer, Metrocard> Metrocards;
+    private final int id;
+    private Month maand;
+    private Year jaar;
+    private int beschikbareRitten;
+    private int verbruikteRitten;
 
-    public Metrocard() {
-        Metrocards = new TreeMap<>();
+    public int getId() {
+        return id;
     }
 
-    public void addMetrocard(Metrocard metrocard) {
-        if (metrocard == null) throw new IllegalArgumentException();
-        Metrocards.put(generateId(), metrocard);
+    public Month getMaand() {
+        return maand;
     }
 
-    public Map<Integer, Metrocard> getMetrocards(){
-        return Metrocards;
+    public void setMaand(Month maand) {
+        this.maand = maand;
     }
 
-    private int generateId(){
-        return id++;
+    public Year getJaar() {
+        return jaar;
+    }
+
+    public void setJaar(Year jaar) {
+        this.jaar = jaar;
+    }
+
+    public int getBeschikbareRitten() {
+        return beschikbareRitten;
+    }
+
+    public void setBeschikbareRitten(int beschikbareRitten) {
+        this.beschikbareRitten = beschikbareRitten;
+    }
+
+    public int getVerbruikteRitten() {
+        return verbruikteRitten;
+    }
+
+    public void setVerbruikteRitten(int verbruikteRitten) {
+        this.verbruikteRitten = verbruikteRitten;
+    }
+
+    public Metrocard(int id, Month maand, Year jaar, int beschikbareRitten, int verbruikteRitten) {
+        this.id = id;
+        this.maand = maand;
+        this.jaar = jaar;
+        this.beschikbareRitten = beschikbareRitten;
+        this.verbruikteRitten = verbruikteRitten;
     }
 }
