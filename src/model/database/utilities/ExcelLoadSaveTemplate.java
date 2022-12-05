@@ -1,6 +1,8 @@
 package model.database.utilities;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -11,19 +13,11 @@ import java.util.Map;
 import jxl.read.biff.BiffException;
 import jxl.write.*;
 
-public class ExcelLoadSaveTemplate {
+public abstract class ExcelLoadSaveTemplate <K,V>{
 
-    private static final String ExcelFile = "out.xls";
-
-
-    public static void main(String[] args) {
-        ArrayList<String> a = new ArrayList<>();
-        a.add("aaaaa;xxx");
-        a.add("bbb");
-        save(a);
-    }
 
     public static void save(ArrayList<String> x) {
+        /*
         ExcelPlugin excelPlugin = new ExcelPlugin();
 
         ArrayList<ArrayList<String>> out = new ArrayList<>();
@@ -46,33 +40,26 @@ public class ExcelLoadSaveTemplate {
             e.printStackTrace();
         }
 
+         */
 
     }
 
 
-    public static void load() {
-        /*
+    public final Map<K,V> load(File file) throws IOException {
+
+        Map<K,V> returnMap = new HashMap<K,V>();
+
         ExcelPlugin excelPlugin = new ExcelPlugin();
-
         try {
-            ArrayList<ArrayList<String>> out = excelPlugin.read(new File(ExcelFile));
-            data = new HashMap<>();
+            ArrayList<ArrayList<String>> out = excelPlugin.read(file);
+
             for(ArrayList<String> i : out) {
-                int count = 0;
-                int id=-1;
-                String[] values = new String[3];
 
-                for(String word: i) {
-                    if(count == 0) {
-                        id = Integer.valueOf(word);
-                    }else{
-                        values[count-1]=word;
-                    }
+                String[] tokens = i.toArray(new String[i.size()]);
+                V element = maakObject(tokens);
+                K key = getKey(tokens);
+                returnMap.put(key,element);
 
-                    count++;
-                }
-
-                data.put(id,values);
             }
 
 
@@ -82,6 +69,13 @@ public class ExcelLoadSaveTemplate {
             e.printStackTrace();
         }
 
-        */
+
+        return returnMap;
+
     }
+
+
+    abstract V maakObject(String[] tokens);
+
+    abstract K getKey(String[] tokens);
 }
