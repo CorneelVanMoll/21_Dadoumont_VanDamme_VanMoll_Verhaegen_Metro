@@ -2,7 +2,9 @@ package model.database.utilities;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -13,25 +15,24 @@ public class ExcelLoadSaveTemplate {
 
     private static final String ExcelFile = "out.xls";
 
-    private static HashMap<Integer,String[]> data = new HashMap<>();
 
     public static void main(String[] args) {
-        load();
+        ArrayList<String> a = new ArrayList<>();
+        a.add("aaaaa;xxx");
+        a.add("bbb");
+        save(a);
     }
 
-    public static void save() {
+    public static void save(ArrayList<String> x) {
         ExcelPlugin excelPlugin = new ExcelPlugin();
 
         ArrayList<ArrayList<String>> out = new ArrayList<>();
 
-        for (Map.Entry<Integer, String[]> set : data.entrySet()) {
-            ArrayList<String> temp = new ArrayList<>();
-            temp.add(set.getKey().toString());
-            for(String val: set.getValue()) {
-                temp.add(val);
-            }
+        for(String line: x) {
+            ArrayList<String> temp = new ArrayList<String>(Arrays.asList(line.split(";")));
             out.add(temp);
         }
+
 
 
 
@@ -50,6 +51,7 @@ public class ExcelLoadSaveTemplate {
 
 
     public static void load() {
+        /*
         ExcelPlugin excelPlugin = new ExcelPlugin();
 
         try {
@@ -80,6 +82,6 @@ public class ExcelLoadSaveTemplate {
             e.printStackTrace();
         }
 
-
+        */
     }
 }

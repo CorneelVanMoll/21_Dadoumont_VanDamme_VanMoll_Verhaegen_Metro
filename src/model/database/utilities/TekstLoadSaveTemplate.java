@@ -1,35 +1,34 @@
 package model.database.utilities;
 
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;
+import jdk.internal.org.objectweb.asm.tree.MultiANewArrayInsnNode;
 
-public class TekstLoadSaveTemplate {
+import javax.management.monitor.StringMonitor;
+import java.io.*;
+import java.lang.reflect.Array;
+import java.util.*;
+
+public abstract class TekstLoadSaveTemplate <K,V>{
 
 
     private static final String fileName = "metrocards.txt";
     private static final String savetest = "savetest.txt";
 
-    private static HashMap<Integer,String[]> data = new HashMap<>();
 
 
-    public static void save() {
 
+
+    public final void save(Map<K,V> map, File file) {
+        /*
         String out = "";
 
-        for (Map.Entry<Integer, String[]> set : data.entrySet()) {
-            out += set.getKey();
-            for(String val: set.getValue()) {
-                out += ";"+val;
-            }
-            out += '\n';
+        for(String line:x) {
+            out += line + '\n';
         }
+
+
+
+
         try {
             FileWriter myWriter = new FileWriter(savetest);
             myWriter.write(out);
@@ -38,20 +37,29 @@ public class TekstLoadSaveTemplate {
 
             e.printStackTrace();
         }
+
+         */
     }
 
-    public static void load() {
-        data = new HashMap<>();
-        try {
-            File myObj = new File(fileName);
-            Scanner myReader = new Scanner(myObj);
-            while (myReader.hasNextLine()) {
-                String[] line = myReader.nextLine().split(";");
-                data.put(Integer.valueOf(line[0]), Arrays.copyOfRange(line,1,line.length));
+
+    public final Map<K,V> load(File file) throws IOException {
+        Map<K,V> returnMap = new HashMap<K,V>();
+        try (BufferedReader reader = new BufferedReader(new FileReader(file))){
+            String line = reader.readLine();
+            while (line != null && !line.trim().equals("")) {
+                String[] tokens = line.split(";");
+                V element = maakObject(tokens);
+                K key = getKey(tokens);
+                returnMap.put(key,element);
+                line = reader.readLine();
             }
-            myReader.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         }
+        return returnMap;
     }
+
+    abstract V maakObject(String[] tokens);
+
+    abstract K getKey(String[] tokens);
+
+
 }
