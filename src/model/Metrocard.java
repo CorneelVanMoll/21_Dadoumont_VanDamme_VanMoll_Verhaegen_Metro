@@ -5,52 +5,52 @@ import java.time.Year;
 
 public class Metrocard {
     private final int id;
-    private Month maand;
-    private Year jaar;
-    private int beschikbareRitten;
-    private int verbruikteRitten;
+    private Month month;
+    private Year year;
+    private int availableTrips;
+    private int usedTrips;
+
+    public Metrocard(int id, Month month, Year year, int availableTrips, int usedTrips) {
+        this.id = id;
+        this.month = month;
+        this.year = year;
+        this.availableTrips = availableTrips;
+        this.usedTrips = usedTrips;
+    }
 
     public int getId() {
         return id;
     }
 
-    public Month getMaand() {
-        return maand;
+    public Month getMonth() {
+        return month;
     }
 
-    public void setMaand(Month maand) {
-        this.maand = maand;
+    public void setMonth(Month month) {
+        this.month = month;
     }
 
-    public Year getJaar() {
-        return jaar;
+    public Year getYear() {
+        return year;
     }
 
-    public void setJaar(Year jaar) {
-        this.jaar = jaar;
+    public void setYear(Year year) {
+        this.year = year;
     }
 
-    public int getBeschikbareRitten() {
-        return beschikbareRitten;
+    public int getAvailableTrips() {
+        return availableTrips;
     }
 
-    public void setBeschikbareRitten(int beschikbareRitten) {
-        this.beschikbareRitten = beschikbareRitten;
+    public void setAvailableTrips(int availableTrips) {
+        this.availableTrips = availableTrips;
     }
 
-    public int getVerbruikteRitten() {
-        return verbruikteRitten;
+    public int getUsedTrips() {
+        return usedTrips;
     }
 
-    public void setVerbruikteRitten(int verbruikteRitten) {
-        this.verbruikteRitten = verbruikteRitten;
-    }
-
-    public Metrocard(int id, Month maand, Year jaar, int beschikbareRitten, int verbruikteRitten) {
-        this.id = id;
-        this.maand = maand;
-        this.jaar = jaar;
-        this.beschikbareRitten = beschikbareRitten;
-        this.verbruikteRitten = verbruikteRitten;
+    public void setUsedTrips(int usedTrips) {
+        this.usedTrips = usedTrips;
     }
 }
