@@ -11,34 +11,27 @@ import java.util.*;
 public abstract class TekstLoadSaveTemplate <K,V>{
 
 
-    private static final String fileName = "metrocards.txt";
-    private static final String savetest = "savetest.txt";
-
-
-
-
-
     public final void save(Map<K,V> map, File file) {
-        /*
+
         String out = "";
 
-        for(String line:x) {
-            out += line + '\n';
+
+        Iterator it = map.entrySet().iterator();
+        while (it.hasNext()) {
+            Map.Entry pair = (Map.Entry)it.next();
+            //System.out.println(pair.getKey() + " = " + pair.getValue());
+
         }
 
 
-
-
         try {
-            FileWriter myWriter = new FileWriter(savetest);
+            FileWriter myWriter = new FileWriter(file);
             myWriter.write(out);
             myWriter.close();
         } catch (IOException e) {
 
             e.printStackTrace();
         }
-
-         */
     }
 
 
