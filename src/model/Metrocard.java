@@ -21,6 +21,6 @@ public class Metrocard {
     }
 
     private int generateId(){
-        return ++id;
+        return id++;
     }
 }
