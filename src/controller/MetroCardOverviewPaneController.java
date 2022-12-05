@@ -1,4 +1,6 @@
 package controller;
 
-public class MetroCardOverviewPaneController {
+import model.Observer;
+
+public class MetroCardOverviewPaneController implements Observer {
 }

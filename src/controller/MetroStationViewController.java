@@ -1,4 +1,6 @@
 package controller;
 
-public class MetroStationViewController {
+import model.Observer;
+
+public class MetroStationViewController implements Observer {
 }

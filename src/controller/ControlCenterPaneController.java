@@ -1,4 +1,6 @@
 package controller;
 
-public class ControlCenterPaneController {
+import model.Observer;
+
+public class ControlCenterPaneController implements Observer {
 }
