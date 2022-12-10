@@ -11,6 +11,7 @@ import java.util.*;
 public abstract class TekstLoadSaveTemplate <K,V>{
 
 
+
     public final void save(Map<K,V> map, File file) {
 
         String out = "";
@@ -19,7 +20,7 @@ public abstract class TekstLoadSaveTemplate <K,V>{
         Iterator it = map.entrySet().iterator();
         while (it.hasNext()) {
             Map.Entry pair = (Map.Entry)it.next();
-            //System.out.println(pair.getKey() + " = " + pair.getValue());
+            System.out.println(pair.getKey() + " = " + pair.getValue());
 
         }
 
