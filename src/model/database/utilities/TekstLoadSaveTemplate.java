@@ -51,9 +51,8 @@ public abstract class TekstLoadSaveTemplate <K,V>{
         return returnMap;
     }
 
-    abstract V maakObject(String[] tokens);
+    protected abstract V maakObject(String[] tokens);
 
-    abstract K getKey(String[] tokens);
-
+    protected abstract K getKey(String[] tokens);
 
 }
