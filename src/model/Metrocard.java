@@ -53,4 +53,15 @@ public class Metrocard {
     public void setUsedTrips(int usedTrips) {
         this.usedTrips = usedTrips;
     }
+
+    @Override
+    public String toString() {
+        return "Metrocard{" +
+                "id=" + id +
+                ", month=" + month +
+                ", year=" + year +
+                ", availableTrips=" + availableTrips +
+                ", usedTrips=" + usedTrips +
+                '}';
+    }
 }

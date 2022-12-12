@@ -1,6 +1,9 @@
 package model;
 
 import model.database.MetrocardDatabase;
+import model.database.loadSaveStrategies.LoadSaveStrategy;
+import model.database.loadSaveStrategies.LoadSaveStrategyEnum;
+import model.database.loadSaveStrategies.LoadSaveStrategyFactory;
 
 import java.util.ArrayList;
 
@@ -9,31 +12,25 @@ public class MetroFacade implements Subject {
 
     ArrayList<Observer> observers;
 
-    private ArrayList<Metrocard> metrocards;
-    private ArrayList<Integer> metrocardIDs;
-
     private MetrocardDatabase metroDB;
+    private LoadSaveStrategyFactory<Integer, Metrocard> loadSaveStrategyFactory;
 
-    public MetroFacade(MetrocardDatabase metrocardDatabase) {
-        this.metroDB = metrocardDatabase;
+    public MetroFacade() {
+        this.loadSaveStrategyFactory = new LoadSaveStrategyFactory<>();
+        this.metroDB = new MetrocardDatabase(this.loadSaveStrategyFactory.createLoadSaveStrategy(LoadSaveStrategyEnum.TEXT));
+        this.metroDB.load();
         this.observers = new ArrayList<>();
-
-        //TODO uncomment when MetrocardDatabase is finished
-        /*
-        metrocards = metroDB.getMetroCardList();
-        metrocardIDs = metroDB.getMetroCardIDList();
-         */
     }
 
 
 
     public ArrayList<Metrocard> getMetroCardList() {
-        return this.metrocards;
+        return this.metroDB.getMetrocardList();
     }
 
 
     public ArrayList<Integer> getMetroCardIDList() {
-        return this.metrocardIDs;
+        return this.metroDB.getMetrocardIDList();
     }
 
 

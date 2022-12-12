@@ -1,14 +1,12 @@
 package model.database.utilities;
 
 
-import jdk.internal.org.objectweb.asm.tree.MultiANewArrayInsnNode;
+import model.database.loadSaveStrategies.LoadSaveStrategy;
 
-import javax.management.monitor.StringMonitor;
 import java.io.*;
-import java.lang.reflect.Array;
 import java.util.*;
 
-public abstract class TekstLoadSaveTemplate <K,V>{
+public abstract class TextLoadSaveTemplate<K,V> {
 
 
 
@@ -42,7 +40,7 @@ public abstract class TekstLoadSaveTemplate <K,V>{
             String line = reader.readLine();
             while (line != null && !line.trim().equals("")) {
                 String[] tokens = line.split(";");
-                V element = maakObject(tokens);
+                V element = makeObject(tokens);
                 K key = getKey(tokens);
                 returnMap.put(key,element);
                 line = reader.readLine();
@@ -51,7 +49,7 @@ public abstract class TekstLoadSaveTemplate <K,V>{
         return returnMap;
     }
 
-    protected abstract V maakObject(String[] tokens);
+    protected abstract V makeObject(String[] tokens);
 
     protected abstract K getKey(String[] tokens);
 

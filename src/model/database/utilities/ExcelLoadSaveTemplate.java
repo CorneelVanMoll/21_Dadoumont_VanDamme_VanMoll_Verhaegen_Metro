@@ -75,7 +75,7 @@ public abstract class ExcelLoadSaveTemplate <K,V>{
     }
 
 
-    abstract V maakObject(String[] tokens);
+    protected abstract V maakObject(String[] tokens);
 
-    abstract K getKey(String[] tokens);
+    protected abstract K getKey(String[] tokens);
 }

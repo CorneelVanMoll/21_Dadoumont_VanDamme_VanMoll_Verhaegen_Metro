@@ -7,9 +7,9 @@ import controller.MetroTicketViewController;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import model.MetroFacade;
-import model.Observer;
+import model.Metrocard;
 import model.database.MetrocardDatabase;
-import model.database.utilities.TekstLoadSaveTemplate;
+import model.database.loadSaveStrategies.LoadSaveStrategyFactory;
 import view.*;
 
 
@@ -17,9 +17,9 @@ public class MetroMain extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 
-		MetrocardDatabase metrocardDatabase = new MetrocardDatabase();
 
-		MetroFacade metroFacade = new MetroFacade(metrocardDatabase);
+
+		MetroFacade metroFacade = new MetroFacade();
 
 
 		AdminView adminView = new AdminView();

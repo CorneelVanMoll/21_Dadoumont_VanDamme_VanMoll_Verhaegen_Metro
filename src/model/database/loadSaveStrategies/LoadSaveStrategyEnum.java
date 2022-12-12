@@ -1,4 +1,6 @@
 package model.database.loadSaveStrategies;
 
-public class LoadSaveStrategyEnum {
+public enum LoadSaveStrategyEnum {
+    TEXT,
+    EXCEL,
 }
