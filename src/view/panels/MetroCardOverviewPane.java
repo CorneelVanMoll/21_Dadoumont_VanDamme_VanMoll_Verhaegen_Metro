@@ -2,9 +2,12 @@ package view.panels;
 
 
 import javafx.geometry.Insets;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+
+import java.awt.event.MouseEvent;
 
 
 public class MetroCardOverviewPane extends GridPane{
@@ -15,6 +18,10 @@ public class MetroCardOverviewPane extends GridPane{
 		this.setPadding(new Insets(5, 5, 5, 5));
         this.setVgap(5);
         this.setHgap(5);        
-		this.add(new Label("List of Metro cards:"), 0, 0, 1, 1);		
-	}	
+		this.add(new Label("List of Metro cards:"), 0, 0, 1, 1);
+
+		Button button = new Button("button");
+		//button.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {});
+		this.getChildren().add(button);
+	}
 }

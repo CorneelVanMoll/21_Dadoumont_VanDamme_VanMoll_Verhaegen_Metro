@@ -7,8 +7,6 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 public class MetroStationView {
-
-
 	MetroStationViewController metroStationViewController;
 
 	private Stage stage = new Stage();		
@@ -24,7 +22,6 @@ public class MetroStationView {
 		stage.sizeToScene();			
 		stage.show();		
 	}
-
 
 	public void setMetroStationViewController(MetroStationViewController metroStationViewController) {
 		this.metroStationViewController = metroStationViewController;
