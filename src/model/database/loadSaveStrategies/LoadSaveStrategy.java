@@ -1,4 +1,8 @@
 package model.database.loadSaveStrategies;
 
-public interface LoadSaveStrategy {
+import java.util.Map;
+
+public interface LoadSaveStrategy<K,V> {
+    Map<K, V> load();
+    void save(Map<K, V> data);
 }
