@@ -1,5 +1,6 @@
 package view;
 
+import controller.ControlCenterPaneController;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
@@ -7,8 +8,10 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;	
 
 public class AdminView {
-	private Stage stage = new Stage();		
-		
+	private Stage stage = new Stage();
+
+	private AdminMainPane borderPane;
+
 	public AdminView(){			
 		stage.setTitle("ADMIN VIEW");
 		stage.initStyle(StageStyle.UTILITY);
@@ -16,7 +19,7 @@ public class AdminView {
 		stage.setY(5);
 		Group root = new Group();
 		Scene scene = new Scene(root, 690, 680);
-		BorderPane borderPane = new AdminMainPane();
+		borderPane = new AdminMainPane();
 		borderPane.prefHeightProperty().bind(scene.heightProperty());
 		borderPane.prefWidthProperty().bind(scene.widthProperty());
 		root.getChildren().add(borderPane);
@@ -24,4 +27,10 @@ public class AdminView {
 		stage.sizeToScene();			
 		stage.show();		
 	}
+
+
+	public AdminMainPane getAdminMainPane() {
+		return this.borderPane;
+	}
+
 }

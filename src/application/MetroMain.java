@@ -27,9 +27,12 @@ public class MetroMain extends Application {
 		MetroStationView metroStationView = new MetroStationView();
 
 		MetroCardOverviewPane metroCardOverviewPane = new MetroCardOverviewPane();
-		ControlCenterPane controlCenterPane = new ControlCenterPane();
+		//ControlCenterPane controlCenterPane = new ControlCenterPane();
 
 		// Controllers
+		AdminMainPane adminMainPane = adminView.getAdminMainPane();
+
+
 		MetroTicketViewController metroTicketViewController = new MetroTicketViewController(metroFacade, metroTicketView);
 		metroTicketView.setMetroTicketViewController(metroTicketViewController);
 
@@ -39,13 +42,13 @@ public class MetroMain extends Application {
 		MetroCardOverviewPaneController metroCardOverviewPaneController = new MetroCardOverviewPaneController(metroFacade,metroCardOverviewPane);
 		metroCardOverviewPane.setMetroCardOverviewPaneController(metroCardOverviewPaneController);
 
-		ControlCenterPaneController controlCenterPaneController = new ControlCenterPaneController(metroFacade, controlCenterPane);
-		controlCenterPane.setControlCenterPaneController(controlCenterPaneController);
+		ControlCenterPaneController controlCenterPaneController = new ControlCenterPaneController(metroFacade, adminMainPane.getControlCenterPane());
+		adminMainPane.setControlCenterPaneController(controlCenterPaneController);
 
 		metroFacade.addObserver(metroTicketViewController);
 		metroFacade.addObserver(metroStationViewController);
 		metroFacade.addObserver(metroCardOverviewPaneController);
-		metroFacade.addObserver(controlCenterPaneController);
+		//metroFacade.addObserver(controlCenterPaneController);
 
 	}
 	
