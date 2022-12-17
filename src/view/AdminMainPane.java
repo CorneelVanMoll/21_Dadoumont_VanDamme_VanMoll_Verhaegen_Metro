@@ -1,7 +1,10 @@
 package view;
 
 
+
 import controller.ControlCenterPaneController;
+
+import javafx.scene.control.Button;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.BorderPane;
@@ -19,6 +22,7 @@ public class AdminMainPane extends BorderPane {
 
 	//maak een controlCenterPane aan
 	//maak een setupPane aan
+
         Tab metroCardOverviewTab = new Tab("Metro cards overview",metroCardOverviewPane);
         Tab controlCenterTab = new Tab("Control Center",controlCenterPane);
 

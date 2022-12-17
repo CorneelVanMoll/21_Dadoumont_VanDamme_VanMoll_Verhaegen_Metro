@@ -20,12 +20,11 @@ public class MetroTicketView {
 		stage.setX(5);
 		stage.setY(5);
 		Group root = new Group();
-		Scene scene = new Scene(root, 650, 350);			
+		Scene scene = new Scene(root, 650, 350);
 		stage.setScene(scene);
 		stage.sizeToScene();			
 		stage.show();		
 	}
-
 
 	public void updateMetroCardIdList(ArrayList<Integer> IDs) {
 		this.IDs = IDs;
@@ -34,5 +33,4 @@ public class MetroTicketView {
 	public void setMetroTicketViewController(MetroTicketViewController metroTicketViewController) {
 		this.metroTicketViewController = metroTicketViewController;
 	}
-
 }

@@ -1,13 +1,12 @@
 package view;
 
-import controller.ControlCenterPaneController;
 import controller.MetroCardOverviewPaneController;
+import javafx.scene.layout.GridPane;
 import model.Metrocard;
 
 import java.util.ArrayList;
 
-public class MetroCardOverviewPane {
-
+public class MetroCardOverviewPane extends GridPane {
     private ArrayList<Metrocard> metroCards;
     private MetroCardOverviewPaneController metroCardOverviewPaneController;
 
@@ -18,6 +17,4 @@ public class MetroCardOverviewPane {
     public void setMetroCardOverviewPaneController(MetroCardOverviewPaneController metroCardOverviewPaneController) {
         this.metroCardOverviewPaneController = metroCardOverviewPaneController;
     }
-
-
 }

@@ -26,9 +26,7 @@ public class ControlCenterPane extends GridPane {
 
     }
 
-
     public void setControlCenterPaneController(ControlCenterPaneController controller) {
         this.controlCenterPaneController = controller;
     }
-
 }

@@ -48,14 +48,11 @@ public class MetroMain extends Application {
 		metroFacade.addObserver(metroTicketViewController);
 		metroFacade.addObserver(metroStationViewController);
 		metroFacade.addObserver(metroCardOverviewPaneController);
-		//metroFacade.addObserver(controlCenterPaneController);
 
+		metroFacade.addObserver(controlCenterPaneController);
 	}
 	
 	public static void main(String[] args) {
-
-
-
 		launch(args);
 	}
 }
