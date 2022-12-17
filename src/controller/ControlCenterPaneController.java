@@ -3,7 +3,6 @@ package controller;
 import model.MetroFacade;
 import model.Observer;
 import view.ControlCenterPane;
-import view.MetroTicketView;
 
 public class ControlCenterPaneController implements Observer {
     MetroFacade metroFacade;
@@ -15,7 +14,7 @@ public class ControlCenterPaneController implements Observer {
     }
 
     public void openMetroStation() {
-        // TODO
+        this.metroFacade.openMetroStation();
     }
 
     @Override
