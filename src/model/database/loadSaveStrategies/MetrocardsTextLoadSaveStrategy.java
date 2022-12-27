@@ -16,6 +16,7 @@ public class MetrocardsTextLoadSaveStrategy extends TextLoadSaveTemplate<Integer
     protected Integer getKey(String[] tokens) {
         return parseInt(tokens[0]);
     }
+
     @Override
     protected Metrocard makeObject(String[] tokens) {
         String[] dateTokens = tokens[1].split("#");
