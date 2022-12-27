@@ -38,6 +38,10 @@ public class Metrocard {
         this.year = year;
     }
 
+    public String getDate() {
+        return String.format("%d/%s", year.getValue(), month.name());
+    }
+
     public int getAvailableTrips() {
         return availableTrips;
     }

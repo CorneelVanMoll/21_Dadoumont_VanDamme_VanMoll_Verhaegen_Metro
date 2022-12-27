@@ -10,25 +10,32 @@ public abstract class TextLoadSaveTemplate<K,V> {
 
 
 
-    public final void save(TreeMap<K,V> map, File file) {
+    public final void save(Map<K,V> map, File file) {
+
         String out = "";
 
-        for (Map.Entry<K, V> kvEntry : map.entrySet()) {
-            Map.Entry pair = kvEntry;
+
+        Iterator it = map.entrySet().iterator();
+        while (it.hasNext()) {
+            Map.Entry pair = (Map.Entry)it.next();
             System.out.println(pair.getKey() + " = " + pair.getValue());
+
         }
+
 
         try {
             FileWriter myWriter = new FileWriter(file);
             myWriter.write(out);
             myWriter.close();
         } catch (IOException e) {
+
             e.printStackTrace();
         }
     }
 
-    public final TreeMap<K,V> load(File file) throws IOException {
-        TreeMap<K,V> returnMap = new TreeMap<>();
+
+    public final Map<K,V> load(File file) throws IOException {
+        Map<K,V> returnMap = new HashMap<K,V>();
         try (BufferedReader reader = new BufferedReader(new FileReader(file))){
             String line = reader.readLine();
             while (line != null && !line.trim().equals("")) {

@@ -2,6 +2,7 @@ package model.database;
 
 import model.Metrocard;
 import model.database.loadSaveStrategies.LoadSaveStrategy;
+import model.database.loadSaveStrategies.LoadSaveStrategyFactory;
 
 import java.util.ArrayList;
 import java.util.TreeMap;
@@ -9,9 +10,9 @@ import java.util.TreeMap;
 public class MetrocardDatabase {
     private TreeMap<Integer, Metrocard> metrocards;
 
-    private LoadSaveStrategy loadSaveStrategy;
+    private LoadSaveStrategy<Integer, Metrocard> loadSaveStrategy;
 
-    public MetrocardDatabase(LoadSaveStrategy loadSaveStrategy) {
+    public MetrocardDatabase(LoadSaveStrategy<Integer, Metrocard> loadSaveStrategy) {
         this.loadSaveStrategy = loadSaveStrategy;
     }
 
@@ -31,7 +32,7 @@ public class MetrocardDatabase {
         return new ArrayList<>(metrocards.keySet());
     }
 
-    public void setLoadSaveStrategy(LoadSaveStrategy loadSaveStrategy) {
+    public void setLoadSaveStrategy(LoadSaveStrategy<Integer, Metrocard> loadSaveStrategy) {
         this.loadSaveStrategy = loadSaveStrategy;
     }
 }
