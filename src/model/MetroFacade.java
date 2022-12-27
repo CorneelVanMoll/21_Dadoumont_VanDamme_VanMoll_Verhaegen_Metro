@@ -41,7 +41,7 @@ public class MetroFacade implements Subject {
 
     public void openMetroStation() {
         System.out.println("Open metro station");
-        LoadSaveStrategy lss = this.loadSaveStrategyFactory.createLoadSaveStrategy(LoadSaveStrategyEnum.TEXT);
+        LoadSaveStrategy<Integer, Metrocard> lss = this.loadSaveStrategyFactory.createLoadSaveStrategy(LoadSaveStrategyEnum.TEXT);
         System.out.println("test = "  + lss.getClass());
     }
 
