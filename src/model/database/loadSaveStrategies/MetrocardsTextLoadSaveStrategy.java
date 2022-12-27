@@ -11,12 +11,11 @@ import java.util.Map;
 
 import static java.lang.Integer.parseInt;
 
-public class MetrocardsTextLoadSaveStrategy<K, V> extends TextLoadSaveTemplate<Integer, Metrocard> implements LoadSaveStrategy {
+public class MetrocardsTextLoadSaveStrategy extends TextLoadSaveTemplate<Integer, Metrocard> implements LoadSaveStrategy<Integer, Metrocard> {
     @Override
     protected Metrocard makeObject(String[] tokens) {
         String[] dateTokens = tokens[1].split("#");
-        Metrocard metrocard = new Metrocard(parseInt(tokens[0]), Month.of(parseInt(dateTokens[0])), Year.parse(dateTokens[1]), parseInt(tokens[2]), parseInt(tokens[3]));
-        return metrocard;
+        return new Metrocard(parseInt(tokens[0]), Month.of(parseInt(dateTokens[0])), Year.parse(dateTokens[1]), parseInt(tokens[2]), parseInt(tokens[3]));
     }
 
     protected Integer getKey(String[] tokens) {
@@ -33,7 +32,7 @@ public class MetrocardsTextLoadSaveStrategy<K, V> extends TextLoadSaveTemplate<I
     }
 
     @Override
-    public void save(Map data) {
+    public void save(Map<Integer, Metrocard> data) {
         super.save(data, new File("test"));
     }
 }
