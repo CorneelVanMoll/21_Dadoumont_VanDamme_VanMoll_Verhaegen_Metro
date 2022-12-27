@@ -1,10 +1,8 @@
 package view;
 
-import controller.ControlCenterPaneController;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;	
 
@@ -32,7 +30,6 @@ public class AdminView {
 		stage.sizeToScene();			
 		stage.show();		
 	}
-
 
 	public AdminMainPane getAdminMainPane() {
 		return this.borderPane;

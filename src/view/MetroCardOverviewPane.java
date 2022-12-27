@@ -1,8 +1,6 @@
 package view;
 
 import controller.MetroCardOverviewPaneController;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -14,11 +12,9 @@ import model.Metrocard;
 import java.util.ArrayList;
 
 public class MetroCardOverviewPane extends GridPane {
-    private ObservableList<Metrocard> metroCards;
     private MetroCardOverviewPaneController metroCardOverviewPaneController;
 
     private TableView<Metrocard> table;
-
 
     public MetroCardOverviewPane() {
         this.setPadding(new Insets(5, 5, 5, 5));
@@ -44,8 +40,7 @@ public class MetroCardOverviewPane extends GridPane {
     }
 
     public void updateMetrocardList(ArrayList<Metrocard> metrocards) {
-        metroCards = FXCollections.observableArrayList(metrocards);
-        this.table.setItems(metroCards);
+        this.table.getItems().setAll(metrocards);
     }
 
     public void setMetroCardOverviewPaneController(MetroCardOverviewPaneController metroCardOverviewPaneController) {
