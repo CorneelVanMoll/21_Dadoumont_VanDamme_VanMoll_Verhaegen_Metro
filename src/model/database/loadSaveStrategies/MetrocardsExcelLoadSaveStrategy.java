@@ -4,6 +4,8 @@ import model.Metrocard;
 import model.database.utilities.ExcelLoadSaveTemplate;
 import model.database.utilities.TextLoadSaveTemplate;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.Map;
 
 public class MetrocardsExcelLoadSaveStrategy extends ExcelLoadSaveTemplate<Integer, Metrocard> implements LoadSaveStrategy<Integer, Metrocard> {
@@ -19,7 +21,12 @@ public class MetrocardsExcelLoadSaveStrategy extends ExcelLoadSaveTemplate<Integ
 
     @Override
     public Map<Integer, Metrocard> load() {
-        return null;
+        try {
+            return super.load(new File("metrocards.xls"));
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     @Override

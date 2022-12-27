@@ -46,8 +46,7 @@ public abstract class ExcelLoadSaveTemplate <K,V>{
 
 
     public final Map<K,V> load(File file) throws IOException {
-
-        Map<K,V> returnMap = new HashMap<K,V>();
+        Map<K,V> returnMap = new HashMap<>();
 
         ExcelPlugin excelPlugin = new ExcelPlugin();
         try {
@@ -68,7 +67,6 @@ public abstract class ExcelLoadSaveTemplate <K,V>{
         } catch (IOException e) {
             e.printStackTrace();
         }
-
 
         return returnMap;
 
