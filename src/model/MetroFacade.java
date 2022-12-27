@@ -49,6 +49,7 @@ public class MetroFacade implements Subject {
     public void newMetroCard(Month month, Year year) {
         if (this.metroDB != null) {
             this.metroDB.addMetrocard(month, year);
+            this.metroDB.save();
             fireEvent(MetroEventsEnum.BUY_METROCARD);
         }
     }

@@ -1,81 +1,58 @@
 package model.database.utilities;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
+import jxl.Cell;
+import jxl.Sheet;
+import jxl.Workbook;
 import jxl.read.biff.BiffException;
 import jxl.write.*;
 
-public abstract class ExcelLoadSaveTemplate <K,V>{
+public abstract class ExcelLoadSaveTemplate <K,V> {
 
-
-    public static void save(ArrayList<String> x) {
-        /*
-        ExcelPlugin excelPlugin = new ExcelPlugin();
-
-        ArrayList<ArrayList<String>> out = new ArrayList<>();
-
-        for(String line: x) {
-            ArrayList<String> temp = new ArrayList<String>(Arrays.asList(line.split(";")));
-            out.add(temp);
-        }
-
-
-
-
+    public final void save(List<List<String>> data, String path) {
         try {
-            excelPlugin.write(new File(ExcelFile), out);
-        } catch (BiffException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
+            WritableWorkbook ww = Workbook.createWorkbook(new File(path));
+            WritableSheet sheet = ww.createSheet("metrocards",0);
+            for (int r = 0; r < data.size(); r++) {
+                for (int c = 0; c < data.get(r).size(); c++) {
+                    sheet.addCell(new Label(c, r, data.get(r).get(c)));
+                }
+            }
+            ww.write();
+            ww.close();
         } catch (WriteException e) {
             e.printStackTrace();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
-
-         */
-
     }
 
+    public final List<List<String>> load(String path) {
+        List<List<String>> result = new ArrayList<>();
 
-    public final Map<K,V> load(File file) throws IOException {
-
-        Map<K,V> returnMap = new HashMap<K,V>();
-
-        ExcelPlugin excelPlugin = new ExcelPlugin();
         try {
-            ArrayList<ArrayList<String>> out = excelPlugin.read(file);
+            Workbook w = Workbook.getWorkbook(new File(path));
+            Sheet sheet = w.getSheet(0);
 
-            for(ArrayList<String> i : out) {
-
-                String[] tokens = i.toArray(new String[i.size()]);
-                V element = maakObject(tokens);
-                K key = getKey(tokens);
-                returnMap.put(key,element);
-
+            for (int i = 0; i < sheet.getRows(); i++) {
+                Cell[] row = sheet.getRow(i);
+                result.add(new ArrayList<>());
+                for (Cell cell : row) {
+                    result.get(i).add(cell.getContents());
+                }
             }
-
-
         } catch (BiffException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
-        return returnMap;
-
+        return result;
     }
 
+    protected abstract V makeObject(List<String> tokens);
 
-    protected abstract V maakObject(String[] tokens);
-
-    protected abstract K getKey(String[] tokens);
+    protected abstract K getKey(List<String> tokens);
 }
