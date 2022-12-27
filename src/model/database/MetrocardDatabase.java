@@ -44,7 +44,7 @@ public class MetrocardDatabase {
     }
 
     private int getLastID() {
-        if (getMetrocardIDList().size()== 0 ) throw new IllegalArgumentException();
+        if (getMetrocardIDList().size() == 0) return 0;
         return getMetrocardIDList().get(getMetrocardIDList().size() - 1);
     }
 }

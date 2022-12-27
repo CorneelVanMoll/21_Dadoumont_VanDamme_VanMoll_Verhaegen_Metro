@@ -41,6 +41,10 @@ public class MetroMain extends Application {
 		metroFacade.addObserver(metroTicketViewController, MetroEventsEnum.OPEN_METROSTATION);
 		metroFacade.addObserver(metroStationViewController, MetroEventsEnum.OPEN_METROSTATION);
 		metroFacade.addObserver(metroCardOverviewPaneController, MetroEventsEnum.OPEN_METROSTATION);
+
+		metroFacade.addObserver(metroTicketViewController, MetroEventsEnum.BUY_METROCARD);
+		metroFacade.addObserver(metroStationViewController, MetroEventsEnum.BUY_METROCARD);
+		metroFacade.addObserver(metroCardOverviewPaneController, MetroEventsEnum.BUY_METROCARD);
 	}
 	
 	public static void main(String[] args) {

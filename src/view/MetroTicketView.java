@@ -32,10 +32,10 @@ public class MetroTicketView {
 		GridPane root = new GridPane();
 
 		cbxCardIDs = new ComboBox<>();
-		root.add(cbxCardIDs,1,0,1,1);
+		root.add(cbxCardIDs,0,0,1,1);
+		root.add(newMetroCardButton,0,1,1,1);
 
 		Scene scene = new Scene(root, 650, 350);
-
 
 		stage.setScene(scene);
 		stage.sizeToScene();

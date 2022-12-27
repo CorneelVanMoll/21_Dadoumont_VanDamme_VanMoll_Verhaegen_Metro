@@ -50,6 +50,12 @@ public class MetroFacade implements Subject {
         }
     }
 
-    public void newMetroCard(Month month, Year year){ this.metroDB.addMetrocard(month, year);
+    public void newMetroCard(Month month, Year year) {
+        this.metroDB.addMetrocard(month, year);
+        if (observerMap.containsKey(MetroEventsEnum.BUY_METROCARD)) {
+            for (Observer observer : observerMap.get(MetroEventsEnum.BUY_METROCARD)) {
+                observer.update();
+            }
+        }
     }
 }
