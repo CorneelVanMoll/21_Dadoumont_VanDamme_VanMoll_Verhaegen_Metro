@@ -15,7 +15,7 @@ public class MetroFacade implements Subject {
     Map<MetroEventsEnum, List<Observer>> observerMap;
 
     private MetrocardDatabase metroDB;
-    private LoadSaveStrategyFactory<Integer, Metrocard> loadSaveStrategyFactory;
+    private final LoadSaveStrategyFactory<Integer, Metrocard> loadSaveStrategyFactory;
 
     public MetroFacade() {
         this.observerMap = new HashMap<>();
@@ -43,17 +43,19 @@ public class MetroFacade implements Subject {
         System.out.println("Open metro station");
         this.metroDB = new MetrocardDatabase(this.loadSaveStrategyFactory.createLoadSaveStrategy(loadSaveStrategy));
         this.metroDB.load();
-        if (observerMap.containsKey(MetroEventsEnum.OPEN_METROSTATION)) {
-            for (Observer observer : observerMap.get(MetroEventsEnum.OPEN_METROSTATION)) {
-                observer.update();
-            }
-        }
+        fireEvent(MetroEventsEnum.OPEN_METROSTATION);
     }
 
     public void newMetroCard(Month month, Year year) {
-        this.metroDB.addMetrocard(month, year);
-        if (observerMap.containsKey(MetroEventsEnum.BUY_METROCARD)) {
-            for (Observer observer : observerMap.get(MetroEventsEnum.BUY_METROCARD)) {
+        if (this.metroDB != null) {
+            this.metroDB.addMetrocard(month, year);
+            fireEvent(MetroEventsEnum.BUY_METROCARD);
+        }
+    }
+
+    private void fireEvent(MetroEventsEnum loadSaveStrategy) {
+        if (observerMap.containsKey(loadSaveStrategy)) {
+            for (Observer observer : observerMap.get(loadSaveStrategy)) {
                 observer.update();
             }
         }
