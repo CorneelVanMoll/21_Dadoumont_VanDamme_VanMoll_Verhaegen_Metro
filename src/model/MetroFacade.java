@@ -15,8 +15,6 @@ public class MetroFacade implements Subject {
 
     public MetroFacade() {
         this.loadSaveStrategyFactory = new LoadSaveStrategyFactory<>();
-        this.metroDB = new MetrocardDatabase(this.loadSaveStrategyFactory.createLoadSaveStrategy(LoadSaveStrategyEnum.TEXT));
-        this.metroDB.load();
         this.observers = new ArrayList<>();
     }
 
@@ -33,11 +31,12 @@ public class MetroFacade implements Subject {
         this.observers.add(observer);
     }
 
-    public void openMetroStation() {
+    public void openMetroStation(LoadSaveStrategyEnum loadSaveStrategy) {
         System.out.println("Open metro station");
+        this.metroDB = new MetrocardDatabase(this.loadSaveStrategyFactory.createLoadSaveStrategy(loadSaveStrategy));
+        this.metroDB.load();
         for (Observer observer : observers) {
             observer.update();
         }
-        this.loadSaveStrategyFactory.createLoadSaveStrategy(LoadSaveStrategyEnum.TEXT);
     }
 }
