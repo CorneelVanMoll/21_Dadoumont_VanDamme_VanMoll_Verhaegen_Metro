@@ -12,11 +12,11 @@ public class MetroFacade implements Subject {
 
     ArrayList<Observer> observers;
 
-    private MetrocardDatabase metroDB;
-    private LoadSaveStrategyFactory<Integer, Metrocard> loadSaveStrategyFactory;
+    private final MetrocardDatabase metroDB;
+    private final LoadSaveStrategyFactory loadSaveStrategyFactory;
 
     public MetroFacade() {
-        this.loadSaveStrategyFactory = new LoadSaveStrategyFactory<>();
+        this.loadSaveStrategyFactory = new LoadSaveStrategyFactory();
         this.metroDB = new MetrocardDatabase(this.loadSaveStrategyFactory.createLoadSaveStrategy(LoadSaveStrategyEnum.TEXT));
         this.metroDB.load();
         this.observers = new ArrayList<>();
@@ -40,9 +40,7 @@ public class MetroFacade implements Subject {
 
 
     public void openMetroStation() {
-        System.out.println("Open metro station");
-        LoadSaveStrategy lss = this.loadSaveStrategyFactory.createLoadSaveStrategy(LoadSaveStrategyEnum.TEXT);
-        System.out.println("test = "  + lss.getClass());
+        System.out.println(getMetroCardList());
     }
 
 }

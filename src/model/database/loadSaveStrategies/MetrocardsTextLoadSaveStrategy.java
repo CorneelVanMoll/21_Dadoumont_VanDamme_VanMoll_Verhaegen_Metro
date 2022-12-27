@@ -7,7 +7,7 @@ import java.io.File;
 import java.io.IOException;
 import java.time.Month;
 import java.time.Year;
-import java.util.Map;
+import java.util.TreeMap;
 
 import static java.lang.Integer.parseInt;
 
@@ -24,16 +24,16 @@ public class MetrocardsTextLoadSaveStrategy<K, V> extends TextLoadSaveTemplate<I
     }
 
     @Override
-    public Map<Integer, Metrocard> load() {
+    public TreeMap<Integer, Metrocard> load() {
         try {
-            return super.load(new File("test"));
+            return (TreeMap<Integer, Metrocard>) super.load(new File("test"));
         } catch (IOException e) {
             return null;
         }
     }
 
     @Override
-    public void save(Map data) {
+    public void save(TreeMap<Integer, Metrocard> data) {
         super.save(data, new File("test"));
     }
 }

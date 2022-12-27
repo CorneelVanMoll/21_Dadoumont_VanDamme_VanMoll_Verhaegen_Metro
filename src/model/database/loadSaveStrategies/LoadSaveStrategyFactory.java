@@ -2,8 +2,8 @@ package model.database.loadSaveStrategies;
 
 import java.lang.reflect.Constructor;
 
-public class LoadSaveStrategyFactory<K, V> {
-    public LoadSaveStrategy<K, V> createLoadSaveStrategy(LoadSaveStrategyEnum loadSaveStrategy) {
+public class LoadSaveStrategyFactory {
+    public LoadSaveStrategy createLoadSaveStrategy(LoadSaveStrategyEnum loadSaveStrategy) {
 
 
         String type = "";

@@ -1,8 +1,10 @@
 package model.database.loadSaveStrategies;
 
-import java.util.Map;
+import model.Metrocard;
 
-public interface LoadSaveStrategy<K,V> {
-    Map<K, V> load();
-    void save(Map<K, V> data);
+import java.util.TreeMap;
+
+public interface LoadSaveStrategy {
+    TreeMap<Integer, Metrocard> load();
+    void save(TreeMap<Integer, Metrocard> data);
 }
