@@ -1,7 +1,6 @@
 package model;
 
 import model.database.MetrocardDatabase;
-import model.database.loadSaveStrategies.LoadSaveStrategy;
 import model.database.loadSaveStrategies.LoadSaveStrategyEnum;
 import model.database.loadSaveStrategies.LoadSaveStrategyFactory;
 
@@ -43,6 +42,6 @@ public class MetroFacade implements Subject {
         this.loadSaveStrategyFactory.createLoadSaveStrategy(LoadSaveStrategyEnum.TEXT);
     }
 
-    public void buyMetroCard(Month month, Year year){ this.metroDB.addMetrocard(month, year);
+    public void newMetroCard(Month month, Year year){ this.metroDB.addMetrocard(month, year);
     }
 }
