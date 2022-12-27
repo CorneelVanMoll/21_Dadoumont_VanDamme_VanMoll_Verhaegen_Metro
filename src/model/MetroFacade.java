@@ -13,6 +13,8 @@ public class MetroFacade implements Subject {
     private MetrocardDatabase metroDB;
     private LoadSaveStrategyFactory<Integer, Metrocard> loadSaveStrategyFactory;
 
+    private ArrayList<String> metroTicketDiscountList;
+
     public MetroFacade() {
         this.loadSaveStrategyFactory = new LoadSaveStrategyFactory<>();
         this.metroDB = new MetrocardDatabase(this.loadSaveStrategyFactory.createLoadSaveStrategy(LoadSaveStrategyEnum.TEXT));
