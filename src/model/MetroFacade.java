@@ -40,4 +40,8 @@ public class MetroFacade implements Subject {
         }
         this.loadSaveStrategyFactory.createLoadSaveStrategy(LoadSaveStrategyEnum.TEXT);
     }
+
+    public void buyMetroCard(){
+        System.out.println("test");
+    }
 }

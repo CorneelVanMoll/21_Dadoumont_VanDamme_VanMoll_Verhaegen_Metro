@@ -17,4 +17,6 @@ public class MetroTicketViewController implements Observer {
     public void update() {
         metroTicketView.updateMetroCardIdList(metroFacade.getMetroCardIDList());
     }
+
+    public void buyMetroCard() { metroFacade.buyMetroCard();}
 }
