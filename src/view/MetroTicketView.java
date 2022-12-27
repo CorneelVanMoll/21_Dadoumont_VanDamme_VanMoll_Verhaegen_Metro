@@ -3,6 +3,7 @@ package view;
 import controller.MetroTicketViewController;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
@@ -24,15 +25,21 @@ public class MetroTicketView {
 		stage.initStyle(StageStyle.UTILITY);
 		stage.setX(5);
 		stage.setY(5);
+
+		Button newMetroCardButton = new Button("New metro card");
+		newMetroCardButton.setOnAction(event -> metroTicketViewController.newMetroCard());
+
 		GridPane root = new GridPane();
 
 		cbxCardIDs = new ComboBox<>();
 		root.add(cbxCardIDs,1,0,1,1);
 
 		Scene scene = new Scene(root, 650, 350);
+
+
 		stage.setScene(scene);
-		stage.sizeToScene();			
-		stage.show();		
+		stage.sizeToScene();
+		stage.show();
 	}
 
 	public void updateMetroCardIdList(ArrayList<Integer> IDs) {

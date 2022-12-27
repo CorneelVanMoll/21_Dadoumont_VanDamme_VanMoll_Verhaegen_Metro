@@ -1,9 +1,13 @@
 package model;
 
 import model.database.MetrocardDatabase;
-import model.database.loadSaveStrategies.LoadSaveStrategy;
 import model.database.loadSaveStrategies.LoadSaveStrategyEnum;
 import model.database.loadSaveStrategies.LoadSaveStrategyFactory;
+
+
+import java.time.Month;
+import java.time.Year;
+import java.util.ArrayList;
 
 import java.util.*;
 
@@ -44,5 +48,8 @@ public class MetroFacade implements Subject {
                 observer.update();
             }
         }
+    }
+
+    public void newMetroCard(Month month, Year year){ this.metroDB.addMetrocard(month, year);
     }
 }
