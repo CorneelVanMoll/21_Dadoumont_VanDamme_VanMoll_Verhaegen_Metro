@@ -21,7 +21,7 @@ import java.time.Year;
 import java.util.ArrayList;
 
 public class MetroCardOverviewPane extends GridPane {
-    private ObservableList<Metrocard> metroCards = FXCollections.observableArrayList(new ArrayList<>());
+    private ObservableList<Metrocard> metroCards;
     private MetroCardOverviewPaneController metroCardOverviewPaneController;
 
     private TableView<Metrocard> table;
@@ -45,14 +45,6 @@ public class MetroCardOverviewPane extends GridPane {
         TableColumn<Metrocard, Integer> usedTrips = new TableColumn<>("Used trips");
         usedTrips.setCellValueFactory(new PropertyValueFactory<>("usedTrips"));
 
-
-
-
-
-
-
-        this.table.setItems(metroCards);
-
         table.getColumns().addAll(id, month, availableTrips, usedTrips);
 
         this.getChildren().add(this.table);
@@ -60,28 +52,8 @@ public class MetroCardOverviewPane extends GridPane {
     }
 
     public void updateMetrocardList(ArrayList<Metrocard> metrocards) {
-
-
-        //metroCards.add(new Metrocard(69, Month.APRIL, Year.now(), 3,5));
-
         metroCards = FXCollections.observableArrayList(metrocards);
         this.table.setItems(metroCards);
-        //addButton.fire();
-
-
-        //ObservableList
-        //this.metroCards = FXCollections.observableArrayList(metrocards);
-        //System.out.println(metrocards);
-        //System.out.println(metrocards);
-        //table.setItems(metroCards);
-        //metroCards.add(new Metrocard(3, Month.APRIL, Year.now(), 3,5));
-        //table.getItems().add(new Metrocard(4, Month.APRIL, Year.now(), 3,5));
-        //System.out.println(table.getItems());
-        //table.getItems().addAll(metrocards);
-
-        //table.getItems().add(new Metrocard(1, Month.APRIL, Year.now(), 3,5));
-        //System.out.println(metrocards);
-        //table.refresh();
     }
 
     public void setMetroCardOverviewPaneController(MetroCardOverviewPaneController metroCardOverviewPaneController) {
