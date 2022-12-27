@@ -5,6 +5,8 @@ import model.database.loadSaveStrategies.LoadSaveStrategy;
 import model.database.loadSaveStrategies.LoadSaveStrategyEnum;
 import model.database.loadSaveStrategies.LoadSaveStrategyFactory;
 
+import java.time.Month;
+import java.time.Year;
 import java.util.ArrayList;
 
 public class MetroFacade implements Subject {
@@ -41,7 +43,6 @@ public class MetroFacade implements Subject {
         this.loadSaveStrategyFactory.createLoadSaveStrategy(LoadSaveStrategyEnum.TEXT);
     }
 
-    public void buyMetroCard(){
-        System.out.println("test");
+    public void buyMetroCard(Month month, Year year){ this.metroDB.addMetrocard(month, year);
     }
 }

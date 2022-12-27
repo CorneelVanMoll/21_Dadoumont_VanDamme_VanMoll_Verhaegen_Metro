@@ -4,6 +4,8 @@ import model.Metrocard;
 import model.database.loadSaveStrategies.LoadSaveStrategy;
 import model.database.loadSaveStrategies.LoadSaveStrategyFactory;
 
+import java.time.Month;
+import java.time.Year;
 import java.util.ArrayList;
 import java.util.TreeMap;
 
@@ -34,5 +36,15 @@ public class MetrocardDatabase {
 
     public void setLoadSaveStrategy(LoadSaveStrategy<Integer, Metrocard> loadSaveStrategy) {
         this.loadSaveStrategy = loadSaveStrategy;
+    }
+
+    public void addMetrocard(Month month, Year year) {
+        int id = getLastID() + 1;
+        metrocards.put(id, new Metrocard(id, month, year, 2, 0));
+    }
+
+    private int getLastID() {
+        if (getMetrocardIDList().size()== 0 ) throw new IllegalArgumentException();
+        return getMetrocardIDList().get(getMetrocardIDList().size() - 1);
     }
 }

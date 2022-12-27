@@ -4,6 +4,9 @@ import model.MetroFacade;
 import model.Observer;
 import view.MetroTicketView;
 
+import java.time.LocalDateTime;
+import java.time.Year;
+
 public class MetroTicketViewController implements Observer {
     MetroFacade metroFacade;
     MetroTicketView metroTicketView;
@@ -18,5 +21,7 @@ public class MetroTicketViewController implements Observer {
         metroTicketView.updateMetroCardIdList(metroFacade.getMetroCardIDList());
     }
 
-    public void buyMetroCard() { metroFacade.buyMetroCard();}
+    public void buyMetroCard() { metroFacade.buyMetroCard(LocalDateTime.now().getMonth(), Year.of(LocalDateTime.now().getYear()));
+
+    }
 }
