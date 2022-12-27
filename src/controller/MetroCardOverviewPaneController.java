@@ -13,7 +13,6 @@ public class MetroCardOverviewPaneController implements Observer {
     public MetroCardOverviewPaneController(MetroFacade metroFacade, MetroCardOverviewPane metroCardOverviewPane) {
         this.metroFacade = metroFacade;
         this.metroCardOverviewPane = metroCardOverviewPane;
-        update();
     }
 
     @Override

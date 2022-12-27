@@ -8,8 +8,6 @@ import model.database.loadSaveStrategies.LoadSaveStrategyFactory;
 import java.util.ArrayList;
 
 public class MetroFacade implements Subject {
-
-
     ArrayList<Observer> observers;
 
     private MetrocardDatabase metroDB;
@@ -22,8 +20,6 @@ public class MetroFacade implements Subject {
         this.observers = new ArrayList<>();
     }
 
-
-
     public ArrayList<Metrocard> getMetroCardList() {
         return this.metroDB.getMetrocardList();
     }
@@ -33,16 +29,15 @@ public class MetroFacade implements Subject {
         return this.metroDB.getMetrocardIDList();
     }
 
-
     public void addObserver(Observer observer) {
         this.observers.add(observer);
     }
 
-
     public void openMetroStation() {
         System.out.println("Open metro station");
-        LoadSaveStrategy<Integer, Metrocard> lss = this.loadSaveStrategyFactory.createLoadSaveStrategy(LoadSaveStrategyEnum.TEXT);
-        System.out.println("test = "  + lss.getClass());
+        for (Observer observer : observers) {
+            observer.update();
+        }
+        this.loadSaveStrategyFactory.createLoadSaveStrategy(LoadSaveStrategyEnum.TEXT);
     }
-
 }
