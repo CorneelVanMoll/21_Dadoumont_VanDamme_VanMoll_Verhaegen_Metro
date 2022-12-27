@@ -10,12 +10,12 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
+import javafx.scene.text.Text;
 import model.Metrocard;
 
 import java.time.Month;
 import java.time.Year;
 import java.util.ArrayList;
-import java.util.List;
 
 public class MetroCardOverviewPane extends GridPane {
     private ObservableList<Metrocard> metroCards = FXCollections.observableArrayList(new ArrayList<>());
@@ -40,22 +40,33 @@ public class MetroCardOverviewPane extends GridPane {
         TableColumn<Metrocard, Integer> usedTrips = new TableColumn<>("Used trips");
         usedTrips.setCellValueFactory(new PropertyValueFactory<>("usedTrips"));
 
-        //table.getItems().add(new Metrocard(1, Month.APRIL, Year.now(), 3,5));
         table.setItems(metroCards);
-        metroCards.add(new Metrocard(1, Month.APRIL, Year.now(), 3,5));
+
         table.getColumns().addAll(id, month, availableTrips, usedTrips);
+
         this.getChildren().add(this.table);
     }
 
     public void updateMetrocardList(ArrayList<Metrocard> metrocards) {
+
+        System.out.println(metrocards);
+        for (Metrocard m : metrocards) {
+            this.getChildren().add(new Text(m.toString()));
+        }
+
         //ObservableList
         //this.metroCards = FXCollections.observableArrayList(metrocards);
+        //System.out.println(metrocards);
+        //System.out.println(metrocards);
         //table.setItems(metroCards);
+        //metroCards.add(new Metrocard(3, Month.APRIL, Year.now(), 3,5));
+        //table.getItems().add(new Metrocard(4, Month.APRIL, Year.now(), 3,5));
+        //System.out.println(table.getItems());
         //table.getItems().addAll(metrocards);
-        metroCards.add(new Metrocard(1, Month.APRIL, Year.now(), 3,5));
+
         //table.getItems().add(new Metrocard(1, Month.APRIL, Year.now(), 3,5));
-        System.out.println(metrocards);
-        table.refresh();
+        //System.out.println(metrocards);
+        //table.refresh();
     }
 
     public void setMetroCardOverviewPaneController(MetroCardOverviewPaneController metroCardOverviewPaneController) {
