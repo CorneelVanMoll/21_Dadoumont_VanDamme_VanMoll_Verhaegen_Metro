@@ -1,16 +1,13 @@
 package view;
 
-
-
 import controller.ControlCenterPaneController;
-
 import controller.MetroCardOverviewPaneController;
+
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.BorderPane;
 
 public class AdminMainPane extends BorderPane {
-
     private ControlCenterPane controlCenterPane;
     private MetroCardOverviewPane metroCardOverviewPane;
 
@@ -33,7 +30,6 @@ public class AdminMainPane extends BorderPane {
 
 	}
 
-
     public ControlCenterPane getControlCenterPane() {
         return this.controlCenterPane;
     }
@@ -48,5 +44,4 @@ public class AdminMainPane extends BorderPane {
     public void setMetroCardOverviewPaneController(MetroCardOverviewPaneController controller) {
         this.metroCardOverviewPane.setMetroCardOverviewPaneController(controller);
     }
-
 }

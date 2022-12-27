@@ -4,21 +4,22 @@ import model.database.MetrocardDatabase;
 import model.database.loadSaveStrategies.LoadSaveStrategyEnum;
 import model.database.loadSaveStrategies.LoadSaveStrategyFactory;
 
+
 import java.time.Month;
 import java.time.Year;
 import java.util.ArrayList;
 
+import java.util.*;
+
 public class MetroFacade implements Subject {
-    ArrayList<Observer> observers;
+    Map<MetroEventsEnum, List<Observer>> observerMap;
 
     private MetrocardDatabase metroDB;
     private LoadSaveStrategyFactory<Integer, Metrocard> loadSaveStrategyFactory;
 
     public MetroFacade() {
+        this.observerMap = new HashMap<>();
         this.loadSaveStrategyFactory = new LoadSaveStrategyFactory<>();
-        this.metroDB = new MetrocardDatabase(this.loadSaveStrategyFactory.createLoadSaveStrategy(LoadSaveStrategyEnum.TEXT));
-        this.metroDB.load();
-        this.observers = new ArrayList<>();
     }
 
     public ArrayList<Metrocard> getMetroCardList() {
@@ -30,16 +31,23 @@ public class MetroFacade implements Subject {
         return this.metroDB.getMetrocardIDList();
     }
 
-    public void addObserver(Observer observer) {
-        this.observers.add(observer);
+    public void addObserver(Observer observer, MetroEventsEnum metroEvent) {
+        if (observerMap.containsKey(metroEvent)) {
+            observerMap.get(metroEvent).add(observer);
+        } else {
+            observerMap.put(metroEvent, new ArrayList<>(Collections.singleton(observer)));
+        }
     }
 
-    public void openMetroStation() {
+    public void openMetroStation(LoadSaveStrategyEnum loadSaveStrategy) {
         System.out.println("Open metro station");
-        for (Observer observer : observers) {
-            observer.update();
+        this.metroDB = new MetrocardDatabase(this.loadSaveStrategyFactory.createLoadSaveStrategy(loadSaveStrategy));
+        this.metroDB.load();
+        if (observerMap.containsKey(MetroEventsEnum.OPEN_METROSTATION)) {
+            for (Observer observer : observerMap.get(MetroEventsEnum.OPEN_METROSTATION)) {
+                observer.update();
+            }
         }
-        this.loadSaveStrategyFactory.createLoadSaveStrategy(LoadSaveStrategyEnum.TEXT);
     }
 
     public void newMetroCard(Month month, Year year){ this.metroDB.addMetrocard(month, year);

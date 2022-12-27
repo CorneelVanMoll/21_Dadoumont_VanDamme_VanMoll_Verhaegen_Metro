@@ -4,8 +4,11 @@ import controller.MetroTicketViewController;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import model.database.loadSaveStrategies.LoadSaveStrategyEnum;
 
 import java.util.ArrayList;
 
@@ -14,6 +17,8 @@ public class MetroTicketView {
 
 	private ArrayList<Integer> IDs;
 	private MetroTicketViewController metroTicketViewController;
+
+	private ComboBox<Integer> cbxCardIDs;
 		
 	public MetroTicketView(){			
 		stage.setTitle("METROTICKET VIEW");
@@ -24,7 +29,11 @@ public class MetroTicketView {
 		Button newMetroCardButton = new Button("New metro card");
 		newMetroCardButton.setOnAction(event -> metroTicketViewController.newMetroCard());
 
-		Group root = new Group(newMetroCardButton);
+		GridPane root = new GridPane();
+
+		cbxCardIDs = new ComboBox<>();
+		root.add(cbxCardIDs,1,0,1,1);
+
 		Scene scene = new Scene(root, 650, 350);
 
 
@@ -35,6 +44,7 @@ public class MetroTicketView {
 
 	public void updateMetroCardIdList(ArrayList<Integer> IDs) {
 		this.IDs = IDs;
+		cbxCardIDs.getItems().setAll(IDs);
 	}
 
 	public void setMetroTicketViewController(MetroTicketViewController metroTicketViewController) {
