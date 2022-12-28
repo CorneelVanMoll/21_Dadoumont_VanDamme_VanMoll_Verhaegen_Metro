@@ -1,9 +1,6 @@
 package application;
 	
-import controller.ControlCenterPaneController;
-import controller.MetroCardOverviewPaneController;
-import controller.MetroStationViewController;
-import controller.MetroTicketViewController;
+import controller.*;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -37,6 +34,9 @@ public class MetroMain extends Application {
 
 		MetroCardOverviewPaneController metroCardOverviewPaneController = new MetroCardOverviewPaneController(metroFacade, adminMainPane.getMetroCardOverviewPane());
 		adminMainPane.setMetroCardOverviewPaneController(metroCardOverviewPaneController);
+
+		SettingsPaneController settingsPaneController = new SettingsPaneController(metroFacade, adminMainPane.getSettingsPane());
+		adminMainPane.setSettingsPaneController(settingsPaneController);
 
 		metroFacade.addObserver(metroTicketViewController, MetroEventsEnum.OPEN_METROSTATION);
 		metroFacade.addObserver(metroStationViewController, MetroEventsEnum.OPEN_METROSTATION);
