@@ -18,6 +18,10 @@ public class ControlCenterPaneController implements Observer {
         this.metroFacade.openMetroStation(loadSaveStrategy);
     }
 
+    public void closeMetroStation() {
+        this.metroFacade.closeMetroStation();
+    }
+
     @Override
     public void update() {
 

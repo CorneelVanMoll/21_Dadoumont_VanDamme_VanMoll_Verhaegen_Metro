@@ -1,56 +1,60 @@
 package model.database.utilities;
 
-
-import model.database.loadSaveStrategies.LoadSaveStrategy;
-
 import java.io.*;
 import java.util.*;
 
 public abstract class TextLoadSaveTemplate<K,V> {
+    private final String path;
 
-
-
-    public final void save(Map<K,V> map, File file) {
-
-        String out = "";
-
-
-        Iterator it = map.entrySet().iterator();
-        while (it.hasNext()) {
-            Map.Entry pair = (Map.Entry)it.next();
-            System.out.println(pair.getKey() + " = " + pair.getValue());
-
-        }
-
-
-        try {
-            FileWriter myWriter = new FileWriter(file);
-            myWriter.write(out);
-            myWriter.close();
-        } catch (IOException e) {
-
-            e.printStackTrace();
-        }
-    }
-
-
-    public final Map<K,V> load(File file) throws IOException {
-        Map<K,V> returnMap = new HashMap<K,V>();
-        try (BufferedReader reader = new BufferedReader(new FileReader(file))){
-            String line = reader.readLine();
-            while (line != null && !line.trim().equals("")) {
-                String[] tokens = line.split(";");
-                V element = makeObject(tokens);
-                K key = getKey(tokens);
-                returnMap.put(key,element);
-                line = reader.readLine();
-            }
-        }
-        return returnMap;
+    public TextLoadSaveTemplate(String path) {
+        this.path = path;
     }
 
     protected abstract V makeObject(String[] tokens);
 
     protected abstract K getKey(String[] tokens);
 
+    protected abstract List<String> formatObject(Map.Entry<K, V> entry);
+
+    public final Map<K,V> load() {
+        Map<K,V> returnMap = new HashMap<>();
+        try (BufferedReader reader = new BufferedReader(new FileReader(path))){
+            String line = reader.readLine();
+            while (line != null && !line.trim().equals("")) {
+                String[] tokens = line.split(";");
+                K key = getKey(tokens);
+                V element = makeObject(tokens);
+                returnMap.put(key,element);
+                line = reader.readLine();
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return returnMap;
+    }
+
+    public final void save(Map<K,V> data) {
+        String out = "";
+
+        for (Map.Entry<K, V> entry : data.entrySet()) {
+            List<String> object = formatObject(entry);
+            for (int i = 0; i < object.size(); i++) {
+                out += object.get(i);
+                if (i < object.size()-1) {
+                    out += ";";
+                }
+            }
+            out += "\n";
+        }
+
+        try {
+            FileWriter writer = new FileWriter(path);
+            writer.write(out);
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

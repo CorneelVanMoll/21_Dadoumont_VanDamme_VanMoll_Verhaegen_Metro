@@ -21,7 +21,7 @@ public class MetroTicketViewController implements Observer {
         metroTicketView.updateMetroCardIdList(metroFacade.getMetroCardIDList());
     }
 
-    public void newMetroCard() { metroFacade.newMetroCard(LocalDateTime.now().getMonth(), Year.of(LocalDateTime.now().getYear()));
-
+    public void newMetroCard() {
+        metroFacade.newMetroCard(LocalDateTime.now().getMonth(), Year.of(LocalDateTime.now().getYear()));
     }
 }

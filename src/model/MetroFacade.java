@@ -26,13 +26,19 @@ public class MetroFacade implements Subject {
         this.loadSaveStrategyFactory = new LoadSaveStrategyFactory<>();
     }
 
-    public ArrayList<Metrocard> getMetroCardList() {
-        return this.metroDB.getMetrocardList();
+    public List<Metrocard> getMetroCardList() {
+        if (this.metroDB != null) {
+            return this.metroDB.getMetrocardList();
+        }
+        return new ArrayList<>();
     }
 
 
-    public ArrayList<Integer> getMetroCardIDList() {
-        return this.metroDB.getMetrocardIDList();
+    public List<Integer> getMetroCardIDList() {
+        if (this.metroDB != null) {
+            return this.metroDB.getMetrocardIDList();
+        }
+        return new ArrayList<>();
     }
 
     public void addObserver(Observer observer, MetroEventsEnum metroEvent) {
@@ -44,11 +50,16 @@ public class MetroFacade implements Subject {
     }
 
     public void openMetroStation(LoadSaveStrategyEnum loadSaveStrategy) {
-        System.out.println("Open metro station");
         this.metroDB = new MetrocardDatabase(this.loadSaveStrategyFactory.createLoadSaveStrategy(loadSaveStrategy));
         this.metroTicketDiscountList = TicketPriceFactory.loadDiscounts();
         this.metroDB.load();
         fireEvent(MetroEventsEnum.OPEN_METROSTATION);
+    }
+
+    public void closeMetroStation() {
+        this.metroDB.save();
+        this.metroDB = null;
+        fireEvent(MetroEventsEnum.CLOSE_METROSTATION);
     }
 
     public void newMetroCard(Month month, Year year) {

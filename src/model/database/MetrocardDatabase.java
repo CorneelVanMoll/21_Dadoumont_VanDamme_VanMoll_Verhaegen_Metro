@@ -12,7 +12,7 @@ import java.util.TreeMap;
 public class MetrocardDatabase {
     private TreeMap<Integer, Metrocard> metrocards;
 
-    private LoadSaveStrategy<Integer, Metrocard> loadSaveStrategy;
+    private final LoadSaveStrategy<Integer, Metrocard> loadSaveStrategy;
 
     public MetrocardDatabase(LoadSaveStrategy<Integer, Metrocard> loadSaveStrategy) {
         this.loadSaveStrategy = loadSaveStrategy;
@@ -32,10 +32,6 @@ public class MetrocardDatabase {
 
     public ArrayList<Integer> getMetrocardIDList() {
         return new ArrayList<>(metrocards.keySet());
-    }
-
-    public void setLoadSaveStrategy(LoadSaveStrategy<Integer, Metrocard> loadSaveStrategy) {
-        this.loadSaveStrategy = loadSaveStrategy;
     }
 
     public void addMetrocard(Month month, Year year) {

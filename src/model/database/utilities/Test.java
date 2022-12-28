@@ -1,10 +1,8 @@
 package model.database.utilities;
 
-import model.MetroFacade;
 import model.Metrocard;
 import model.TicketPriceDecorator.TicketPrice;
 import model.TicketPriceDecorator.TicketPriceFactory;
-import model.database.MetrocardDatabase;
 
 import java.time.Month;
 import java.time.Year;
