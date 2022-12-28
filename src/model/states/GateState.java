@@ -1,7 +1,6 @@
 package model.states;
 
 public interface GateState {
-
     default void scan(StateContext context) {
         throw new IllegalArgumentException("Metrocard cannot be scanned bacause the gate is " + context.getState());
     }
@@ -29,6 +28,4 @@ public interface GateState {
     default void setClosed(StateContext context) {
         throw new IllegalArgumentException("gate because it is " + context.getState());
     }
-
-
 }

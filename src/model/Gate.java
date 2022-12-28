@@ -26,7 +26,6 @@ public class Gate {
         return this.scannedCards;
     }
 
-
     public String getName() {
         return this.name;
     }

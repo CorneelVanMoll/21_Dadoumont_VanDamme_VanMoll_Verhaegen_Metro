@@ -1,7 +1,6 @@
 package model.states;
 
 public class OpenState implements GateState {
-
     @Override
     public void scan(StateContext context) {
         context.setGateState(new OpenState());
@@ -16,5 +15,4 @@ public class OpenState implements GateState {
     public void walkThroughGate(StateContext context) {
         context.setGateState(new ClosedState());
     }
-
 }

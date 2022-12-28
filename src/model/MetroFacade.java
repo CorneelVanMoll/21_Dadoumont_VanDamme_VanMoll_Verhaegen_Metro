@@ -64,9 +64,11 @@ public class MetroFacade implements Subject {
     }
 
     public void closeMetroStation() {
-        this.metroDB.save();
-        this.metroDB = null;
-        fireEvent(MetroEventsEnum.CLOSE_METROSTATION);
+        if (this.metroDB != null) {
+            this.metroDB.save();
+            this.metroDB = null;
+            fireEvent(MetroEventsEnum.CLOSE_METROSTATION);
+        }
     }
 
     public void newMetroCard(Month month, Year year) {
