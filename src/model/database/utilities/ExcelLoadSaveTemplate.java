@@ -10,38 +10,30 @@ import jxl.Workbook;
 import jxl.read.biff.BiffException;
 import jxl.write.*;
 
-public abstract class ExcelLoadSaveTemplate <K,V> {
+public abstract class ExcelLoadSaveTemplate<K,V> {
+    private final String path;
 
-    public final void save(List<List<String>> data, String path) {
-        try {
-            WritableWorkbook ww = Workbook.createWorkbook(new File(path));
-            WritableSheet sheet = ww.createSheet("metrocards",0);
-            for (int r = 0; r < data.size(); r++) {
-                for (int c = 0; c < data.get(r).size(); c++) {
-                    sheet.addCell(new Label(c, r, data.get(r).get(c)));
-                }
-            }
-            ww.write();
-            ww.close();
-        } catch (WriteException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+    public ExcelLoadSaveTemplate(String path) {
+        this.path = path;
     }
 
-    public final List<List<String>> load(String path) {
-        List<List<String>> result = new ArrayList<>();
+    protected abstract V makeObject(List<String> tokens);
 
+    protected abstract K getKey(List<String> tokens);
+
+    protected abstract List<String> formatObject(Map.Entry<K, V> entry);
+
+    public final Map<K, V> load() {
+        List<List<String>> data = new ArrayList<>();
         try {
             Workbook w = Workbook.getWorkbook(new File(path));
             Sheet sheet = w.getSheet(0);
 
             for (int i = 0; i < sheet.getRows(); i++) {
                 Cell[] row = sheet.getRow(i);
-                result.add(new ArrayList<>());
+                data.add(new ArrayList<>());
                 for (Cell cell : row) {
-                    result.get(i).add(cell.getContents());
+                    data.get(i).add(cell.getContents());
                 }
             }
         } catch (BiffException e) {
@@ -49,10 +41,35 @@ public abstract class ExcelLoadSaveTemplate <K,V> {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        Map<K, V> result = new HashMap<>();
+        for (List<String> tokens : data) {
+            result.put(getKey(tokens), makeObject(tokens));
+        }
         return result;
     }
 
-    protected abstract V makeObject(List<String> tokens);
+    public final void save(Map<K, V> data) {
+        List<List<String>> result = new ArrayList<>();
 
-    protected abstract K getKey(List<String> tokens);
+        for (Map.Entry<K, V> entry : data.entrySet()) {
+            result.add(formatObject(entry));
+        }
+
+        try {
+            WritableWorkbook ww = Workbook.createWorkbook(new File(path));
+            WritableSheet sheet = ww.createSheet("data",0);
+            for (int r = 0; r < result.size(); r++) {
+                for (int c = 0; c < result.get(r).size(); c++) {
+                    sheet.addCell(new Label(c, r, result.get(r).get(c)));
+                }
+            }
+            ww.write();
+            ww.close();
+        } catch (WriteException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
