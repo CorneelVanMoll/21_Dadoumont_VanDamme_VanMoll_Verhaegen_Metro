@@ -33,4 +33,8 @@ public class SettingsPaneController {
     public List<String> getAllLoadStrategies() {
         return metroFacade.getAllLoadStrategies();
     }
+
+    public void saveSettings(List<String> discountSelected, List<String> strategySelected) {
+        metroFacade.saveSettings(discountSelected, strategySelected);
+    }
 }
