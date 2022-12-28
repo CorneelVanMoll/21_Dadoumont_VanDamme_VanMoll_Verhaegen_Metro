@@ -1,16 +1,24 @@
 package model.TicketPriceDecorator;
 
+import java.text.DecimalFormat;
+
 public abstract class TicketPrice {
 
     private boolean is24Min;
     private boolean is64Plus;
     private boolean isStudent;
 
+    private final DecimalFormat euros = new DecimalFormat( "€0.00" );
+
+    public DecimalFormat getEuros() {
+        return euros;
+    }
+
     public abstract String getPriceText();
 
     public abstract double getPrice();
 
-    public boolean isIs24Min() {
+    public boolean is24Min() {
         return is24Min;
     }
 
@@ -18,7 +26,7 @@ public abstract class TicketPrice {
         this.is24Min = is24Min;
     }
 
-    public boolean isIs64Plus() {
+    public boolean is64Plus() {
         return is64Plus;
     }
 

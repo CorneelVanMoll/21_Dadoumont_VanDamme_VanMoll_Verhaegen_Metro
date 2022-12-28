@@ -1,14 +1,19 @@
 package model.TicketPriceDecorator;
 
-import sun.security.krb5.internal.Ticket;
-
 public abstract class TicketPriceDiscountDecorator extends TicketPrice {
 
-    TicketPrice ticketPrice;
+    double price;
+
+    public TicketPriceDiscountDecorator(TicketPrice ticketPrice) {
+        this.setStudent(ticketPrice.isStudent());
+        this.setIs24Min(ticketPrice.is24Min());
+        this.setIs64Plus(ticketPrice.is64Plus());
+        this.price = ticketPrice.getPrice();
+    }
 
     @Override
     public String getPriceText() {
-        return String.valueOf(ticketPrice.getPrice());
+        return this.getEuros().format(this.getPrice());
     }
 
 }

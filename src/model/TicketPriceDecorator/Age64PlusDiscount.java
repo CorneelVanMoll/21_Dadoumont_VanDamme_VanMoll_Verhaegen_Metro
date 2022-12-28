@@ -2,13 +2,14 @@ package model.TicketPriceDecorator;
 
 public class Age64PlusDiscount extends TicketPriceDiscountDecorator {
 
-
     public Age64PlusDiscount(TicketPrice ticketPrice) {
-        this.ticketPrice = ticketPrice;
+        super(ticketPrice);
     }
 
     @Override
     public double getPrice() {
-        return ticketPrice.getPrice() - 0.15;
+        if (this.is64Plus())
+            return price - 0.15;
+        return price;
     }
 }

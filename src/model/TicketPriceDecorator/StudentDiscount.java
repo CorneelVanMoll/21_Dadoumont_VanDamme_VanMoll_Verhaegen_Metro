@@ -2,11 +2,15 @@ package model.TicketPriceDecorator;
 
 public class StudentDiscount extends TicketPriceDiscountDecorator {
 
+
     public StudentDiscount(TicketPrice ticketPrice) {
-        this.ticketPrice = ticketPrice;
+        super(ticketPrice);
     }
+
     @Override
     public double getPrice() {
-        return this.ticketPrice.getPrice() - 0.25;
+        if(this.isStudent())
+            return this.price - 0.25;
+        return this.price;
     }
 }

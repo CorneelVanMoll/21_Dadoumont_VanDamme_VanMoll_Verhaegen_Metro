@@ -4,7 +4,7 @@ public class BasicTicketPrice extends TicketPrice {
 
     @Override
     public String getPriceText() {
-        return String.valueOf(getPrice());
+        return this.getEuros().format(this.getPrice());
     }
 
     @Override
