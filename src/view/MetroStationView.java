@@ -1,6 +1,7 @@
 package view;
 
 import controller.MetroStationViewController;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
@@ -15,6 +16,11 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
+import javafx.geometry.Rectangle2D;
+import javafx.scene.Scene;
+import javafx.scene.control.ComboBox;
+import javafx.scene.layout.GridPane;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import model.Gate;
@@ -22,32 +28,50 @@ import model.Gate;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MetroStationView {
 	MetroStationViewController metroStationViewController;
 
-	private Stage stage = new Stage();		
-	private Group root;
-	private HBox mainBox;
+	private Stage stage = new Stage();
 
-	private HashMap<Gate,TextField> outputs;
-
-
-	public MetroStationView(){			
+	private List<Integer> metroCardIDList;
+	private List<ComboBox<Integer>> cbxCardIDsList;
+	
+	public MetroStationView(){
+		Screen screen = Screen.getPrimary();
+		Rectangle2D bounds = screen.getVisualBounds();
 		stage.setTitle("METRO STATION VIEW");
 		stage.initStyle(StageStyle.UTILITY);
-		stage.setX(5);
-		stage.setY(390);
-		root = new Group();
-		mainBox = new HBox();
+		stage.setX(0);
+		stage.setY(bounds.getMinY() + (bounds.getHeight() / 2));
+		GridPane root = new GridPane();
+
+		cbxCardIDsList = new ArrayList<>();
+
+		/*for (int i = 0; i < 3; i++) {
+			ComboBox<Integer> cbxCardIDs = new ComboBox<>();
+			cbxCardIDsList.add(cbxCardIDs);
+			root.add(cbxCardIDs,i,0,1,1);
+		}*/
+    
+    mainBox = new HBox();
 		mainBox.setSpacing(10);
-		root.getChildren().add(mainBox);
-
-		Scene scene = new Scene(root, 650, 300);
-
-
+    
+    root.add(mainBox,i,0,1,1);
+    
+		Scene scene = new Scene(root, bounds.getWidth() / 2, (bounds.getHeight() / 2));
 		stage.setScene(scene);
 		stage.sizeToScene();			
 		stage.show();		
+	}
+
+	public void updateMetroCardIdList(List<Integer> IDs) {
+		this.metroCardIDList = IDs;
+		for (ComboBox<Integer> cbx : cbxCardIDsList) {
+			cbx.getItems().setAll(metroCardIDList);
+		}
 	}
 
 	public void setMetroStationViewController(MetroStationViewController metroStationViewController) {
@@ -62,23 +86,16 @@ public class MetroStationView {
 
 		for(Gate gate: metroStationViewController.getGates()) {
 
-
-
 			HBox hbox = new HBox();
-
 
 			hbox.setAlignment(Pos.BASELINE_CENTER);
 			hbox.setPadding(new Insets(15, 12, 15, 12));
 			hbox.setSpacing(10);
 			hbox.setStyle("-fx-background-color: #336699;");
 
-
-
-
 			Label label = new Label(gate.getName());
 
 			final ComboBox comboBox = new ComboBox(metroStationViewController.getIDs());
-
 
 			Button scanBtn = new Button("Scan metrocard");
 			scanBtn.setPrefSize(100, 20);
@@ -87,7 +104,6 @@ public class MetroStationView {
 
 			});
 
-
 			Button walkBtn = new Button("Walk through gate");
 			walkBtn.setPrefSize(100, 20);
 			walkBtn.setOnAction((event) -> {
@@ -95,8 +111,6 @@ public class MetroStationView {
 				this.metroStationViewController.walkThroughGate(gate);
 
 			});
-
-
 
 			hbox.getChildren().addAll(label,comboBox,scanBtn,walkBtn, outputs.get(gate));
 

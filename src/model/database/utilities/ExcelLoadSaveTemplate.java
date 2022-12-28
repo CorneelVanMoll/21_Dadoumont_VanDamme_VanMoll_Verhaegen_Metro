@@ -1,81 +1,75 @@
 package model.database.utilities;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
+import jxl.Cell;
+import jxl.Sheet;
+import jxl.Workbook;
 import jxl.read.biff.BiffException;
 import jxl.write.*;
 
-public abstract class ExcelLoadSaveTemplate <K,V>{
+public abstract class ExcelLoadSaveTemplate<K,V> {
+    private final String path;
 
+    public ExcelLoadSaveTemplate(String path) {
+        this.path = path;
+    }
 
-    public static void save(ArrayList<String> x) {
-        /*
-        ExcelPlugin excelPlugin = new ExcelPlugin();
+    protected abstract V makeObject(List<String> tokens);
 
-        ArrayList<ArrayList<String>> out = new ArrayList<>();
+    protected abstract K getKey(List<String> tokens);
 
-        for(String line: x) {
-            ArrayList<String> temp = new ArrayList<String>(Arrays.asList(line.split(";")));
-            out.add(temp);
-        }
+    protected abstract List<String> formatObject(Map.Entry<K, V> entry);
 
-
-
-
+    public final Map<K, V> load() {
+        List<List<String>> data = new ArrayList<>();
         try {
-            excelPlugin.write(new File(ExcelFile), out);
+            Workbook w = Workbook.getWorkbook(new File(path));
+            Sheet sheet = w.getSheet(0);
+
+            for (int i = 0; i < sheet.getRows(); i++) {
+                Cell[] row = sheet.getRow(i);
+                data.add(new ArrayList<>());
+                for (Cell cell : row) {
+                    data.get(i).add(cell.getContents());
+                }
+            }
         } catch (BiffException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
+        }
+
+        Map<K, V> result = new HashMap<>();
+        for (List<String> tokens : data) {
+            result.put(getKey(tokens), makeObject(tokens));
+        }
+        return result;
+    }
+
+    public final void save(Map<K, V> data) {
+        List<List<String>> result = new ArrayList<>();
+
+        for (Map.Entry<K, V> entry : data.entrySet()) {
+            result.add(formatObject(entry));
+        }
+
+        try {
+            WritableWorkbook ww = Workbook.createWorkbook(new File(path));
+            WritableSheet sheet = ww.createSheet("data",0);
+            for (int r = 0; r < result.size(); r++) {
+                for (int c = 0; c < result.get(r).size(); c++) {
+                    sheet.addCell(new Label(c, r, result.get(r).get(c)));
+                }
+            }
+            ww.write();
+            ww.close();
         } catch (WriteException e) {
             e.printStackTrace();
-        }
-
-         */
-
-    }
-
-
-    public final Map<K,V> load(File file) throws IOException {
-
-        Map<K,V> returnMap = new HashMap<K,V>();
-
-        ExcelPlugin excelPlugin = new ExcelPlugin();
-        try {
-            ArrayList<ArrayList<String>> out = excelPlugin.read(file);
-
-            for(ArrayList<String> i : out) {
-
-                String[] tokens = i.toArray(new String[i.size()]);
-                V element = maakObject(tokens);
-                K key = getKey(tokens);
-                returnMap.put(key,element);
-
-            }
-
-
-        } catch (BiffException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
-        return returnMap;
-
     }
-
-
-    protected abstract V maakObject(String[] tokens);
-
-    protected abstract K getKey(String[] tokens);
 }
