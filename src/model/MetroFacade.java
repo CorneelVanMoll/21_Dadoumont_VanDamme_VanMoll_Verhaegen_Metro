@@ -78,10 +78,10 @@ public class MetroFacade implements Subject {
         }
     }
 
-    private void fireEvent(MetroEventsEnum loadSaveStrategy) {
-        if (observerMap.containsKey(loadSaveStrategy)) {
-            for (Observer observer : observerMap.get(loadSaveStrategy)) {
-                observer.update(loadSaveStrategy);
+    private void fireEvent(MetroEventsEnum event) {
+        if (observerMap.containsKey(event)) {
+            for (Observer observer : observerMap.get(event)) {
+                observer.update(event);
             }
         }
     }

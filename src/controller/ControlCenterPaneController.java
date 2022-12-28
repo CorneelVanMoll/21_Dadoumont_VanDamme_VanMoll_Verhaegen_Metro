@@ -38,11 +38,7 @@ public class ControlCenterPaneController implements Observer {
                 //add alert
                 this.alerts.add("someone tried to scan or walkthrough an inactive gate");
                 break;
-            case SCAN:
-
-                break;
         }
-
 
         this.controlCenterPane.refresh();
     }
