@@ -78,51 +78,51 @@ public class MetroStationView {
 
 
 
-		for(Gate gate: metroStationViewController.getGates()) {
+		for (Gate gate: metroStationViewController.getGates()) {
 
-			VBox gate1VBox = new VBox(10);
-			gate1VBox.setPadding(new Insets(5));
-			gate1VBox.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY,Insets.EMPTY)));
-			gate1VBox.setBorder(new Border(new BorderStroke(Color.valueOf("#9E9E9E"),
+			VBox gateVBox = new VBox(10);
+			gateVBox.setPadding(new Insets(5));
+			gateVBox.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY,Insets.EMPTY)));
+			gateVBox.setBorder(new Border(new BorderStroke(Color.valueOf("#9E9E9E"),
 					BorderStrokeStyle.SOLID,
 					CornerRadii.EMPTY,
 					BorderWidths.DEFAULT)));
-			rootHBox.getChildren().add(gate1VBox);
+			rootHBox.getChildren().add(gateVBox);
 
 
-			Label gate1Label = new Label(gate.getName());
-			gate1VBox.getChildren().add(gate1Label);
+			Label gateLabel = new Label(gate.getName());
+			gateVBox.getChildren().add(gateLabel);
 
 
-			Label gate1MetroCardIDLabel = new Label("Metrocard ID:");
-			gate1VBox.getChildren().add(gate1MetroCardIDLabel);
+			Label gateMetroCardIDLabel = new Label("Metrocard ID:");
+			gateVBox.getChildren().add(gateMetroCardIDLabel);
 
 
 			ComboBox<Integer> gate1IDComboBox = new ComboBox<>();
 			gate1IDComboBox.setItems(metroStationViewController.getIDs());
 			cbxCardIDsList.add(gate1IDComboBox);
-			gate1VBox.getChildren().add(gate1IDComboBox);
+			gateVBox.getChildren().add(gate1IDComboBox);
 
-			// Gate 1 Scan Metro Card Button
+			// Gate Scan Metro Card Button
 			Button gate1ScanButton = new Button("Scan metro card");
 			gate1ScanButton.setOnAction((event) -> {
-				this.metroStationViewController.scanMetroCard(gate, gate1IDComboBox.getValue().toString());
-
+				if (gate1IDComboBox.getValue() != null) {
+					this.metroStationViewController.scanMetroCard(gate, gate1IDComboBox.getValue().toString());
+				}
 			});
-			gate1VBox.getChildren().add(gate1ScanButton);
+			gateVBox.getChildren().add(gate1ScanButton);
 
 			// Gate 1 Walk through Gate Button
-			Button gate1WalkButton = new Button("Walk through gate");
-			gate1WalkButton.setOnAction((event) -> {
+			Button gateWalkButton = new Button("Walk through gate");
+			gateWalkButton.setOnAction((event) -> {
 
 				this.metroStationViewController.walkThroughGate(gate);
 
 			});
-			gate1VBox.getChildren().add(gate1WalkButton);
+			gateVBox.getChildren().add(gateWalkButton);
 
-			gate1VBox.getChildren().add(outputs.get(gate));
+			gateVBox.getChildren().add(outputs.get(gate));
 		}
-
 	}
 
 	public HashMap<Gate, TextField> getOutputs() {
