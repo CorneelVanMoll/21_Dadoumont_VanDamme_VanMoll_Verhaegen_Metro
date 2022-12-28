@@ -2,6 +2,7 @@ package controller;
 
 import model.MetroFacade;
 import model.Observer;
+import model.database.loadSaveStrategies.LoadSaveStrategyEnum;
 import view.ControlCenterPane;
 
 public class ControlCenterPaneController implements Observer {
@@ -13,8 +14,12 @@ public class ControlCenterPaneController implements Observer {
         this.controlCenterPane = controlCenterPane;
     }
 
-    public void openMetroStation() {
-        this.metroFacade.openMetroStation();
+    public void openMetroStation(LoadSaveStrategyEnum loadSaveStrategy) {
+        this.metroFacade.openMetroStation(loadSaveStrategy);
+    }
+
+    public void closeMetroStation() {
+        this.metroFacade.closeMetroStation();
     }
 
     @Override

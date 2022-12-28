@@ -1,34 +1,22 @@
 package view;
 
 import controller.MetroCardOverviewPaneController;
-import javafx.collections.FXCollections;
-import javafx.collections.ListChangeListener;
-import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
-import javafx.scene.text.Text;
 import model.Metrocard;
 
-import java.time.Month;
-import java.time.Year;
-import java.util.ArrayList;
+import java.util.List;
 
 public class MetroCardOverviewPane extends GridPane {
-    private ObservableList<Metrocard> metroCards;
     private MetroCardOverviewPaneController metroCardOverviewPaneController;
 
     private TableView<Metrocard> table;
 
-
     public MetroCardOverviewPane() {
-        System.out.println("init");
         this.setPadding(new Insets(5, 5, 5, 5));
         this.setVgap(5);
         this.setHgap(5);
@@ -49,13 +37,12 @@ public class MetroCardOverviewPane extends GridPane {
 
         table.getColumns().addAll(id, month, availableTrips, usedTrips);
 
-        this.getChildren().add(this.table);
+        this.add(this.table, 0, 1, 1, 1);
 
     }
 
-    public void updateMetrocardList(ArrayList<Metrocard> metrocards) {
-        metroCards = FXCollections.observableArrayList(metrocards);
-        this.table.setItems(metroCards);
+    public void updateMetrocardList(List<Metrocard> metrocards) {
+        this.table.getItems().setAll(metrocards);
     }
 
     public void setMetroCardOverviewPaneController(MetroCardOverviewPaneController metroCardOverviewPaneController) {

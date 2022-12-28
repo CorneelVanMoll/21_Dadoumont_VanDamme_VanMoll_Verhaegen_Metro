@@ -19,6 +19,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MetroStationView {
 	MetroStationViewController metroStationViewController;
 
@@ -39,16 +42,12 @@ public class MetroStationView {
 		stage.setY(bounds.getMinY() + (bounds.getHeight() / 2));
 
 		cbxCardIDsList = new ArrayList<>();
-
-
+    
 		outputs = new HashMap<>();
-
-
 
 		// Root Hbox
 		rootHBox = new HBox(10);
 		rootHBox.setPadding(new Insets(10));
-
 
 		Scene scene = new Scene(rootHBox, bounds.getWidth() / 2, (bounds.getHeight() / 2));
 		stage.setScene(scene);
@@ -63,6 +62,13 @@ public class MetroStationView {
 		}
 
 
+	}
+
+	public void updateMetroCardIdList(List<Integer> IDs) {
+		this.metroCardIDList = IDs;
+		for (ComboBox<Integer> cbx : cbxCardIDsList) {
+			cbx.getItems().setAll(metroCardIDList);
+		}
 	}
 
 	public void setMetroStationViewController(MetroStationViewController metroStationViewController) {

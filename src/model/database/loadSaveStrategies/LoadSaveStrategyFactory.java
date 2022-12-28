@@ -8,8 +8,8 @@ public class LoadSaveStrategyFactory<K, V> {
         LoadSaveStrategy<K, V> out = null;
         try {
             Class<?> loadSaveStrategyClass = Class.forName(loadSaveStrategy.getClassName());
-            Constructor<?> loadSaveStrategyConstructor = loadSaveStrategyClass.getConstructor();
-            out = (LoadSaveStrategy<K, V>)loadSaveStrategyConstructor.newInstance();
+            Constructor<?> loadSaveStrategyConstructor = loadSaveStrategyClass.getConstructor(String.class);
+            out = (LoadSaveStrategy<K, V>)loadSaveStrategyConstructor.newInstance(loadSaveStrategy.getPath());
         } catch (Exception e) {
             e.printStackTrace();
         }

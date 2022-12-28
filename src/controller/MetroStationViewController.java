@@ -30,7 +30,7 @@ public class MetroStationViewController implements Observer {
 
     @Override
     public void update() {
-
+        metroStationView.updateMetroCardIdList(metroFacade.getMetroCardIDList());
     }
 
     public ArrayList<Gate> getGates() {
