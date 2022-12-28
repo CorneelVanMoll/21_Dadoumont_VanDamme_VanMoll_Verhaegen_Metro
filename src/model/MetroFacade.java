@@ -96,8 +96,8 @@ public class MetroFacade implements Subject {
         return list.stream().map(TicketPriceDiscountEnum::toString).collect(Collectors.toList());
     }
 
-    public void saveSettings() {
-
+    public void saveSettings(List<String> discountSelected, List<String> strategySelected) {
+        loadSaveStrategyFactory.saveSettings(discountSelected, strategySelected);
     }
 
     public String getSelectedLoadStrategy() {

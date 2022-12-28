@@ -2,6 +2,8 @@ package view;
 
 
 import controller.SettingsPaneController;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
@@ -61,13 +63,24 @@ public class SettingsPane extends GridPane {
         }
 
         Button saveButton = new Button("Save");
-        saveButton.addEventHandler();
+        saveButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                settingsPaneController.saveSettings(getRadioSelected(discountRadioButtons), getRadioSelected(strategyRadioButtons));
+            }
+        });
         this.add(saveButton, 0, i++, 2, 1);
 
     }
 
-    private List<String> getRadioSelected(List<String> selectedDiscounts) {
-        
+    private List<String> getRadioSelected(List<RadioButton> radioButtons) {
+        List<String> list = new ArrayList<>();
+        for (RadioButton radioButton : radioButtons) {
+            if (radioButton.isSelected()) {
+                list.add(radioButton.getText());
+            }
+        }
+        return list;
     }
 
 }

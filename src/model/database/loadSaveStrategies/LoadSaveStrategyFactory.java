@@ -1,8 +1,6 @@
 package model.database.loadSaveStrategies;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.lang.reflect.Constructor;
 import java.util.Arrays;
 import java.util.List;
@@ -14,7 +12,7 @@ public class LoadSaveStrategyFactory<K, V> {
         try {
             Class<?> loadSaveStrategyClass = Class.forName(loadSaveStrategy.getClassName());
             Constructor<?> loadSaveStrategyConstructor = loadSaveStrategyClass.getConstructor(String.class);
-            out = (LoadSaveStrategy<K, V>)loadSaveStrategyConstructor.newInstance(loadSaveStrategy.getPath());
+            out = (LoadSaveStrategy<K, V>) loadSaveStrategyConstructor.newInstance(loadSaveStrategy.getPath());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -34,6 +32,7 @@ public class LoadSaveStrategyFactory<K, V> {
         return strategyString;
     }
 
+
     public static LoadSaveStrategyEnum loadLoadSaveStrategy() {
         LoadSaveStrategyEnum loadSaveStrategy = null;
         try {
@@ -43,5 +42,19 @@ public class LoadSaveStrategyFactory<K, V> {
             e.printStackTrace();
         }
         return loadSaveStrategy;
+    }
+    
+    public void saveSettings(List<String> discountSelected, List<String> strategySelected) {
+        try {
+            File settings = new File("settings.txt");
+            FileOutputStream fos = new FileOutputStream(settings);
+            BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(fos));
+            bw.write(strategySelected.get(0));
+            bw.newLine();
+            bw.write(String.join(",", discountSelected));
+            bw.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
