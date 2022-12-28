@@ -1,15 +1,29 @@
 package model;
 
+import javafx.scene.control.TextField;
 import model.states.StateContext;
+
 
 public class Gate {
 
     private String name;
     private final StateContext context;
 
+    private TextField field;
+    private int scannedCards;
+
     public Gate(String name) {
         this.name = name;
         this.context = new StateContext();
+        this.scannedCards = 0;
+    }
+
+    public void setScannedCards(int i) {
+        scannedCards = i;
+    }
+
+    public int getScannedCards() {
+        return this.scannedCards;
     }
 
 
@@ -49,6 +63,17 @@ public class Gate {
     public void setClosed() {
         context.getState().setClosed(context);
     }
+
+
+
+    public void setOutCardsScanned(TextField field) {
+        this.field = field;
+    }
+
+    public TextField getOutCardsScanned(){
+        return field;
+    }
+
 
 
 }

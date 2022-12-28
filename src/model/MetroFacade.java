@@ -30,9 +30,7 @@ public class MetroFacade implements Subject {
         this.gates.add(new Gate("Gate1"));
         this.gates.add(new Gate("Gate2"));
         this.gates.add(new Gate("Gate3"));
-        for(Gate gate: gates) {
-            gate.activate();
-        }
+
     }
 
     public List<Metrocard> getMetroCardList() {
@@ -81,7 +79,7 @@ public class MetroFacade implements Subject {
     private void fireEvent(MetroEventsEnum loadSaveStrategy) {
         if (observerMap.containsKey(loadSaveStrategy)) {
             for (Observer observer : observerMap.get(loadSaveStrategy)) {
-                observer.update();
+                observer.update(loadSaveStrategy);
             }
         }
     }
@@ -93,5 +91,13 @@ public class MetroFacade implements Subject {
 
     public ArrayList<Gate> getGates() {
         return this.gates;
+    }
+
+    public void inactiveGateAction() {
+        fireEvent(MetroEventsEnum.GATE_INACTIVE_SCAN_OR_WALKTHROUGH);
+    }
+
+    public void ScanCard() {
+        fireEvent(MetroEventsEnum.SCAN);
     }
 }

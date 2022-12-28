@@ -3,6 +3,7 @@ package controller;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.Gate;
+import model.MetroEventsEnum;
 import model.MetroFacade;
 import model.Observer;
 import model.states.ClosedState;
@@ -30,7 +31,7 @@ public class MetroStationViewController implements Observer {
     }
 
     @Override
-    public void update() {
+    public void update(MetroEventsEnum event) {
         metroStationView.updateMetroCardIdList(metroFacade.getMetroCardIDList());
     }
 
@@ -51,7 +52,18 @@ public class MetroStationViewController implements Observer {
 
             if(ids.contains(idInt)) {
 
-                gate.scan();
+                try{
+                    gate.setScannedCards(gate.getScannedCards() + 1);
+                    gate.scan();
+                    metroFacade.ScanCard();
+                }catch (IllegalArgumentException e) {
+                    gate.setScannedCards(gate.getScannedCards() - 1);
+                    metroFacade.inactiveGateAction();
+
+                }
+
+
+
                 metroStationView.getOutputs().get(gate).setText("card " +id + " is scanned");
             }else{
                 gate.setClosed();
@@ -70,7 +82,12 @@ public class MetroStationViewController implements Observer {
         if(gate.getContext().getState() instanceof ClosedState) {
             metroStationView.getOutputs().get(gate).setText("Gate is closed");
         }else {
-            gate.walkThroughGate();
+            try{
+                gate.walkThroughGate();
+            }catch (IllegalArgumentException e) {
+                metroFacade.inactiveGateAction();
+            }
+
             metroStationView.getOutputs().get(gate).setText("walked through");
         }
 
