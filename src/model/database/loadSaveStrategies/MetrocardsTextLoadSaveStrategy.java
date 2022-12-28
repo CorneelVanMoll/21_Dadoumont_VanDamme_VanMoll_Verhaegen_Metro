@@ -11,7 +11,11 @@ import java.util.*;
 
 import static java.lang.Integer.parseInt;
 
-public class MetrocardsTextLoadSaveStrategy extends TextLoadSaveTemplate<Integer, Metrocard> implements LoadSaveStrategy<Integer, Metrocard> {
+public class MetrocardsTextLoadSaveStrategy extends TextLoadSaveTemplate<Integer, Metrocard> {
+    public MetrocardsTextLoadSaveStrategy(String path) {
+        super(path);
+    }
+
     @Override
     protected Integer getKey(String[] tokens) {
         return parseInt(tokens[0]);
@@ -24,27 +28,8 @@ public class MetrocardsTextLoadSaveStrategy extends TextLoadSaveTemplate<Integer
     }
 
     @Override
-    public Map<Integer, Metrocard> load() {
-        Map<Integer, Metrocard> result = new TreeMap<>();
-
-        List<String> lines = super.load("metrocards.txt");
-        for (String line : lines) {
-            String[] tokens = line.split(";");
-            Integer key = getKey(tokens);
-            Metrocard element = makeObject(tokens);
-            result.put(key, element);
-        }
-
-        return result;
-    }
-
-    @Override
-    public void save(Map<Integer, Metrocard> data) {
-        List<String> result = new ArrayList<>();
-        for (Map.Entry<Integer, Metrocard> entry: data.entrySet()) {
-            Metrocard m = entry.getValue();
-            result.add(String.format("%d;%d#%d;%d;%d", entry.getKey(), m.getMonth().getValue(), m.getYear().getValue(), m.getAvailableTrips(), m.getUsedTrips()));
-        }
-        super.save(result, "metrocards.txt");
+    protected String formatObject(Map.Entry<Integer, Metrocard> entry) {
+        Metrocard m = entry.getValue();
+        return String.format("%d;%d#%d;%d;%d", entry.getKey(), m.getMonth().getValue(), m.getYear().getValue(), m.getAvailableTrips(), m.getUsedTrips());
     }
 }

@@ -10,7 +10,7 @@ import jxl.Workbook;
 import jxl.read.biff.BiffException;
 import jxl.write.*;
 
-public abstract class ExcelLoadSaveTemplate <K,V> {
+public abstract class ExcelLoadSaveTemplate<K,V> {
 
     public final void save(List<List<String>> data, String path) {
         try {
