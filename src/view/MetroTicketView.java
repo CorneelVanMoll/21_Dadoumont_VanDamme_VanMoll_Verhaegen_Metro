@@ -25,7 +25,6 @@ public class MetroTicketView {
 		
 	public MetroTicketView(){
 		Rectangle2D bounds = Screen.getPrimary().getVisualBounds();
-		System.out.println(bounds);
 		stage.setTitle("METROTICKET VIEW");
 		stage.initStyle(StageStyle.UTILITY);
 		stage.setX(bounds.getMinX());
