@@ -4,13 +4,13 @@ import controller.ControlCenterPaneController;
 import controller.MetroCardOverviewPaneController;
 import controller.MetroStationViewController;
 import controller.MetroTicketViewController;
+
 import javafx.application.Application;
 import javafx.stage.Stage;
+
 import model.MetroEventsEnum;
 import model.MetroFacade;
-import model.Metrocard;
-import model.database.MetrocardDatabase;
-import model.database.loadSaveStrategies.LoadSaveStrategyFactory;
+
 import view.*;
 
 
@@ -36,11 +36,15 @@ public class MetroMain extends Application {
 		adminMainPane.setControlCenterPaneController(controlCenterPaneController);
 
 		MetroCardOverviewPaneController metroCardOverviewPaneController = new MetroCardOverviewPaneController(metroFacade, adminMainPane.getMetroCardOverviewPane());
-		adminMainPane.setControlCenterPaneController(controlCenterPaneController);
+		adminMainPane.setMetroCardOverviewPaneController(metroCardOverviewPaneController);
 
 		metroFacade.addObserver(metroTicketViewController, MetroEventsEnum.OPEN_METROSTATION);
 		metroFacade.addObserver(metroStationViewController, MetroEventsEnum.OPEN_METROSTATION);
 		metroFacade.addObserver(metroCardOverviewPaneController, MetroEventsEnum.OPEN_METROSTATION);
+
+		metroFacade.addObserver(metroTicketViewController, MetroEventsEnum.CLOSE_METROSTATION);
+		metroFacade.addObserver(metroStationViewController, MetroEventsEnum.CLOSE_METROSTATION);
+		metroFacade.addObserver(metroCardOverviewPaneController, MetroEventsEnum.CLOSE_METROSTATION);
 
 		metroFacade.addObserver(metroTicketViewController, MetroEventsEnum.BUY_METROCARD);
 		metroFacade.addObserver(metroStationViewController, MetroEventsEnum.BUY_METROCARD);

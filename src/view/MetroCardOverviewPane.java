@@ -9,7 +9,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
 import model.Metrocard;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class MetroCardOverviewPane extends GridPane {
     private MetroCardOverviewPaneController metroCardOverviewPaneController;
@@ -39,7 +39,7 @@ public class MetroCardOverviewPane extends GridPane {
 
     }
 
-    public void updateMetrocardList(ArrayList<Metrocard> metrocards) {
+    public void updateMetrocardList(List<Metrocard> metrocards) {
         this.table.getItems().setAll(metrocards);
     }
 
