@@ -15,9 +15,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import model.Gate;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +28,7 @@ public class MetroStationView {
 	private List<Integer> metroCardIDList;
 	private final List<ComboBox<Integer>> cbxCardIDsList;
 
-	private HashMap<Gate,TextField> outputs;
+	private Map<Gate,TextField> outputs;
 
 	private HBox rootHBox;
 
@@ -66,19 +64,11 @@ public class MetroStationView {
 
 	public void setMetroStationViewController(MetroStationViewController metroStationViewController) {
 		this.metroStationViewController = metroStationViewController;
-
-
-
-		for(Gate gate: metroStationViewController.getGates()) {
+		
+		for (Gate gate: metroStationViewController.getGates()) {
 			TextField output = new TextField();
 			output.setEditable(false);
-			outputs.put(gate,output);
-		}
-
-
-
-
-		for (Gate gate: metroStationViewController.getGates()) {
+			outputs.put(gate, output);
 
 			VBox gateVBox = new VBox(10);
 			gateVBox.setPadding(new Insets(5));
@@ -89,21 +79,18 @@ public class MetroStationView {
 					BorderWidths.DEFAULT)));
 			rootHBox.getChildren().add(gateVBox);
 
-
 			Label gateLabel = new Label(gate.getName());
 			gateVBox.getChildren().add(gateLabel);
 
-
 			Label gateMetroCardIDLabel = new Label("Metrocard ID:");
 			gateVBox.getChildren().add(gateMetroCardIDLabel);
-
 
 			ComboBox<Integer> gate1IDComboBox = new ComboBox<>();
 			gate1IDComboBox.setItems(metroStationViewController.getIDs());
 			cbxCardIDsList.add(gate1IDComboBox);
 			gateVBox.getChildren().add(gate1IDComboBox);
 
-			// Gate Scan Metro Card Button
+			// Scan Metro Card Button
 			Button gate1ScanButton = new Button("Scan metro card");
 			gate1ScanButton.setOnAction((event) -> {
 				if (gate1IDComboBox.getValue() != null) {
@@ -112,12 +99,10 @@ public class MetroStationView {
 			});
 			gateVBox.getChildren().add(gate1ScanButton);
 
-			// Gate 1 Walk through Gate Button
+			// Walk through Gate Button
 			Button gateWalkButton = new Button("Walk through gate");
 			gateWalkButton.setOnAction((event) -> {
-
 				this.metroStationViewController.walkThroughGate(gate);
-
 			});
 			gateVBox.getChildren().add(gateWalkButton);
 
@@ -125,7 +110,7 @@ public class MetroStationView {
 		}
 	}
 
-	public HashMap<Gate, TextField> getOutputs() {
+	public Map<Gate, TextField> getOutputs() {
 		return this.outputs;
 	}
 }
