@@ -28,10 +28,11 @@ import java.util.List;
 public class MetroStationView {
 	MetroStationViewController metroStationViewController;
 
-	private Stage stage = new Stage();
+	private final Stage stage = new Stage();
 
 	private List<Integer> metroCardIDList;
-	private List<ComboBox<Integer>> cbxCardIDsList;
+  
+	private final List<ComboBox<Integer>> cbxCardIDsList;
 
 	private HBox mainBox;
 	private HashMap<Gate,TextField> outputs;

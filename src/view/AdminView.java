@@ -9,7 +9,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;	
 
 public class AdminView {
-	private Stage stage = new Stage();
+	private final Stage stage = new Stage();
 
 	private AdminMainPane borderPane;
 
@@ -38,5 +38,4 @@ public class AdminView {
 	public AdminMainPane getAdminMainPane() {
 		return this.borderPane;
 	}
-
 }
