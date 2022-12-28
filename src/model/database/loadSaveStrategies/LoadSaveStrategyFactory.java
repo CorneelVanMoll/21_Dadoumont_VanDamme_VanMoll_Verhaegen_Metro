@@ -1,6 +1,10 @@
 package model.database.loadSaveStrategies;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.lang.reflect.Constructor;
+import java.util.Arrays;
 
 public class LoadSaveStrategyFactory<K, V> {
     public LoadSaveStrategy<K, V> createLoadSaveStrategy(LoadSaveStrategyEnum loadSaveStrategy) {
@@ -14,5 +18,18 @@ public class LoadSaveStrategyFactory<K, V> {
             e.printStackTrace();
         }
         return out;
+    }
+
+    public String getSelectedLoadSaveStrategy() {
+        BufferedReader reader;
+        String strategyString = null;
+
+        try {
+            reader = new BufferedReader(new FileReader("settings.txt"));
+            strategyString = reader.readLine();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return strategyString;
     }
 }

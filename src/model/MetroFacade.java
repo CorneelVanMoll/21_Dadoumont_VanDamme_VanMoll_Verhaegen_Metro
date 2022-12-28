@@ -1,8 +1,10 @@
 package model;
 
 import model.TicketPriceDecorator.TicketPrice;
+import model.TicketPriceDecorator.TicketPriceDiscountEnum;
 import model.TicketPriceDecorator.TicketPriceFactory;
 import model.database.MetrocardDatabase;
+import model.database.loadSaveStrategies.LoadSaveStrategy;
 import model.database.loadSaveStrategies.LoadSaveStrategyEnum;
 import model.database.loadSaveStrategies.LoadSaveStrategyFactory;
 
@@ -12,18 +14,18 @@ import java.time.Year;
 import java.util.ArrayList;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class MetroFacade implements Subject {
     Map<MetroEventsEnum, List<Observer>> observerMap;
-
     private MetrocardDatabase metroDB;
     private final LoadSaveStrategyFactory<Integer, Metrocard> loadSaveStrategyFactory;
-
-    private ArrayList<String> metroTicketDiscountList;
+    private List<String> metroTicketDiscountList;
 
     public MetroFacade() {
         this.observerMap = new HashMap<>();
         this.loadSaveStrategyFactory = new LoadSaveStrategyFactory<>();
+        this.metroTicketDiscountList = TicketPriceFactory.loadDiscounts();
     }
 
     public List<Metrocard> getMetroCardList() {
@@ -52,6 +54,7 @@ public class MetroFacade implements Subject {
     public void openMetroStation(LoadSaveStrategyEnum loadSaveStrategy) {
         this.metroDB = new MetrocardDatabase(this.loadSaveStrategyFactory.createLoadSaveStrategy(loadSaveStrategy));
         this.metroTicketDiscountList = TicketPriceFactory.loadDiscounts();
+        System.out.println(this.metroTicketDiscountList);
         this.metroDB.load();
         fireEvent(MetroEventsEnum.OPEN_METROSTATION);
     }
@@ -80,5 +83,27 @@ public class MetroFacade implements Subject {
     public double getPrice(boolean is24Min, boolean is64Plus, boolean isStudent, Metrocard metrocard) {
         TicketPrice ticketPrice = TicketPriceFactory.createTicketPrice(is24Min, is64Plus, isStudent, metrocard);
         return ticketPrice.getPrice();
+    }
+
+    public List<String> getSelectedDiscounts() {
+        return metroTicketDiscountList;
+    }
+
+    public List<String> getAllDiscounts() {
+        List<TicketPriceDiscountEnum> list = Arrays.asList(TicketPriceDiscountEnum.values());
+        return list.stream().map(TicketPriceDiscountEnum::toString).collect(Collectors.toList());
+    }
+
+    public void saveSettings() {
+
+    }
+
+    public String getSelectedLoadStrategy() {
+        return loadSaveStrategyFactory.getSelectedLoadSaveStrategy();
+    }
+
+    public List<String> getAllLoadStrategies() {
+        List<LoadSaveStrategyEnum> list = Arrays.asList(LoadSaveStrategyEnum.values());
+        return list.stream().map(LoadSaveStrategyEnum::toString).collect(Collectors.toList());
     }
 }
