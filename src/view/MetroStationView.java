@@ -14,12 +14,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.Region;
 import javafx.geometry.Rectangle2D;
-import javafx.scene.Scene;
-import javafx.scene.control.ComboBox;
-import javafx.scene.layout.GridPane;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -28,7 +23,6 @@ import model.Gate;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class MetroStationView {
@@ -98,8 +92,9 @@ public class MetroStationView {
 			Button scanBtn = new Button("Scan metrocard");
 			scanBtn.setPrefSize(100, 20);
 			scanBtn.setOnAction((event) -> {
-				this.metroStationViewController.scanMetroCard(gate, cbxCardIDs.getValue().toString());
-
+				if (cbxCardIDs.getValue() != null) {
+					this.metroStationViewController.scanMetroCard(gate, cbxCardIDs.getValue().toString());
+				}
 			});
 
 			Button walkBtn = new Button("Walk through gate");
