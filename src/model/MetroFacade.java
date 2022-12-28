@@ -1,5 +1,7 @@
 package model;
 
+import model.TicketPriceDecorator.TicketPrice;
+import model.TicketPriceDecorator.TicketPriceFactory;
 import model.database.MetrocardDatabase;
 import model.database.loadSaveStrategies.LoadSaveStrategyEnum;
 import model.database.loadSaveStrategies.LoadSaveStrategyFactory;
@@ -16,6 +18,8 @@ public class MetroFacade implements Subject {
 
     private MetrocardDatabase metroDB;
     private final LoadSaveStrategyFactory<Integer, Metrocard> loadSaveStrategyFactory;
+
+    private ArrayList<String> metroTicketDiscountList;
 
     public MetroFacade() {
         this.observerMap = new HashMap<>();
@@ -47,6 +51,7 @@ public class MetroFacade implements Subject {
 
     public void openMetroStation(LoadSaveStrategyEnum loadSaveStrategy) {
         this.metroDB = new MetrocardDatabase(this.loadSaveStrategyFactory.createLoadSaveStrategy(loadSaveStrategy));
+        this.metroTicketDiscountList = TicketPriceFactory.loadDiscounts();
         this.metroDB.load();
         fireEvent(MetroEventsEnum.OPEN_METROSTATION);
     }
@@ -70,5 +75,10 @@ public class MetroFacade implements Subject {
                 observer.update();
             }
         }
+    }
+
+    public double getPrice(boolean is24Min, boolean is64Plus, boolean isStudent, Metrocard metrocard) {
+        TicketPrice ticketPrice = TicketPriceFactory.createTicketPrice(is24Min, is64Plus, isStudent, metrocard);
+        return ticketPrice.getPrice();
     }
 }
