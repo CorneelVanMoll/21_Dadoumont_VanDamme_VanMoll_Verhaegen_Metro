@@ -28,7 +28,7 @@ public class MetroCardOverviewPane extends GridPane {
 
 
     public MetroCardOverviewPane() {
-
+        System.out.println("init");
         this.setPadding(new Insets(5, 5, 5, 5));
         this.setVgap(5);
         this.setHgap(5);
@@ -44,6 +44,8 @@ public class MetroCardOverviewPane extends GridPane {
         availableTrips.setCellValueFactory(new PropertyValueFactory<>("availableTrips"));
         TableColumn<Metrocard, Integer> usedTrips = new TableColumn<>("Used trips");
         usedTrips.setCellValueFactory(new PropertyValueFactory<>("usedTrips"));
+
+        this.table.setItems(metroCards);
 
         table.getColumns().addAll(id, month, availableTrips, usedTrips);
 

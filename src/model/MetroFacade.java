@@ -13,11 +13,20 @@ public class MetroFacade implements Subject {
     private MetrocardDatabase metroDB;
     private LoadSaveStrategyFactory<Integer, Metrocard> loadSaveStrategyFactory;
 
+    private ArrayList<Gate> gates;
+
     public MetroFacade() {
         this.loadSaveStrategyFactory = new LoadSaveStrategyFactory<>();
         this.metroDB = new MetrocardDatabase(this.loadSaveStrategyFactory.createLoadSaveStrategy(LoadSaveStrategyEnum.TEXT));
         this.metroDB.load();
         this.observers = new ArrayList<>();
+        this.gates = new ArrayList<>();
+        this.gates.add(new Gate("Gate1"));
+        this.gates.add(new Gate("Gate2"));
+        this.gates.add(new Gate("Gate3"));
+        for(Gate gate: gates) {
+            gate.activate();
+        }
     }
 
     public ArrayList<Metrocard> getMetroCardList() {
@@ -39,5 +48,9 @@ public class MetroFacade implements Subject {
             observer.update();
         }
         this.loadSaveStrategyFactory.createLoadSaveStrategy(LoadSaveStrategyEnum.TEXT);
+    }
+
+    public ArrayList<Gate> getGates() {
+        return this.gates;
     }
 }

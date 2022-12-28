@@ -46,7 +46,7 @@ public class MetroMain extends Application {
 		adminMainPane.setControlCenterPaneController(controlCenterPaneController);
 
 		MetroCardOverviewPaneController metroCardOverviewPaneController = new MetroCardOverviewPaneController(metroFacade, adminMainPane.getMetroCardOverviewPane());
-		adminMainPane.setControlCenterPaneController(controlCenterPaneController);
+		adminMainPane.setMetroCardOverviewPaneController(metroCardOverviewPaneController);
 
 		metroFacade.addObserver(metroTicketViewController);
 		metroFacade.addObserver(metroStationViewController);
