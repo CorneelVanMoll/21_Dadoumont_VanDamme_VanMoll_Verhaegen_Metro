@@ -21,9 +21,18 @@ public class MetroFacade implements Subject {
 
     private ArrayList<String> metroTicketDiscountList;
 
+    private ArrayList<Gate> gates;
+
     public MetroFacade() {
         this.observerMap = new HashMap<>();
         this.loadSaveStrategyFactory = new LoadSaveStrategyFactory<>();
+        this.gates = new ArrayList<>();
+        this.gates.add(new Gate("Gate1"));
+        this.gates.add(new Gate("Gate2"));
+        this.gates.add(new Gate("Gate3"));
+        for(Gate gate: gates) {
+            gate.activate();
+        }
     }
 
     public List<Metrocard> getMetroCardList() {
@@ -80,5 +89,9 @@ public class MetroFacade implements Subject {
     public double getPrice(boolean is24Min, boolean is64Plus, boolean isStudent, Metrocard metrocard) {
         TicketPrice ticketPrice = TicketPriceFactory.createTicketPrice(is24Min, is64Plus, isStudent, metrocard);
         return ticketPrice.getPrice();
+    }
+
+    public ArrayList<Gate> getGates() {
+        return this.gates;
     }
 }
