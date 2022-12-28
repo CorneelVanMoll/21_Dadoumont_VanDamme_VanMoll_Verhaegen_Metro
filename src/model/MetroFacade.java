@@ -23,9 +23,18 @@ public class MetroFacade implements Subject {
     private LoadSaveStrategyEnum loadSaveStrategy;
     private List<String> metroTicketDiscountList;
 
+    private ArrayList<Gate> gates;
+
     public MetroFacade() {
         this.observerMap = new HashMap<>();
         this.loadSaveStrategyFactory = new LoadSaveStrategyFactory<>();
+        this.gates = new ArrayList<>();
+        this.gates.add(new Gate("Gate1"));
+        this.gates.add(new Gate("Gate2"));
+        this.gates.add(new Gate("Gate3"));
+        for(Gate gate: gates) {
+            gate.activate();
+        }
         this.metroTicketDiscountList = TicketPriceFactory.loadDiscounts();
     }
 
@@ -61,10 +70,11 @@ public class MetroFacade implements Subject {
     }
 
     public void closeMetroStation() {
-        this.loadSaveStrategy = null;
-        this.metroDB.save();
-        this.metroDB = null;
-        fireEvent(MetroEventsEnum.CLOSE_METROSTATION);
+        if (this.metroDB != null) {
+            this.metroDB.save();
+            this.metroDB = null;
+            fireEvent(MetroEventsEnum.CLOSE_METROSTATION);
+        }
     }
 
     public void newMetroCard(Month month, Year year) {
@@ -87,6 +97,10 @@ public class MetroFacade implements Subject {
         return ticketPrice.getPrice();
     }
 
+
+    public ArrayList<Gate> getGates() {
+        return this.gates;
+
     public List<String> getSelectedDiscounts() {
         return metroTicketDiscountList;
     }
@@ -107,5 +121,6 @@ public class MetroFacade implements Subject {
     public List<String> getAllLoadStrategies() {
         List<LoadSaveStrategyEnum> list = Arrays.asList(LoadSaveStrategyEnum.values());
         return list.stream().map(LoadSaveStrategyEnum::toString).collect(Collectors.toList());
+
     }
 }
