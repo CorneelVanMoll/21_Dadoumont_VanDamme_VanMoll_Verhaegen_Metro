@@ -98,8 +98,9 @@ public class MetroFacade implements Subject {
     }
 
 
-    public ArrayList<Gate> getGates() {
+    public List<Gate> getGates() {
         return this.gates;
+    }
 
     public List<String> getSelectedDiscounts() {
         return metroTicketDiscountList;
