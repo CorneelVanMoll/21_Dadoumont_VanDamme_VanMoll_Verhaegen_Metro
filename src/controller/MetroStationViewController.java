@@ -6,7 +6,6 @@ import model.Gate;
 import model.MetroFacade;
 import model.Observer;
 import model.states.ClosedState;
-import view.MetroCardOverviewPane;
 import view.MetroStationView;
 
 import java.util.ArrayList;
@@ -16,14 +15,14 @@ public class MetroStationViewController implements Observer {
     MetroFacade metroFacade;
     MetroStationView metroStationView;
 
-    private ObservableList<Integer> options;
+    private final ObservableList<Integer> options;
 
-    private int NumberOfScannedMetroCards;
+    private final int numberOfScannedMetroCards;
 
     public MetroStationViewController(MetroFacade metroFacade, MetroStationView metroStationView) {
         this.metroFacade = metroFacade;
         this.metroStationView = metroStationView;
-        this.NumberOfScannedMetroCards = 0;
+        this.numberOfScannedMetroCards = 0;
 
 
         options = FXCollections.observableArrayList(metroFacade.getMetroCardIDList());
@@ -42,37 +41,30 @@ public class MetroStationViewController implements Observer {
         return options;
     }
 
-
     public void scanMetroCard(Gate gate, String id) {
-
-        if(id != null && !id.isEmpty()) {
+        if (id != null && !id.isEmpty()) {
             int idInt = Integer.parseInt(id);
             List<Integer> ids = metroFacade.getMetroCardIDList();
 
-            if(ids.contains(idInt)) {
-
+            if (ids.contains(idInt)) {
                 gate.scan();
                 metroStationView.getOutputs().get(gate).setText("card " +id + " is scanned");
-            }else{
+            } else {
                 gate.setClosed();
                 metroStationView.getOutputs().get(gate).setText("card " +id + " is not valid");
             }
-        }else{
+        } else{
             gate.createAlert();
             metroStationView.getOutputs().get(gate).setText("alert is generated");
         }
-
-
     }
 
     public void walkThroughGate(Gate gate) {
-
-        if(gate.getContext().getState() instanceof ClosedState) {
+        if (gate.getContext().getState() instanceof ClosedState) {
             metroStationView.getOutputs().get(gate).setText("Gate is closed");
-        }else {
+        } else {
             gate.walkThroughGate();
             metroStationView.getOutputs().get(gate).setText("walked through");
         }
-
     }
 }
