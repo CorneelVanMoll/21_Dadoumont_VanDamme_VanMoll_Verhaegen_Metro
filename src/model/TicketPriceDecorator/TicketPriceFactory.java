@@ -14,7 +14,7 @@ public class TicketPriceFactory {
     private static List<String> discounts;
 
     public static TicketPrice createTicketPrice(boolean is24Min, boolean is64Plus, boolean isStudent, Metrocard metrocard) {
-        TicketPrice ticketPrice = new BasicTicketPrice();
+        TicketPrice ticketPrice = new BasicTicketPrice(metrocard.getUsedTrips());
         ticketPrice.setIs24Min(is24Min);
         ticketPrice.setIs64Plus(is64Plus);
         ticketPrice.setStudent(isStudent);

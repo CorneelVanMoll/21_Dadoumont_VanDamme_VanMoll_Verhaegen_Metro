@@ -3,12 +3,24 @@ package model.TicketPriceDecorator;
 import java.text.DecimalFormat;
 
 public abstract class TicketPrice {
-
     private boolean is24Min;
     private boolean is64Plus;
     private boolean isStudent;
 
+    private boolean frequentTraveller;
+
+    public boolean isFrequentTraveller() {
+        return frequentTraveller;
+    }
+
+    public void setFrequentTraveller(boolean frequentTraveller) {
+        this.frequentTraveller = frequentTraveller;
+    }
+
     private final DecimalFormat euros = new DecimalFormat( "€0.00" );
+
+    protected TicketPrice() {
+    }
 
     public DecimalFormat getEuros() {
         return euros;

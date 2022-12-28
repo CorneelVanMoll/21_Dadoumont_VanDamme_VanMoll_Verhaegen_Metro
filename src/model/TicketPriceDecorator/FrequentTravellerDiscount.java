@@ -9,6 +9,8 @@ public class FrequentTravellerDiscount extends TicketPriceDiscountDecorator {
 
     @Override
     public double getPrice() {
-        return this.price - 0.20;
+        if (isFrequentTraveller())
+            return this.price - 0.20;
+        return this.price;
     }
 }
