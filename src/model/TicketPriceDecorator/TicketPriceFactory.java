@@ -48,6 +48,4 @@ public class TicketPriceFactory {
         }
         return discounts;
     }
-
-
 }
