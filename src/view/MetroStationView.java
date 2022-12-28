@@ -64,13 +64,6 @@ public class MetroStationView {
 
 	}
 
-	public void updateMetroCardIdList(List<Integer> IDs) {
-		this.metroCardIDList = IDs;
-		for (ComboBox<Integer> cbx : cbxCardIDsList) {
-			cbx.getItems().setAll(metroCardIDList);
-		}
-	}
-
 	public void setMetroStationViewController(MetroStationViewController metroStationViewController) {
 		this.metroStationViewController = metroStationViewController;
 
