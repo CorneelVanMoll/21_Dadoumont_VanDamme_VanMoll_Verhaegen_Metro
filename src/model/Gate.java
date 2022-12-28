@@ -12,7 +12,6 @@ public class Gate {
         this.context = new StateContext();
     }
 
-
     public String getName() {
         return this.name;
     }

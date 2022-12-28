@@ -46,10 +46,10 @@ public class MetroStationViewController implements Observer {
 
             if (ids.contains(idInt)) {
                 gate.scan();
-                metroStationView.getOutputs().get(gate).setText("card " +id + " is scanned");
-            } else{
+                metroStationView.getOutputs().get(gate).setText("card " + id + " is scanned");
+            } else {
                 gate.setClosed();
-                metroStationView.getOutputs().get(gate).setText("card " +id + " is not valid");
+                metroStationView.getOutputs().get(gate).setText("card " + id + " is not valid");
             }
         } else {
             gate.createAlert();

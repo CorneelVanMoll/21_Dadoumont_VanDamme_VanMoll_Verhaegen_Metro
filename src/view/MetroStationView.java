@@ -13,12 +13,10 @@ import javafx.scene.paint.Color;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+
 import model.Gate;
 
 import java.util.*;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class MetroStationView {
 	MetroStationViewController metroStationViewController;
@@ -58,13 +56,11 @@ public class MetroStationView {
 		for (ComboBox<Integer> cbx : cbxCardIDsList) {
 			cbx.getItems().setAll(metroCardIDList);
 		}
-
-
 	}
 
 	public void setMetroStationViewController(MetroStationViewController metroStationViewController) {
 		this.metroStationViewController = metroStationViewController;
-		
+
 		for (Gate gate: metroStationViewController.getGates()) {
 			TextField output = new TextField();
 			output.setEditable(false);
@@ -85,19 +81,19 @@ public class MetroStationView {
 			Label gateMetroCardIDLabel = new Label("Metrocard ID:");
 			gateVBox.getChildren().add(gateMetroCardIDLabel);
 
-			ComboBox<Integer> gate1IDComboBox = new ComboBox<>();
-			gate1IDComboBox.setItems(metroStationViewController.getIDs());
-			cbxCardIDsList.add(gate1IDComboBox);
-			gateVBox.getChildren().add(gate1IDComboBox);
+			ComboBox<Integer> gateIDComboBox = new ComboBox<>();
+			gateIDComboBox.setItems(metroStationViewController.getIDs());
+			cbxCardIDsList.add(gateIDComboBox);
+			gateVBox.getChildren().add(gateIDComboBox);
 
 			// Scan Metro Card Button
-			Button gate1ScanButton = new Button("Scan metro card");
-			gate1ScanButton.setOnAction((event) -> {
-				if (gate1IDComboBox.getValue() != null) {
-					this.metroStationViewController.scanMetroCard(gate, gate1IDComboBox.getValue().toString());
+			Button gateScanButton = new Button("Scan metro card");
+			gateScanButton.setOnAction((event) -> {
+				if (gateIDComboBox.getValue() != null) {
+					this.metroStationViewController.scanMetroCard(gate, gateIDComboBox.getValue().toString());
 				}
 			});
-			gateVBox.getChildren().add(gate1ScanButton);
+			gateVBox.getChildren().add(gateScanButton);
 
 			// Walk through Gate Button
 			Button gateWalkButton = new Button("Walk through gate");
