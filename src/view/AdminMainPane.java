@@ -17,17 +17,11 @@ public class AdminMainPane extends BorderPane {
         metroCardOverviewPane = new MetroCardOverviewPane();
         controlCenterPane = new ControlCenterPane();
 
-        //maak een controlCenterPane aan
-        //maak een setupPane aan
-
         Tab metroCardOverviewTab = new Tab("Metro cards overview",metroCardOverviewPane);
         Tab controlCenterTab = new Tab("Control Center",controlCenterPane);
-        Tab setupTab = new Tab("Setup");
         tabPane.getTabs().add(controlCenterTab);
         tabPane.getTabs().add(metroCardOverviewTab);
-        tabPane.getTabs().add(setupTab);
         this.setCenter(tabPane);
-
 	}
 
     public ControlCenterPane getControlCenterPane() {
