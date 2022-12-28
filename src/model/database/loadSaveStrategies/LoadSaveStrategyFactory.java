@@ -32,6 +32,18 @@ public class LoadSaveStrategyFactory<K, V> {
         return strategyString;
     }
 
+
+    public static LoadSaveStrategyEnum loadLoadSaveStrategy() {
+        LoadSaveStrategyEnum loadSaveStrategy = null;
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader("settings.txt"));
+            loadSaveStrategy = LoadSaveStrategyEnum.valueOf(reader.readLine());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return loadSaveStrategy;
+    }
+    
     public void saveSettings(List<String> discountSelected, List<String> strategySelected) {
         try {
             File settings = new File("settings.txt");

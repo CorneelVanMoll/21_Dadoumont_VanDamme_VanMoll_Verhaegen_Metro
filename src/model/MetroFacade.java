@@ -20,6 +20,7 @@ public class MetroFacade implements Subject {
     Map<MetroEventsEnum, List<Observer>> observerMap;
     private MetrocardDatabase metroDB;
     private final LoadSaveStrategyFactory<Integer, Metrocard> loadSaveStrategyFactory;
+    private LoadSaveStrategyEnum loadSaveStrategy;
     private List<String> metroTicketDiscountList;
 
     public MetroFacade() {
@@ -51,15 +52,16 @@ public class MetroFacade implements Subject {
         }
     }
 
-    public void openMetroStation(LoadSaveStrategyEnum loadSaveStrategy) {
-        this.metroDB = new MetrocardDatabase(this.loadSaveStrategyFactory.createLoadSaveStrategy(loadSaveStrategy));
+    public void openMetroStation() {
         this.metroTicketDiscountList = TicketPriceFactory.loadDiscounts();
-        System.out.println(this.metroTicketDiscountList);
+        this.loadSaveStrategy = LoadSaveStrategyFactory.loadLoadSaveStrategy();
+        this.metroDB = new MetrocardDatabase(this.loadSaveStrategyFactory.createLoadSaveStrategy(this.loadSaveStrategy));
         this.metroDB.load();
         fireEvent(MetroEventsEnum.OPEN_METROSTATION);
     }
 
     public void closeMetroStation() {
+        this.loadSaveStrategy = null;
         this.metroDB.save();
         this.metroDB = null;
         fireEvent(MetroEventsEnum.CLOSE_METROSTATION);
