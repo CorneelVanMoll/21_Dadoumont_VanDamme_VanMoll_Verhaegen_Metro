@@ -39,7 +39,7 @@ public class MetroStationView {
 		stage.show();		
 	}
 
-	public void updateMetroCardIdList(ArrayList<Integer> IDs) {
+	public void updateMetroCardIdList(List<Integer> IDs) {
 		this.metroCardIDList = IDs;
 		for (ComboBox<Integer> cbx : cbxCardIDsList) {
 			cbx.getItems().setAll(metroCardIDList);

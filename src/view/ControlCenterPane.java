@@ -6,10 +6,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
+import model.database.loadSaveStrategies.LoadSaveStrategy;
 import model.database.loadSaveStrategies.LoadSaveStrategyEnum;
 
 public class ControlCenterPane extends GridPane {
-
     ControlCenterPaneController controlCenterPaneController;
 
     public ControlCenterPane() {
@@ -17,19 +17,23 @@ public class ControlCenterPane extends GridPane {
         this.setVgap(5);
         this.setHgap(5);
 
-        Button button = new Button("Open metro station");
-
         ComboBox<LoadSaveStrategyEnum> cbxLoadSaveStrategy = new ComboBox<>();
         cbxLoadSaveStrategy.getItems().setAll(LoadSaveStrategyEnum.values());
         this.add(cbxLoadSaveStrategy,1,0,1,1);
 
-        button.setOnAction((event) -> {
+        Button openButton = new Button("Open metro station");
+        openButton.setOnAction((event) -> {
             if (cbxLoadSaveStrategy.getValue() != null) {
                 controlCenterPaneController.openMetroStation(cbxLoadSaveStrategy.getValue());
             }
         });
+        this.add(openButton, 0, 0, 1, 1);
 
-        this.add(button, 0, 0, 1, 1);
+        Button closeButton = new Button("Close metro station");
+        closeButton.setOnAction((event) -> {
+            controlCenterPaneController.closeMetroStation();
+        });
+        this.add(closeButton, 0, 1, 1, 1);
     }
 
     public void setControlCenterPaneController(ControlCenterPaneController controller) {

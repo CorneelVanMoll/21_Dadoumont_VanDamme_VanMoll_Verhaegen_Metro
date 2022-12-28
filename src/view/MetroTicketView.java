@@ -11,11 +11,12 @@ import javafx.stage.StageStyle;
 import model.database.loadSaveStrategies.LoadSaveStrategyEnum;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MetroTicketView {
 	private Stage stage = new Stage();
 
-	private ArrayList<Integer> IDs;
+	private List<Integer> IDs;
 	private MetroTicketViewController metroTicketViewController;
 
 	private ComboBox<Integer> cbxCardIDs;
@@ -42,7 +43,7 @@ public class MetroTicketView {
 		stage.show();
 	}
 
-	public void updateMetroCardIdList(ArrayList<Integer> IDs) {
+	public void updateMetroCardIdList(List<Integer> IDs) {
 		this.IDs = IDs;
 		cbxCardIDs.getItems().setAll(IDs);
 	}

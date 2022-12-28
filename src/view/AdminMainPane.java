@@ -12,9 +12,9 @@ public class AdminMainPane extends BorderPane {
     private MetroCardOverviewPane metroCardOverviewPane;
 
     public AdminMainPane(){
-	    TabPane tabPane = new TabPane(); 	    
-         metroCardOverviewPane = new MetroCardOverviewPane();
+	    TabPane tabPane = new TabPane();
 
+        metroCardOverviewPane = new MetroCardOverviewPane();
         controlCenterPane = new ControlCenterPane();
 
 	//maak een controlCenterPane aan
