@@ -33,8 +33,6 @@ public class MetroCardOverviewPane extends GridPane {
         TableColumn<Metrocard, Integer> usedTrips = new TableColumn<>("Used trips");
         usedTrips.setCellValueFactory(new PropertyValueFactory<>("usedTrips"));
 
-        this.table.setItems(metroCards);
-
         table.getColumns().addAll(id, month, availableTrips, usedTrips);
 
         this.add(this.table, 0, 1, 1, 1);

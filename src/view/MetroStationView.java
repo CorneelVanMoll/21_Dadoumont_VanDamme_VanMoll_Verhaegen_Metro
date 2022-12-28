@@ -38,8 +38,11 @@ public class MetroStationView {
 
 	private List<Integer> metroCardIDList;
 	private List<ComboBox<Integer>> cbxCardIDsList;
+
+	private HBox mainBox;
+	private HashMap<Gate,TextField> outputs;
 	
-	public MetroStationView(){
+	public MetroStationView() {
 		Screen screen = Screen.getPrimary();
 		Rectangle2D bounds = screen.getVisualBounds();
 		stage.setTitle("METRO STATION VIEW");
@@ -49,22 +52,16 @@ public class MetroStationView {
 		GridPane root = new GridPane();
 
 		cbxCardIDsList = new ArrayList<>();
-
-		/*for (int i = 0; i < 3; i++) {
-			ComboBox<Integer> cbxCardIDs = new ComboBox<>();
-			cbxCardIDsList.add(cbxCardIDs);
-			root.add(cbxCardIDs,i,0,1,1);
-		}*/
     
-    mainBox = new HBox();
+		mainBox = new HBox();
 		mainBox.setSpacing(10);
-    
-    root.add(mainBox,i,0,1,1);
+
+		root.add(mainBox,0,0,1,1);
     
 		Scene scene = new Scene(root, bounds.getWidth() / 2, (bounds.getHeight() / 2));
 		stage.setScene(scene);
-		stage.sizeToScene();			
-		stage.show();		
+		stage.sizeToScene();
+		stage.show();
 	}
 
 	public void updateMetroCardIdList(List<Integer> IDs) {
@@ -84,8 +81,7 @@ public class MetroStationView {
 			outputs.put(gate,output);
 		}
 
-		for(Gate gate: metroStationViewController.getGates()) {
-
+		for (Gate gate: metroStationViewController.getGates()) {
 			HBox hbox = new HBox();
 
 			hbox.setAlignment(Pos.BASELINE_CENTER);
@@ -95,24 +91,25 @@ public class MetroStationView {
 
 			Label label = new Label(gate.getName());
 
-			final ComboBox comboBox = new ComboBox(metroStationViewController.getIDs());
+			final ComboBox<Integer> cbxCardIDs = new ComboBox<>();
+
+			cbxCardIDsList.add(cbxCardIDs);
 
 			Button scanBtn = new Button("Scan metrocard");
 			scanBtn.setPrefSize(100, 20);
 			scanBtn.setOnAction((event) -> {
-				this.metroStationViewController.scanMetroCard(gate, comboBox.getValue().toString());
+				this.metroStationViewController.scanMetroCard(gate, cbxCardIDs.getValue().toString());
 
 			});
 
 			Button walkBtn = new Button("Walk through gate");
 			walkBtn.setPrefSize(100, 20);
 			walkBtn.setOnAction((event) -> {
-
 				this.metroStationViewController.walkThroughGate(gate);
 
 			});
 
-			hbox.getChildren().addAll(label,comboBox,scanBtn,walkBtn, outputs.get(gate));
+			hbox.getChildren().addAll(label,cbxCardIDs,scanBtn,walkBtn, outputs.get(gate));
 
 			mainBox.getChildren().add(hbox);
 		}

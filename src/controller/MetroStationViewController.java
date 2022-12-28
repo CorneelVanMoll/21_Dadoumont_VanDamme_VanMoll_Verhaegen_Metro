@@ -10,6 +10,7 @@ import view.MetroCardOverviewPane;
 import view.MetroStationView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MetroStationViewController implements Observer {
     MetroFacade metroFacade;
@@ -45,10 +46,10 @@ public class MetroStationViewController implements Observer {
     public void scanMetroCard(Gate gate, String id) {
 
         if(id != null && !id.isEmpty()) {
-            int iid = Integer.parseInt(id);
-            ArrayList<Integer> ids= metroFacade.getMetroCardIDList();
+            int idInt = Integer.parseInt(id);
+            List<Integer> ids = metroFacade.getMetroCardIDList();
 
-            if(ids.contains(iid)) {
+            if(ids.contains(idInt)) {
 
                 gate.scan();
                 metroStationView.getOutputs().get(gate).setText("card " +id + " is scanned");
