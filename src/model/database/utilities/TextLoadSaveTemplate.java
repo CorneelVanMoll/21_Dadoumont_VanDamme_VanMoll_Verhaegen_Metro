@@ -1,12 +1,9 @@
 package model.database.utilities;
 
-
-import model.database.loadSaveStrategies.LoadSaveStrategy;
-
 import java.io.*;
 import java.util.*;
 
-public abstract class TextLoadSaveTemplate<K,V> implements LoadSaveStrategy<K,V> {
+public abstract class TextLoadSaveTemplate<K,V> {
     private final String path;
 
     public TextLoadSaveTemplate(String path) {
@@ -17,7 +14,7 @@ public abstract class TextLoadSaveTemplate<K,V> implements LoadSaveStrategy<K,V>
 
     protected abstract K getKey(String[] tokens);
 
-    protected abstract String formatObject(Map.Entry<K, V> entry);
+    protected abstract List<String> formatObject(Map.Entry<K, V> entry);
 
     public final Map<K,V> load() {
         Map<K,V> returnMap = new HashMap<>();
@@ -42,7 +39,14 @@ public abstract class TextLoadSaveTemplate<K,V> implements LoadSaveStrategy<K,V>
         String out = "";
 
         for (Map.Entry<K, V> entry : data.entrySet()) {
-            out += formatObject(entry) + "\n";
+            List<String> object = formatObject(entry);
+            for (int i = 0; i < object.size(); i++) {
+                out += object.get(i);
+                if (i < object.size()-1) {
+                    out += ";";
+                }
+            }
+            out += "\n";
         }
 
         try {

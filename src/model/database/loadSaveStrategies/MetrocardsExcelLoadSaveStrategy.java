@@ -10,6 +10,10 @@ import java.util.*;
 import static java.lang.Integer.parseInt;
 
 public class MetrocardsExcelLoadSaveStrategy extends ExcelLoadSaveTemplate<Integer, Metrocard> implements LoadSaveStrategy<Integer, Metrocard> {
+    public MetrocardsExcelLoadSaveStrategy(String path) {
+        super(path);
+    }
+
     @Override
     protected Integer getKey(List<String> tokens) {
         return parseInt(tokens.get(0));
@@ -22,30 +26,8 @@ public class MetrocardsExcelLoadSaveStrategy extends ExcelLoadSaveTemplate<Integ
     }
 
     @Override
-    public Map<Integer, Metrocard> load() {
-        List<List<String>> data = super.load("metrocards.xls");
-        TreeMap<Integer, Metrocard> result = new TreeMap<>();
-        for (List<String> tokens : data) {
-            result.put(getKey(tokens), makeObject(tokens));
-        }
-        return result;
-    }
-
-    @Override
-    public void save(Map<Integer, Metrocard> data) {
-        List<List<String>> result = new ArrayList<>();
-
-        for (Map.Entry<Integer, Metrocard> entry : data.entrySet()) {
-            List<String> row = new ArrayList<>();
-            Metrocard m = entry.getValue();
-
-            row.add(String.valueOf(m.getId()));
-            row.add(String.format("%d#%d", m.getMonth().getValue(), m.getYear().getValue()));
-            row.add(String.valueOf(m.getAvailableTrips()));
-            row.add(String.valueOf(m.getUsedTrips()));
-
-            result.add(row);
-        }
-        super.save(result,"metrocards.xls");
+    protected List<String> formatObject(Map.Entry<Integer, Metrocard> entry) {
+        Metrocard m = entry.getValue();
+        return Arrays.asList(String.valueOf(entry.getKey()), String.format("%d#%d", m.getMonth().getValue(), m.getYear().getValue()), String.valueOf(m.getAvailableTrips()), String.valueOf(m.getUsedTrips()));
     }
 }
