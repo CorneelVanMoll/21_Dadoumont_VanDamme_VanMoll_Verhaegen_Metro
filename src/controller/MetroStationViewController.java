@@ -71,10 +71,12 @@ public class MetroStationViewController implements Observer {
                     }
                 } else {
                     gate.setClosed();
+                    metroFacade.invalidGateAction();
                     metroStationView.getOutputs().get(gate).setText("card " + id + " is not valid");
                 }
             } else {
                 gate.createAlert();
+                metroFacade.invalidGateAction();
                 metroStationView.getOutputs().get(gate).setText("alert is generated");
             }
         }
