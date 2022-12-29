@@ -5,5 +5,6 @@ public enum MetroEventsEnum {
     CLOSE_METROSTATION,
     BUY_METROCARD,
     INVALID_GATE_ACTION,
+    UPDATE_METROCARD,
     SCAN,
 }

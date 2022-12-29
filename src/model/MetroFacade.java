@@ -131,4 +131,9 @@ public class MetroFacade implements Subject {
         List<LoadSaveStrategyEnum> list = Arrays.asList(LoadSaveStrategyEnum.values());
         return list.stream().map(LoadSaveStrategyEnum::toString).collect(Collectors.toList());
     }
+
+    public void addRides(Integer metroCardId, int amount) {
+        metroDB.addRides(metroCardId, amount);
+        fireEvent(MetroEventsEnum.UPDATE_METROCARD);
+    }
 }
