@@ -28,7 +28,9 @@ public class MetroFacade implements Subject {
     private int totalCards = 0;
     private double totalPrice = 0;
 
-    public MetroFacade() {
+    private static MetroFacade metroFacade;
+
+    private MetroFacade() {
         this.observerMap = new HashMap<>();
         this.loadSaveStrategyFactory = new LoadSaveStrategyFactory<>();
         this.gates = new ArrayList<>();
@@ -36,6 +38,13 @@ public class MetroFacade implements Subject {
         this.gates.add(new Gate("Gate 2"));
         this.gates.add(new Gate("Gate 3"));
         this.metroTicketDiscountList = TicketPriceFactory.loadDiscounts();
+    }
+
+    public static MetroFacade getInstance() {
+        if (metroFacade == null) {
+            metroFacade = new MetroFacade();
+        }
+        return metroFacade;
     }
 
     public List<Metrocard> getMetroCardList() {
@@ -66,25 +75,25 @@ public class MetroFacade implements Subject {
         this.loadSaveStrategy = LoadSaveStrategyFactory.loadLoadSaveStrategy();
         this.metroDB = new MetrocardDatabase(this.loadSaveStrategyFactory.createLoadSaveStrategy(this.loadSaveStrategy));
         this.metroDB.load();
-        fireEvent(MetroEventsEnum.OPEN_METROSTATION);
+        notifyObservers(MetroEventsEnum.OPEN_METROSTATION);
     }
 
     public void closeMetroStation() {
         if (this.metroDB != null) {
             this.metroDB.save();
             this.metroDB = null;
-            fireEvent(MetroEventsEnum.CLOSE_METROSTATION);
+            notifyObservers(MetroEventsEnum.CLOSE_METROSTATION);
         }
     }
 
     public void newMetroCard(Month month, Year year) {
         if (this.metroDB != null) {
             this.metroDB.addMetrocard(month, year);
-            fireEvent(MetroEventsEnum.BUY_METROCARD);
+            notifyObservers(MetroEventsEnum.BUY_METROCARD);
         }
     }
 
-    private void fireEvent(MetroEventsEnum event) {
+    public void notifyObservers(MetroEventsEnum event) {
         if (observerMap.containsKey(event)) {
             for (Observer observer : observerMap.get(event)) {
                 observer.update(event);
@@ -104,14 +113,14 @@ public class MetroFacade implements Subject {
 
     public void invalidGateAction(Gate gate) {
         this.lastInvalidGate = gate;
-        fireEvent(MetroEventsEnum.INVALID_GATE_ACTION);
+        notifyObservers(MetroEventsEnum.INVALID_GATE_ACTION);
     }
 
     public Gate getLastInvalidGate() { return lastInvalidGate; }
 
     public boolean scanCard(int id) {
         if (this.metroDB.scanCard(id)) {
-            fireEvent(MetroEventsEnum.SCAN);
+            notifyObservers(MetroEventsEnum.SCAN);
             return true;
         }
         return false;
@@ -149,12 +158,12 @@ public class MetroFacade implements Subject {
 
         metroDB.addRides(metroCardId, amount);
 
-        fireEvent(MetroEventsEnum.UPDATE_METROCARD);
+        notifyObservers(MetroEventsEnum.UPDATE_METROCARD);
     }
 
     public void expiredCardAlert(Metrocard metrocard) {
         this.lastExpiredMetroCard = metrocard;
-        fireEvent(MetroEventsEnum.EXPIRED_CARD);
+        notifyObservers(MetroEventsEnum.EXPIRED_CARD);
     }
 
     public int getTotalCards() {

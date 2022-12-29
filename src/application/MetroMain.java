@@ -10,11 +10,10 @@ import model.MetroFacade;
 
 import view.*;
 
-
 public class MetroMain extends Application {
 	@Override
 	public void start(Stage primaryStage) {
-		MetroFacade metroFacade = new MetroFacade();
+		MetroFacade metroFacade = MetroFacade.getInstance();
 
 		AdminView adminView = new AdminView();
 		MetroTicketView metroTicketView = new MetroTicketView();
@@ -38,8 +37,15 @@ public class MetroMain extends Application {
 		SettingsPaneController settingsPaneController = new SettingsPaneController(metroFacade, adminMainPane.getSettingsPane());
 		adminMainPane.setSettingsPaneController(settingsPaneController);
 
+
+		metroFacade.addObserver(metroTicketViewController, MetroEventsEnum.OPEN_METROSTATION);
+		metroFacade.addObserver(metroStationViewController, MetroEventsEnum.OPEN_METROSTATION);
+		metroFacade.addObserver(metroCardOverviewPaneController, MetroEventsEnum.OPEN_METROSTATION);
 		metroFacade.addObserver(controlCenterPaneController, MetroEventsEnum.OPEN_METROSTATION);
 
+		metroFacade.addObserver(metroTicketViewController, MetroEventsEnum.CLOSE_METROSTATION);
+		metroFacade.addObserver(metroStationViewController, MetroEventsEnum.CLOSE_METROSTATION);
+		metroFacade.addObserver(metroCardOverviewPaneController, MetroEventsEnum.CLOSE_METROSTATION);
 		metroFacade.addObserver(controlCenterPaneController, MetroEventsEnum.CLOSE_METROSTATION);
 
 		metroFacade.addObserver(metroTicketViewController, MetroEventsEnum.BUY_METROCARD);
