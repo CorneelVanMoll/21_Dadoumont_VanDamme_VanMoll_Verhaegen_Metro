@@ -82,7 +82,7 @@ public class ControlCenterPane extends Pane {
                 numberSoldTicketsHBox.getChildren().add(numberSoldTicketsLabel);
 
                 // Number of Sold Tickets Textfield
-                numberSoldTicketsTextField = new TextField();
+                numberSoldTicketsTextField = new TextField("0");
                 numberSoldTicketsTextField.setEditable(false);
 
                 numberSoldTicketsHBox.getChildren().add(numberSoldTicketsTextField);
@@ -98,7 +98,7 @@ public class ControlCenterPane extends Pane {
 
                 // Total Amount Tickets TextField
 
-                totalAmountTicketsTextField = new TextField();
+                totalAmountTicketsTextField = new TextField("0");
                 totalAmountTicketsTextField.setEditable(false);
 
                 totalAmountTicketsHBox.getChildren().add(totalAmountTicketsTextField);
@@ -157,7 +157,7 @@ public class ControlCenterPane extends Pane {
             gatesHBox.getChildren().add(gateVBox);
             gateVBox.setStyle("-fx-background-color: #de5b0b;");
             // Label
-            Label gateLabel = new Label(gate.getName() + " / DEACTIVE");
+            Label gateLabel = new Label(gate.getName() + " / INACTIVE");
             gateVBox.getChildren().add(gateLabel);
 
             // Activate Button
@@ -174,7 +174,7 @@ public class ControlCenterPane extends Pane {
             gateVBox.getChildren().add(gateDeactivateButton);
             gateDeactivateButton.setOnAction((event) -> {
                 gateVBox.setStyle("-fx-background-color: #de5b0b;");
-                gateLabel.setText(gate.getName() + " / DEACTIVE");
+                gateLabel.setText(gate.getName() + " / INACTIVE");
                 gate.deactivate();
             });
 
