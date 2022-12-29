@@ -16,10 +16,15 @@ import model.Gate;
 import model.database.loadSaveStrategies.LoadSaveStrategy;
 import model.database.loadSaveStrategies.LoadSaveStrategyEnum;
 
+import java.text.DecimalFormat;
+
 public class ControlCenterPane extends Pane {
     ControlCenterPaneController controlCenterPaneController;
     private HBox gatesHBox;
     private TextArea textArea;
+    private TextField numberSoldTicketsTextField;
+    private TextField totalAmountTicketsTextField;
+    private final DecimalFormat euros = new DecimalFormat("€0.00");
 
     public ControlCenterPane() {
         Rectangle2D bounds = Screen.getPrimary().getVisualBounds();
@@ -77,7 +82,7 @@ public class ControlCenterPane extends Pane {
                 numberSoldTicketsHBox.getChildren().add(numberSoldTicketsLabel);
 
                 // Number of Sold Tickets Textfield
-                TextField numberSoldTicketsTextField = new TextField("#");
+                numberSoldTicketsTextField = new TextField();
                 numberSoldTicketsHBox.getChildren().add(numberSoldTicketsTextField);
 
             // Total Amount Tickets  Hbox
@@ -90,7 +95,7 @@ public class ControlCenterPane extends Pane {
                 totalAmountTicketsHBox.getChildren().add(totalAmountTicketsLabel);
 
                 // Total Amount Tickets TextField
-                TextField totalAmountTicketsTextField = new TextField("#");
+                totalAmountTicketsTextField = new TextField();
                 totalAmountTicketsHBox.getChildren().add(totalAmountTicketsTextField);
 
         // Gates Hbox
@@ -113,7 +118,7 @@ public class ControlCenterPane extends Pane {
         ScrollPane alertsScrollPane = new ScrollPane();
         textArea = new TextArea();
         textArea.setWrapText(true);
-        
+
         alertsScrollPane.setContent(textArea);
         alertsScrollPane.setFitToWidth(true);
         alertsScrollPane.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY,Insets.EMPTY)));
@@ -189,6 +194,7 @@ public class ControlCenterPane extends Pane {
     }
 
     public void update(int amount, double price) {
-
+        numberSoldTicketsTextField.setText(String.valueOf(amount));
+        totalAmountTicketsTextField.setText(euros.format(price));
     }
 }

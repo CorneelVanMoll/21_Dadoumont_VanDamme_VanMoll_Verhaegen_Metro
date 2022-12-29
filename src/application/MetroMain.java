@@ -55,8 +55,8 @@ public class MetroMain extends Application {
 		metroFacade.addObserver(metroCardOverviewPaneController, MetroEventsEnum.SCAN);
 
 		metroFacade.addObserver(controlCenterPaneController, MetroEventsEnum.INVALID_GATE_ACTION);
-		metroFacade.addObserver(controlCenterPaneController, MetroEventsEnum.UPDATE_METROCARD);
 
+		metroFacade.addObserver(controlCenterPaneController, MetroEventsEnum.UPDATE_METROCARD);
 		metroFacade.addObserver(metroCardOverviewPaneController, MetroEventsEnum.UPDATE_METROCARD);
 
 		metroFacade.addObserver(controlCenterPaneController, MetroEventsEnum.SCAN);

@@ -40,9 +40,11 @@ public class ControlCenterPaneController implements Observer {
             case EXPIRED_CARD:
                 this.alerts.add("That card has expired");
                 break;
+            case UPDATE_METROCARD:
+                this.controlCenterPane.update(this.metroFacade.getTotalCards(), this.metroFacade.getTotalPrice());
+                break;
         }
         this.controlCenterPane.refresh();
-        this.controlCenterPane.update(this.metroFacade.getTotalCards(), this.metroFacade.getTotalPrice());
     }
 
     public List<Gate> getGates() {
