@@ -58,6 +58,15 @@ public class Metrocard {
         this.usedTrips = usedTrips;
     }
 
+    public boolean scan() {
+        if (availableTrips >= 1) {
+            availableTrips--;
+            usedTrips++;
+            return true;
+        }
+        return false;
+    }
+
     @Override
     public String toString() {
         return "Metrocard{" +
