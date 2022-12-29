@@ -6,6 +6,10 @@ public class ClosedState implements GateState {
         context.setGateState(new OpenState());
     }
 
+    public void deactivate(StateContext context) {
+        context.setGateState(new InactiveState());
+    }
+
     @Override
     public void setClosed(StateContext context) {
         context.setGateState(new ClosedState());
