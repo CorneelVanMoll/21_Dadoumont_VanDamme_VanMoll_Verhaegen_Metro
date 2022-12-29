@@ -44,7 +44,6 @@ public class MetroTicketViewController implements Observer {
     }
 
     public void addRides(Integer metroCardId, int amount) {
-
         metroFacade.addRides(metroCardId, amount);
     }
 }

@@ -21,7 +21,7 @@ public class MetroTicketView {
 
     private final ComboBox<Integer> cbxMetroCardID;
 
-    private TextField totalPriceTextField = new TextField();
+    private TextField totalPriceTextField;
 
     public MetroTicketView() {
         Rectangle2D bounds = Screen.getPrimary().getVisualBounds();
@@ -29,6 +29,9 @@ public class MetroTicketView {
         stage.initStyle(StageStyle.UTILITY);
         stage.setX(bounds.getMinX());
         stage.setY(bounds.getMinY());
+
+        totalPriceTextField = new TextField();
+        totalPriceTextField.setEditable(false);
 
         // Root VBox
         VBox rootVBox = new VBox(10);
