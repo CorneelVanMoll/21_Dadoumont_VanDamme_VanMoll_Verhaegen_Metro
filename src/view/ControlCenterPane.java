@@ -142,8 +142,8 @@ public class ControlCenterPane extends Pane {
             gatesHBox.getChildren().add(gateVBox);
             gateVBox.setStyle("-fx-background-color: #de5b0b;");
             // Label
-            Label gate1Label = new Label(gate.getName() + " / ACTIVE");
-            gateVBox.getChildren().add(gate1Label);
+            Label gateLabel = new Label(gate.getName() + " / DEACTIVE");
+            gateVBox.getChildren().add(gateLabel);
 
             // Activate Button
             Button gateActivateButton = new Button("Activate");
@@ -151,6 +151,7 @@ public class ControlCenterPane extends Pane {
             gateActivateButton.setOnAction((event) -> {
                 gate.activate();
                 gateVBox.setStyle("-fx-background-color: #FFFFFF;");
+                gateLabel.setText(gate.getName() + " / ACTIVE");
             });
 
             // Deactivate Button
@@ -158,6 +159,7 @@ public class ControlCenterPane extends Pane {
             gateVBox.getChildren().add(gateDeactivateButton);
             gateDeactivateButton.setOnAction((event) -> {
                 gateVBox.setStyle("-fx-background-color: #de5b0b;");
+                gateLabel.setText(gate.getName() + " / DEACTIVE");
                 gate.deactivate();
             });
 
