@@ -44,7 +44,7 @@ public class MetroStationViewController implements Observer {
     public void scanMetroCard(Gate gate, String id) {
         if (gate.getContext().getState() instanceof InactiveState) {
             metroStationView.getOutputs().get(gate).setText("Gate is inactive");
-            metroFacade.invalidGateAction();
+            metroFacade.invalidGateAction(gate);
         } else {
             if (id != null && !id.isEmpty()) {
                 int idInt = Integer.parseInt(id);
@@ -58,25 +58,25 @@ public class MetroStationViewController implements Observer {
                                 gate.scan();
                             } else {
                                 metroStationView.getOutputs().get(gate).setText("Card has no rides left");
-                                metroFacade.invalidGateAction();
+                                metroFacade.invalidGateAction(gate);
                                 return;
                             }
                         } catch (IllegalArgumentException e) {
                             gate.setScannedCards(gate.getScannedCards() - 1);
-                            metroFacade.invalidGateAction();
+                            metroFacade.invalidGateAction(gate);
                         }
-                        metroStationView.getOutputs().get(gate).setText("card " +  id + " is scanned");
+                        metroStationView.getOutputs().get(gate).setText("Card " +  id + " is scanned");
                     } else {
                         metroStationView.getOutputs().get(gate).setText("Card has expired");
                     }
                 } else {
                     gate.setClosed();
-                    metroFacade.invalidGateAction();
+                    metroFacade.invalidGateAction(gate);
                     metroStationView.getOutputs().get(gate).setText("card " + id + " is not valid");
                 }
             } else {
                 gate.createAlert();
-                metroFacade.invalidGateAction();
+                metroFacade.invalidGateAction(gate);
                 metroStationView.getOutputs().get(gate).setText("alert is generated");
             }
         }
@@ -91,7 +91,7 @@ public class MetroStationViewController implements Observer {
             try {
                 gate.walkThroughGate();
             } catch (IllegalArgumentException e) {
-                metroFacade.invalidGateAction();
+                metroFacade.invalidGateAction(gate);
             }
             metroStationView.getOutputs().get(gate).setText("walked through");
         }

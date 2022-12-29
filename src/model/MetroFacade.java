@@ -21,7 +21,8 @@ public class MetroFacade implements Subject {
     private final LoadSaveStrategyFactory<Integer, Metrocard> loadSaveStrategyFactory;
     private LoadSaveStrategyEnum loadSaveStrategy;
     private List<String> metroTicketDiscountList;
-
+    private Gate lastInvalidGate;
+    private Metrocard lastExpiredMetroCard;
     private ArrayList<Gate> gates;
 
     private int totalCards = 0;
@@ -31,9 +32,9 @@ public class MetroFacade implements Subject {
         this.observerMap = new HashMap<>();
         this.loadSaveStrategyFactory = new LoadSaveStrategyFactory<>();
         this.gates = new ArrayList<>();
-        this.gates.add(new Gate("Gate1"));
-        this.gates.add(new Gate("Gate2"));
-        this.gates.add(new Gate("Gate3"));
+        this.gates.add(new Gate("Gate 1"));
+        this.gates.add(new Gate("Gate 2"));
+        this.gates.add(new Gate("Gate 3"));
         this.metroTicketDiscountList = TicketPriceFactory.loadDiscounts();
     }
 
@@ -101,9 +102,12 @@ public class MetroFacade implements Subject {
         return this.gates;
     }
 
-    public void invalidGateAction() {
+    public void invalidGateAction(Gate gate) {
+        this.lastInvalidGate = gate;
         fireEvent(MetroEventsEnum.INVALID_GATE_ACTION);
     }
+
+    public Gate getLastInvalidGate() { return lastInvalidGate; }
 
     public boolean scanCard(int id) {
         if (this.metroDB.scanCard(id)) {
@@ -148,7 +152,8 @@ public class MetroFacade implements Subject {
         fireEvent(MetroEventsEnum.UPDATE_METROCARD);
     }
 
-    public void expiredCardAlert() {
+    public void expiredCardAlert(Metrocard metrocard) {
+        this.lastExpiredMetroCard = metrocard;
         fireEvent(MetroEventsEnum.EXPIRED_CARD);
     }
 
@@ -159,4 +164,6 @@ public class MetroFacade implements Subject {
     public double getTotalPrice() {
         return totalPrice;
     }
+    
+    public Metrocard getLastExpiredMetroCard() { return lastExpiredMetroCard; }
 }

@@ -83,6 +83,8 @@ public class ControlCenterPane extends Pane {
 
                 // Number of Sold Tickets Textfield
                 numberSoldTicketsTextField = new TextField();
+                numberSoldTicketsTextField.setEditable(false);
+
                 numberSoldTicketsHBox.getChildren().add(numberSoldTicketsTextField);
 
             // Total Amount Tickets  Hbox
@@ -95,7 +97,10 @@ public class ControlCenterPane extends Pane {
                 totalAmountTicketsHBox.getChildren().add(totalAmountTicketsLabel);
 
                 // Total Amount Tickets TextField
+
                 totalAmountTicketsTextField = new TextField();
+                totalAmountTicketsTextField.setEditable(false);
+
                 totalAmountTicketsHBox.getChildren().add(totalAmountTicketsTextField);
 
         // Gates Hbox
@@ -119,6 +124,11 @@ public class ControlCenterPane extends Pane {
         textArea = new TextArea();
         textArea.setWrapText(true);
 
+
+        textArea.setEditable(false);
+
+        textArea.setStyle("-fx-text-fill: FB2C17");
+        
         alertsScrollPane.setContent(textArea);
         alertsScrollPane.setFitToWidth(true);
         alertsScrollPane.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY,Insets.EMPTY)));
@@ -181,11 +191,11 @@ public class ControlCenterPane extends Pane {
     }
 
     public void refresh() {
-        String out = "";
+        StringBuilder out = new StringBuilder();
         for(String alert: controlCenterPaneController.getAlerts()){
-            out += alert+'\n';
+            out.insert(0, alert + '\n');
         }
-        textArea.setText(out);
+        textArea.setText(out.toString());
 
         for(Gate gate: controlCenterPaneController.getGates()) {
             System.out.println(gate.getScannedCards());
