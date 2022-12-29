@@ -3,9 +3,11 @@ package controller;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.Gate;
+import model.MetroEventsEnum;
 import model.MetroFacade;
 import model.Observer;
 import model.states.ClosedState;
+import model.states.InactiveState;
 import view.MetroStationView;
 
 import java.util.List;
@@ -27,7 +29,7 @@ public class MetroStationViewController implements Observer {
     }
 
     @Override
-    public void update() {
+    public void update(MetroEventsEnum event) {
         metroStationView.updateMetroCardIdList(metroFacade.getMetroCardIDList());
     }
 
@@ -40,28 +42,45 @@ public class MetroStationViewController implements Observer {
     }
 
     public void scanMetroCard(Gate gate, String id) {
-        if (id != null && !id.isEmpty()) {
-            int idInt = Integer.parseInt(id);
-            List<Integer> ids= metroFacade.getMetroCardIDList();
-
-            if (ids.contains(idInt)) {
-                gate.scan();
-                metroStationView.getOutputs().get(gate).setText("card " + id + " is scanned");
-            } else {
-                gate.setClosed();
-                metroStationView.getOutputs().get(gate).setText("card " + id + " is not valid");
-            }
+        if (gate.getContext().getState() instanceof InactiveState) {
+            metroStationView.getOutputs().get(gate).setText("Gate is inactive");
         } else {
-            gate.createAlert();
-            metroStationView.getOutputs().get(gate).setText("alert is generated");
+            if (id != null && !id.isEmpty()) {
+                int idInt = Integer.parseInt(id);
+                List<Integer> ids= metroFacade.getMetroCardIDList();
+
+                if (ids.contains(idInt)) {
+                    try {
+                        gate.setScannedCards(gate.getScannedCards() + 1);
+                        gate.scan();
+                        metroFacade.ScanCard();
+                    } catch (IllegalArgumentException e) {
+                        gate.setScannedCards(gate.getScannedCards() - 1);
+                        metroFacade.inactiveGateAction();
+                    }
+                    metroStationView.getOutputs().get(gate).setText("card " +id + " is scanned");
+                } else {
+                    gate.setClosed();
+                    metroStationView.getOutputs().get(gate).setText("card " + id + " is not valid");
+                }
+            } else {
+                gate.createAlert();
+                metroStationView.getOutputs().get(gate).setText("alert is generated");
+            }
         }
     }
 
     public void walkThroughGate(Gate gate) {
         if (gate.getContext().getState() instanceof ClosedState) {
             metroStationView.getOutputs().get(gate).setText("Gate is closed");
+        } else if (gate.getContext().getState() instanceof InactiveState) {
+            metroStationView.getOutputs().get(gate).setText("Gate is inactive");
         } else {
-            gate.walkThroughGate();
+            try {
+                gate.walkThroughGate();
+            } catch (IllegalArgumentException e) {
+                metroFacade.inactiveGateAction();
+            }
             metroStationView.getOutputs().get(gate).setText("walked through");
         }
     }

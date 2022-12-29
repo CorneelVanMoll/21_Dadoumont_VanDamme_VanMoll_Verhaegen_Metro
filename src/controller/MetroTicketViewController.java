@@ -1,5 +1,6 @@
 package controller;
 
+import model.MetroEventsEnum;
 import model.MetroFacade;
 import model.Metrocard;
 import model.Observer;
@@ -22,7 +23,7 @@ public class MetroTicketViewController implements Observer {
     }
 
     @Override
-    public void update() {
+    public void update(MetroEventsEnum event) {
         metroTicketView.updateMetroCardIdList(metroFacade.getMetroCardIDList());
     }
 
