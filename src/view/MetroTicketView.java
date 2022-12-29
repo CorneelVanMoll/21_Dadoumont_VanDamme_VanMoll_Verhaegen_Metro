@@ -171,9 +171,16 @@ public class MetroTicketView {
         Button confirmRequestButton = new Button("Confirm request");
         requestHandlingHBox.getChildren().add(confirmRequestButton);
 
+        confirmRequestButton.setOnAction((event) -> {
+            metroTicketViewController.addRides(cbxMetroCardID.getValue(), Integer.parseInt(numberRidesTextField.getText()));
+            totalPriceTextField.setText("");
+            numberRidesTextField.setText("");});
+
         // Cancel Request Button
         Button cancelRequestButton = new Button("Cancel request");
         requestHandlingHBox.getChildren().add(cancelRequestButton);
+
+        cancelRequestButton.setOnAction(event -> totalPriceTextField.setText(""));
 
 
         Scene scene = new Scene(rootVBox, bounds.getWidth() / 2, (bounds.getHeight() / 2) - bounds.getMinY());
