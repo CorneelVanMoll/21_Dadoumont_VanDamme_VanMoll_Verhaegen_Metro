@@ -187,4 +187,8 @@ public class ControlCenterPane extends Pane {
             gate.getOutCardsScanned().setText(String.valueOf(gate.getScannedCards()));
         }
     }
+
+    public void update(int amount, double price) {
+
+    }
 }

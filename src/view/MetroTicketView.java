@@ -12,9 +12,12 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 public class MetroTicketView {
+
+    private final DecimalFormat euros = new DecimalFormat("€0.00");
     private final Stage stage = new Stage();
 
     private MetroTicketViewController metroTicketViewController;
@@ -29,7 +32,9 @@ public class MetroTicketView {
     private RadioButton between26and64CheckBox;
     private RadioButton older64CheckBox;
 
+    private Integer extraRides;
 
+    private double totalPrice;
 
     public MetroTicketView() {
         Rectangle2D bounds = Screen.getPrimary().getVisualBounds();
@@ -154,7 +159,10 @@ public class MetroTicketView {
         Button addExtraRidesButton = new Button("Add extra rides to metro card");
         subVBox.getChildren().add(addExtraRidesButton);
 
-        addExtraRidesButton.setOnAction(event -> metroTicketViewController.updateTotalPrice(younger26CheckBox.isSelected(), older64CheckBox.isSelected(), studentCheckBox.isSelected(), cbxMetroCardID.getValue(), Integer.parseInt(numberRidesTextField.getText())));
+        addExtraRidesButton.setOnAction(event -> {
+            extraRides = Integer.parseInt(numberRidesTextField.getText());
+            metroTicketViewController.updateTotalPrice(younger26CheckBox.isSelected(), older64CheckBox.isSelected(), studentCheckBox.isSelected(), cbxMetroCardID.getValue(), extraRides);
+        });
 
         // Total Price Hbox
         HBox totalPriceHBox = new HBox(10);
@@ -182,8 +190,11 @@ public class MetroTicketView {
         requestHandlingHBox.getChildren().add(confirmRequestButton);
 
         confirmRequestButton.setOnAction((event) -> {
-            metroTicketViewController.addRides(cbxMetroCardID.getValue(), Integer.parseInt(numberRidesTextField.getText()));
-            clearInputs();});
+            if (extraRides != null) {
+                metroTicketViewController.addRides(cbxMetroCardID.getValue(), extraRides, totalPrice);
+                clearInputs();
+            }
+        });
 
         // Cancel Request Button
         Button cancelRequestButton = new Button("Cancel request");
@@ -206,8 +217,9 @@ public class MetroTicketView {
         this.metroTicketViewController = metroTicketViewController;
     }
 
-    public void setTotalPrice(String priceString) {
-        totalPriceTextField.setText(priceString);
+    public void setTotalPrice(double price) {
+        this.totalPrice = price;
+        totalPriceTextField.setText(euros.format(price));
     }
 
     private void clearInputs() {
