@@ -113,8 +113,7 @@ public class ControlCenterPane extends Pane {
         ScrollPane alertsScrollPane = new ScrollPane();
         textArea = new TextArea();
         textArea.setWrapText(true);
-
-
+        
         alertsScrollPane.setContent(textArea);
         alertsScrollPane.setFitToWidth(true);
         alertsScrollPane.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY,Insets.EMPTY)));
@@ -132,53 +131,47 @@ public class ControlCenterPane extends Pane {
 
 
         for(Gate gate: controlCenterPaneController.getGates()) {
-            // Gate 1 VBox
-            VBox gate1VBox = new VBox(10);
-            gate1VBox.setPadding(new Insets(5));
-            gate1VBox.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY,Insets.EMPTY)));
-            gate1VBox.setBorder(new Border(new BorderStroke(Color.valueOf("#9E9E9E"),
+            // VBox
+            VBox gateVBox = new VBox(10);
+            gateVBox.setPadding(new Insets(5));
+            gateVBox.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY,Insets.EMPTY)));
+            gateVBox.setBorder(new Border(new BorderStroke(Color.valueOf("#9E9E9E"),
                     BorderStrokeStyle.SOLID,
                     CornerRadii.EMPTY,
                     BorderWidths.DEFAULT)));
-            gatesHBox.getChildren().add(gate1VBox);
-            gate1VBox.setStyle("-fx-background-color: #de5b0b;");
-            // Gate 1 Label
+            gatesHBox.getChildren().add(gateVBox);
+            gateVBox.setStyle("-fx-background-color: #de5b0b;");
+            // Label
             Label gate1Label = new Label(gate.getName() + " / ACTIVE");
-            gate1VBox.getChildren().add(gate1Label);
+            gateVBox.getChildren().add(gate1Label);
 
-            // Gate 1 Activate Button
-            Button gate1ActivateButton = new Button("Activate");
-            gate1VBox.getChildren().add(gate1ActivateButton);
-            gate1ActivateButton.setOnAction((event) -> {
+            // Activate Button
+            Button gateActivateButton = new Button("Activate");
+            gateVBox.getChildren().add(gateActivateButton);
+            gateActivateButton.setOnAction((event) -> {
                 gate.activate();
-                gate1VBox.setStyle("-fx-background-color: #FFFFFF;");
+                gateVBox.setStyle("-fx-background-color: #FFFFFF;");
             });
 
-            // Gate 1 Deactivate Button
-            Button gate1DeactivateButton = new Button("Deactivate");
-            gate1VBox.getChildren().add(gate1DeactivateButton);
-            gate1DeactivateButton.setOnAction((event) -> {
-                gate1VBox.setStyle("-fx-background-color: #de5b0b;");
+            // Deactivate Button
+            Button gateDeactivateButton = new Button("Deactivate");
+            gateVBox.getChildren().add(gateDeactivateButton);
+            gateDeactivateButton.setOnAction((event) -> {
+                gateVBox.setStyle("-fx-background-color: #de5b0b;");
                 gate.deactivate();
             });
 
-            // Gate 1 Amount Scanned Cards Label
-            Label gate1AmountScannedCardsLabel = new Label("# scanned cards");
-            gate1VBox.getChildren().add(gate1AmountScannedCardsLabel);
+            // Amount Scanned Cards Label
+            Label gateAmountScannedCardsLabel = new Label("# scanned cards");
+            gateVBox.getChildren().add(gateAmountScannedCardsLabel);
 
-            // Gate 1 Amount Scanned Cards TextField
-            TextField gate1AmountScannedCardsTextField = new TextField(String.valueOf(gate.getScannedCards()));
-            gate.setOutCardsScanned(gate1AmountScannedCardsTextField);
-            gate1AmountScannedCardsTextField.setEditable(false);
-            gate1VBox.getChildren().add(gate1AmountScannedCardsTextField);
-
-
-
-
+            // Amount Scanned Cards TextField
+            TextField gateAmountScannedCardsTextField = new TextField(String.valueOf(gate.getScannedCards()));
+            gate.setOutCardsScanned(gateAmountScannedCardsTextField);
+            gateAmountScannedCardsTextField.setEditable(false);
+            gateVBox.getChildren().add(gateAmountScannedCardsTextField);
         }
-
     }
-
 
     public void refresh() {
         String out = "";
@@ -187,11 +180,9 @@ public class ControlCenterPane extends Pane {
         }
         textArea.setText(out);
 
-
         for(Gate gate: controlCenterPaneController.getGates()) {
             System.out.println(gate.getScannedCards());
             gate.getOutCardsScanned().setText(String.valueOf(gate.getScannedCards()));
         }
     }
 }
-
