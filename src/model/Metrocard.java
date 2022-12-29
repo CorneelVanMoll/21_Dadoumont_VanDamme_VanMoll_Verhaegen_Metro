@@ -1,5 +1,6 @@
 package model;
 
+import java.time.LocalDate;
 import java.time.Month;
 import java.time.Year;
 
@@ -65,6 +66,14 @@ public class Metrocard {
             return true;
         }
         return false;
+    }
+
+    public void addRides(int amount) {
+        if (amount > 0) {
+            this.year = Year.now();
+            this.month = LocalDate.now().getMonth();
+            this.availableTrips += amount;
+        }
     }
 
     @Override
