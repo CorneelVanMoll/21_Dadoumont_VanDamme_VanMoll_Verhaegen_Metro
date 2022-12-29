@@ -32,10 +32,6 @@ public class MetroFacade implements Subject {
         this.gates.add(new Gate("Gate1"));
         this.gates.add(new Gate("Gate2"));
         this.gates.add(new Gate("Gate3"));
-
-        for(Gate gate: gates) {
-            gate.activate();
-        }
         this.metroTicketDiscountList = TicketPriceFactory.loadDiscounts();
     }
 
