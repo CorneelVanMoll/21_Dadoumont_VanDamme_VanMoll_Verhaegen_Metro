@@ -78,6 +78,7 @@ public class ControlCenterPane extends Pane {
 
                 // Number of Sold Tickets Textfield
                 TextField numberSoldTicketsTextField = new TextField("#");
+                numberSoldTicketsTextField.setEditable(false);
                 numberSoldTicketsHBox.getChildren().add(numberSoldTicketsTextField);
 
             // Total Amount Tickets  Hbox
@@ -91,6 +92,7 @@ public class ControlCenterPane extends Pane {
 
                 // Total Amount Tickets TextField
                 TextField totalAmountTicketsTextField = new TextField("#");
+                totalAmountTicketsTextField.setEditable(false);
                 totalAmountTicketsHBox.getChildren().add(totalAmountTicketsTextField);
 
         // Gates Hbox
@@ -113,6 +115,9 @@ public class ControlCenterPane extends Pane {
         ScrollPane alertsScrollPane = new ScrollPane();
         textArea = new TextArea();
         textArea.setWrapText(true);
+
+        textArea.setEditable(false);
+
         textArea.setStyle("-fx-text-fill: FB2C17");
         
         alertsScrollPane.setContent(textArea);
