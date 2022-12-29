@@ -7,4 +7,5 @@ public enum MetroEventsEnum {
     INVALID_GATE_ACTION,
     UPDATE_METROCARD,
     SCAN,
+    EXPIRED_CARD,
 }

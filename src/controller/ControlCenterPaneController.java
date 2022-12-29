@@ -38,6 +38,9 @@ public class ControlCenterPaneController implements Observer {
                 //add alert
                 this.alerts.add(LocalDateTime.now().getHour() + ":" + LocalDateTime.now().getMinute() + " UNAUTHORIZED PASSAGE " + metroFacade.getLastInvalidGate().getName().toUpperCase());
                 break;
+            case EXPIRED_CARD:
+                this.alerts.add("That card has expired");
+                break;
         }
 
         this.controlCenterPane.refresh();
