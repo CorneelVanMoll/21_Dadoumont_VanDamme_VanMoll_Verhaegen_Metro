@@ -82,7 +82,7 @@ public class ControlCenterPane extends Pane {
                 numberSoldTicketsHBox.getChildren().add(numberSoldTicketsLabel);
 
                 // Number of Sold Tickets Textfield
-                numberSoldTicketsTextField = new TextField();
+                numberSoldTicketsTextField = new TextField("0");
                 numberSoldTicketsTextField.setEditable(false);
 
                 numberSoldTicketsHBox.getChildren().add(numberSoldTicketsTextField);
@@ -98,7 +98,7 @@ public class ControlCenterPane extends Pane {
 
                 // Total Amount Tickets TextField
 
-                totalAmountTicketsTextField = new TextField();
+                totalAmountTicketsTextField = new TextField("0");
                 totalAmountTicketsTextField.setEditable(false);
 
                 totalAmountTicketsHBox.getChildren().add(totalAmountTicketsTextField);
