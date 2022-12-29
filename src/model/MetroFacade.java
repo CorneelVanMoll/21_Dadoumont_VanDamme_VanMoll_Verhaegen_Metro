@@ -4,7 +4,6 @@ import model.TicketPriceDecorator.TicketPrice;
 import model.TicketPriceDecorator.TicketPriceDiscountEnum;
 import model.TicketPriceDecorator.TicketPriceFactory;
 import model.database.MetrocardDatabase;
-import model.database.loadSaveStrategies.LoadSaveStrategy;
 import model.database.loadSaveStrategies.LoadSaveStrategyEnum;
 import model.database.loadSaveStrategies.LoadSaveStrategyFactory;
 
@@ -99,13 +98,18 @@ public class MetroFacade implements Subject {
         return this.gates;
     }
 
-    public void inactiveGateAction() {
-        fireEvent(MetroEventsEnum.GATE_INACTIVE_SCAN_OR_WALKTHROUGH);
+    public void invalidGateAction() {
+        fireEvent(MetroEventsEnum.INVALID_GATE_ACTION);
     }
 
-    public void ScanCard() {
-        fireEvent(MetroEventsEnum.SCAN);
+    public boolean scanCard(int id) {
+        if (this.metroDB.scanCard(id)) {
+            fireEvent(MetroEventsEnum.SCAN);
+            return true;
+        }
+        return false;
     }
+
     public List<String> getSelectedDiscounts() {
         return metroTicketDiscountList;
     }

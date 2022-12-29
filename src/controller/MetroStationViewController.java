@@ -44,6 +44,7 @@ public class MetroStationViewController implements Observer {
     public void scanMetroCard(Gate gate, String id) {
         if (gate.getContext().getState() instanceof InactiveState) {
             metroStationView.getOutputs().get(gate).setText("Gate is inactive");
+            metroFacade.invalidGateAction();
         } else {
             if (id != null && !id.isEmpty()) {
                 int idInt = Integer.parseInt(id);
@@ -51,14 +52,19 @@ public class MetroStationViewController implements Observer {
 
                 if (ids.contains(idInt)) {
                     try {
-                        gate.setScannedCards(gate.getScannedCards() + 1);
-                        gate.scan();
-                        metroFacade.ScanCard();
+                        if (metroFacade.scanCard(idInt)) {
+                            gate.setScannedCards(gate.getScannedCards() + 1);
+                            gate.scan();
+                        } else {
+                            metroStationView.getOutputs().get(gate).setText("Card has no rides left");
+                            metroFacade.invalidGateAction();
+                            return;
+                        }
                     } catch (IllegalArgumentException e) {
                         gate.setScannedCards(gate.getScannedCards() - 1);
-                        metroFacade.inactiveGateAction();
+                        metroFacade.invalidGateAction();
                     }
-                    metroStationView.getOutputs().get(gate).setText("card " +id + " is scanned");
+                    metroStationView.getOutputs().get(gate).setText("card " +  id + " is scanned");
                 } else {
                     gate.setClosed();
                     metroStationView.getOutputs().get(gate).setText("card " + id + " is not valid");
@@ -79,7 +85,7 @@ public class MetroStationViewController implements Observer {
             try {
                 gate.walkThroughGate();
             } catch (IllegalArgumentException e) {
-                metroFacade.inactiveGateAction();
+                metroFacade.invalidGateAction();
             }
             metroStationView.getOutputs().get(gate).setText("walked through");
         }
