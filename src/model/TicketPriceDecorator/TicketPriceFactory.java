@@ -6,6 +6,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.lang.reflect.Constructor;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -42,7 +43,11 @@ public class TicketPriceFactory {
             reader = new BufferedReader(new FileReader("settings.txt"));
             reader.readLine();
             discountString = reader.readLine();
-            discounts = Arrays.asList(discountString.split(","));
+            if (discountString != null) {
+                discounts = Arrays.asList(discountString.split(","));
+            } else {
+                discounts = new ArrayList<>();
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
