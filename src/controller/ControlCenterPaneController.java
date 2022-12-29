@@ -9,6 +9,7 @@ import sun.font.CreatedFontTracker;
 import view.ControlCenterPane;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ControlCenterPaneController implements Observer {
     MetroFacade metroFacade;
@@ -43,11 +44,11 @@ public class ControlCenterPaneController implements Observer {
         this.controlCenterPane.refresh();
     }
 
-    public ArrayList<Gate> getGates() {
+    public List<Gate> getGates() {
         return metroFacade.getGates();
     }
 
-    public ArrayList<String> getAlerts() {
+    public List<String> getAlerts() {
         return this.alerts;
     }
 }
