@@ -174,7 +174,7 @@ public class ControlCenterPane extends Pane {
             gateVBox.getChildren().add(gateDeactivateButton);
             gateDeactivateButton.setOnAction((event) -> {
                 gateVBox.setStyle("-fx-background-color: #de5b0b;");
-                gateLabel.setText(gate.getName() + " / DEACTIVE");
+                gateLabel.setText(gate.getName() + " / INACTIVE");
                 gate.deactivate();
             });
 
