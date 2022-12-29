@@ -176,11 +176,11 @@ public class ControlCenterPane extends Pane {
     }
 
     public void refresh() {
-        String out = "";
+        StringBuilder out = new StringBuilder();
         for(String alert: controlCenterPaneController.getAlerts()){
-            out += alert+'\n';
+            out.append(alert).append('\n');
         }
-        textArea.setText(out);
+        textArea.setText(out.toString());
 
         for(Gate gate: controlCenterPaneController.getGates()) {
             System.out.println(gate.getScannedCards());

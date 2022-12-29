@@ -6,6 +6,7 @@ import model.MetroFacade;
 import model.Observer;
 import view.ControlCenterPane;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,7 +36,7 @@ public class ControlCenterPaneController implements Observer {
         switch (event){
             case INVALID_GATE_ACTION:
                 //add alert
-                this.alerts.add("someone tried to scan or walkthrough an inactive gate");
+                this.alerts.add(LocalDateTime.now().getHour() + ":" + LocalDateTime.now().getMinute() + " UNAUTHORIZED PASSAGE " + metroFacade.getLastInvalidGate().getName().toUpperCase());
                 break;
         }
 
