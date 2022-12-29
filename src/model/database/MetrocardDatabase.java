@@ -2,7 +2,6 @@ package model.database;
 
 import model.Metrocard;
 import model.database.loadSaveStrategies.LoadSaveStrategy;
-import model.database.loadSaveStrategies.LoadSaveStrategyFactory;
 
 import java.time.Month;
 import java.time.Year;
@@ -42,5 +41,11 @@ public class MetrocardDatabase {
     private int getLastID() {
         if (getMetrocardIDList().size() == 0) return 0;
         return getMetrocardIDList().get(getMetrocardIDList().size() - 1);
+    }
+
+    public void addRides(int id, int amount) {
+        Metrocard metrocard = metrocards.get(id);
+        int currentRides = metrocard.getAvailableTrips();
+        metrocards.get(id).setAvailableTrips(currentRides + amount);
     }
 }
