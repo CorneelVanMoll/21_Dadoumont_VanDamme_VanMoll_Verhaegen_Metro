@@ -25,6 +25,9 @@ public class MetroFacade implements Subject {
     private Metrocard lastExpiredMetroCard;
     private ArrayList<Gate> gates;
 
+    private int totalCards = 0;
+    private double totalPrice = 0;
+
     public MetroFacade() {
         this.observerMap = new HashMap<>();
         this.loadSaveStrategyFactory = new LoadSaveStrategyFactory<>();
@@ -140,8 +143,12 @@ public class MetroFacade implements Subject {
         return list.stream().map(LoadSaveStrategyEnum::toString).collect(Collectors.toList());
     }
 
-    public void addRides(Integer metroCardId, int amount) {
+    public void addRides(Integer metroCardId, int amount, double price) {
+        totalCards += amount;
+        totalPrice += price;
+
         metroDB.addRides(metroCardId, amount);
+
         fireEvent(MetroEventsEnum.UPDATE_METROCARD);
     }
 
@@ -150,5 +157,13 @@ public class MetroFacade implements Subject {
         fireEvent(MetroEventsEnum.EXPIRED_CARD);
     }
 
+    public int getTotalCards() {
+        return totalCards;
+    }
+
+    public double getTotalPrice() {
+        return totalPrice;
+    }
+    
     public Metrocard getLastExpiredMetroCard() { return lastExpiredMetroCard; }
 }

@@ -41,8 +41,10 @@ public class ControlCenterPaneController implements Observer {
             case EXPIRED_CARD:
                 this.alerts.add(LocalDateTime.now().getHour() + ":" + LocalDateTime.now().getMinute() + ":" + LocalDateTime.now().getSecond() + " CARD " + metroFacade.getLastExpiredMetroCard().getId() + " EXPIRED");
                 break;
+            case UPDATE_METROCARD:
+                this.controlCenterPane.update(this.metroFacade.getTotalCards(), this.metroFacade.getTotalPrice());
+                break;
         }
-
         this.controlCenterPane.refresh();
     }
 

@@ -15,8 +15,6 @@ public class MetroTicketViewController implements Observer {
     MetroFacade metroFacade;
     MetroTicketView metroTicketView;
 
-    private final DecimalFormat euros = new DecimalFormat("€0.00");
-
     public MetroTicketViewController(MetroFacade metroFacade, MetroTicketView metroTicketView) {
         this.metroFacade = metroFacade;
         this.metroTicketView = metroTicketView;
@@ -41,13 +39,13 @@ public class MetroTicketViewController implements Observer {
         }
         if (!metrocard.checkExpired()) {
             double totalPrice = metroFacade.getPrice(is24Min, is64Plus, isStudent, metrocard) * amount;
-            metroTicketView.setTotalPrice(euros.format(totalPrice));
+            metroTicketView.setTotalPrice(totalPrice);
         } else {
             metroFacade.expiredCardAlert(metrocard);
         }
     }
 
-    public void addRides(Integer metroCardId, int amount) {
-        metroFacade.addRides(metroCardId, amount);
+    public void addRides(Integer metroCardId, int amount, double totalPrice) {
+        metroFacade.addRides(metroCardId, amount, totalPrice);
     }
 }
