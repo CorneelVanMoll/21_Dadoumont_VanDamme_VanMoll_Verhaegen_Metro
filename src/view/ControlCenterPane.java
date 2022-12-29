@@ -157,7 +157,7 @@ public class ControlCenterPane extends Pane {
             gatesHBox.getChildren().add(gateVBox);
             gateVBox.setStyle("-fx-background-color: #de5b0b;");
             // Label
-            Label gateLabel = new Label(gate.getName() + " / DEACTIVE");
+            Label gateLabel = new Label(gate.getName() + " / INACTIVE");
             gateVBox.getChildren().add(gateLabel);
 
             // Activate Button
