@@ -51,20 +51,24 @@ public class MetroStationViewController implements Observer {
                 List<Integer> ids= metroFacade.getMetroCardIDList();
 
                 if (ids.contains(idInt)) {
-                    try {
-                        if (metroFacade.scanCard(idInt)) {
-                            gate.setScannedCards(gate.getScannedCards() + 1);
-                            gate.scan();
-                        } else {
-                            metroStationView.getOutputs().get(gate).setText("Card has no rides left");
+                    if (!metroFacade.checkCardExpired(idInt)) {
+                        try {
+                            if (metroFacade.scanCard(idInt)) {
+                                gate.setScannedCards(gate.getScannedCards() + 1);
+                                gate.scan();
+                            } else {
+                                metroStationView.getOutputs().get(gate).setText("Card has no rides left");
+                                metroFacade.invalidGateAction();
+                                return;
+                            }
+                        } catch (IllegalArgumentException e) {
+                            gate.setScannedCards(gate.getScannedCards() - 1);
                             metroFacade.invalidGateAction();
-                            return;
                         }
-                    } catch (IllegalArgumentException e) {
-                        gate.setScannedCards(gate.getScannedCards() - 1);
-                        metroFacade.invalidGateAction();
+                        metroStationView.getOutputs().get(gate).setText("card " +  id + " is scanned");
+                    } else {
+                        metroStationView.getOutputs().get(gate).setText("Card has expired");
                     }
-                    metroStationView.getOutputs().get(gate).setText("card " +  id + " is scanned");
                 } else {
                     gate.setClosed();
                     metroStationView.getOutputs().get(gate).setText("card " + id + " is not valid");

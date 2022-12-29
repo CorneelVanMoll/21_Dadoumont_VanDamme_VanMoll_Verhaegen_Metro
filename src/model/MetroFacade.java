@@ -110,6 +110,10 @@ public class MetroFacade implements Subject {
         return false;
     }
 
+    public boolean checkCardExpired(int id) {
+        return this.metroDB.checkCardExpired(id);
+    }
+
     public List<String> getSelectedDiscounts() {
         return metroTicketDiscountList;
     }

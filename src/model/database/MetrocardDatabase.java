@@ -50,4 +50,8 @@ public class MetrocardDatabase {
     public void addRides(int id, int amount) {
         metrocards.get(id).addRides(amount);
     }
+
+    public boolean checkCardExpired(int id) {
+        return metrocards.get(id).checkExpired();
+    }
 }

@@ -3,6 +3,7 @@ package model;
 import java.time.LocalDate;
 import java.time.Month;
 import java.time.Year;
+import java.time.YearMonth;
 
 public class Metrocard {
     private final int id;
@@ -74,6 +75,10 @@ public class Metrocard {
             this.month = LocalDate.now().getMonth();
             this.availableTrips += amount;
         }
+    }
+
+    public boolean checkExpired() {
+        return Year.now().getValue() - this.year.getValue() > 1 || (Year.now().getValue() - this.year.getValue() == 1 && this.month.getValue() <  LocalDate.now().getMonth().getValue());
     }
 
     @Override
