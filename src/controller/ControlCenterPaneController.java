@@ -23,8 +23,8 @@ public class ControlCenterPaneController implements Observer {
 
     }
 
-    public void openMetroStation(LoadSaveStrategyEnum loadSaveStrategy) {
-        this.metroFacade.openMetroStation(loadSaveStrategy);
+    public void openMetroStation() {
+        this.metroFacade.openMetroStation();
     }
 
     public void closeMetroStation() {

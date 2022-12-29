@@ -43,18 +43,10 @@ public class ControlCenterPane extends Pane {
             HBox openStationHBox = new HBox(10);
             openCloseStationVBox.getChildren().add(openStationHBox);
 
-                // Open Metro Station Combo Box
-                ComboBox<LoadSaveStrategyEnum> cbxLoadSaveStrategy = new ComboBox<>();
-                cbxLoadSaveStrategy.getItems().setAll(LoadSaveStrategyEnum.values());
-                cbxLoadSaveStrategy.setPromptText("Load");
-                openStationHBox.getChildren().add(cbxLoadSaveStrategy);
-
                 // Open Metro Station Button
                 Button openMetroButton = new Button("Open metro station");
                 openMetroButton.setOnAction((event) -> {
-                    if (cbxLoadSaveStrategy.getValue() != null) {
-                        controlCenterPaneController.openMetroStation(cbxLoadSaveStrategy.getValue());
-                    }
+                    controlCenterPaneController.openMetroStation();
                 });
                 openStationHBox.getChildren().add(openMetroButton);
 
