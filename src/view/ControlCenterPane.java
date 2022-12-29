@@ -115,7 +115,10 @@ public class ControlCenterPane extends Pane {
         ScrollPane alertsScrollPane = new ScrollPane();
         textArea = new TextArea();
         textArea.setWrapText(true);
+
         textArea.setEditable(false);
+
+        textArea.setStyle("-fx-text-fill: FB2C17");
         
         alertsScrollPane.setContent(textArea);
         alertsScrollPane.setFitToWidth(true);

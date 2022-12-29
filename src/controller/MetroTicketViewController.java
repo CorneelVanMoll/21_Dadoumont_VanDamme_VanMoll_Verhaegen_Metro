@@ -43,7 +43,7 @@ public class MetroTicketViewController implements Observer {
             double totalPrice = metroFacade.getPrice(is24Min, is64Plus, isStudent, metrocard) * amount;
             metroTicketView.setTotalPrice(euros.format(totalPrice));
         } else {
-            metroFacade.expiredCardAlert();
+            metroFacade.expiredCardAlert(metrocard);
         }
     }
 

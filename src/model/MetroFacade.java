@@ -22,6 +22,7 @@ public class MetroFacade implements Subject {
     private LoadSaveStrategyEnum loadSaveStrategy;
     private List<String> metroTicketDiscountList;
     private Gate lastInvalidGate;
+    private Metrocard lastExpiredMetroCard;
     private ArrayList<Gate> gates;
 
     public MetroFacade() {
@@ -144,7 +145,10 @@ public class MetroFacade implements Subject {
         fireEvent(MetroEventsEnum.UPDATE_METROCARD);
     }
 
-    public void expiredCardAlert() {
+    public void expiredCardAlert(Metrocard metrocard) {
+        this.lastExpiredMetroCard = metrocard;
         fireEvent(MetroEventsEnum.EXPIRED_CARD);
     }
+
+    public Metrocard getLastExpiredMetroCard() { return lastExpiredMetroCard; }
 }
