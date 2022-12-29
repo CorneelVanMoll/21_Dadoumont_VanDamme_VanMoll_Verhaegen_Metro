@@ -178,7 +178,7 @@ public class ControlCenterPane extends Pane {
     public void refresh() {
         StringBuilder out = new StringBuilder();
         for(String alert: controlCenterPaneController.getAlerts()){
-            out.append(alert).append('\n');
+            out.insert(0, alert + '\n');
         }
         textArea.setText(out.toString());
 
