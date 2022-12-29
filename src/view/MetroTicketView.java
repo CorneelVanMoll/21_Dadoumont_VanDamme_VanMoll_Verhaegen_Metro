@@ -23,6 +23,14 @@ public class MetroTicketView {
 
     private TextField totalPriceTextField;
 
+    private TextField numberRidesTextField;
+    private CheckBox studentCheckBox;
+    private RadioButton younger26CheckBox;
+    private RadioButton between26and64CheckBox;
+    private RadioButton older64CheckBox;
+
+
+
     public MetroTicketView() {
         Rectangle2D bounds = Screen.getPrimary().getVisualBounds();
         stage.setTitle("METROTICKET VIEW");
@@ -89,7 +97,7 @@ public class MetroTicketView {
         numberRidesHBox.getChildren().add(numberRidesLabel);
 
         // Number of Rides TextField
-        TextField numberRidesTextField = new TextField();
+        numberRidesTextField = new TextField();
         numberRidesHBox.getChildren().add(numberRidesTextField);
 
         // Student Hbox
@@ -97,7 +105,7 @@ public class MetroTicketView {
         botVBox.getChildren().add(studentHBox);
 
         // Student CheckBox
-        CheckBox studentCheckBox = new CheckBox();
+        studentCheckBox = new CheckBox();
         studentHBox.getChildren().add(studentCheckBox);
 
         // Student Label
@@ -111,21 +119,21 @@ public class MetroTicketView {
         ToggleGroup ageToggleGroup = new ToggleGroup();
 
         // Younger 26 RadioButton
-        RadioButton younger26CheckBox = new RadioButton();
+        younger26CheckBox = new RadioButton();
         discountHBox.getChildren().add(younger26CheckBox);
         younger26CheckBox.setToggleGroup(ageToggleGroup);
         // Younger 26 Label
         Label younger26Label = new Label("Younger than 26 years");
         discountHBox.getChildren().add(younger26Label);
         // Older 64 RadioButton
-        RadioButton older64CheckBox = new RadioButton();
+        older64CheckBox = new RadioButton();
         discountHBox.getChildren().add(older64CheckBox);
         older64CheckBox.setToggleGroup(ageToggleGroup);
         // Older 64 Label
         Label older64Label = new Label("Older than 64 years");
         discountHBox.getChildren().add(older64Label);
         // Between 26 and 64 RadioButton
-        RadioButton between26and64CheckBox = new RadioButton();
+        between26and64CheckBox = new RadioButton();
         discountHBox.getChildren().add(between26and64CheckBox);
         between26and64CheckBox.setToggleGroup(ageToggleGroup);
         // Between 26 and 64 Label
@@ -146,7 +154,6 @@ public class MetroTicketView {
         Button addExtraRidesButton = new Button("Add extra rides to metro card");
         subVBox.getChildren().add(addExtraRidesButton);
 
-        String totalPrice;
         addExtraRidesButton.setOnAction(event -> metroTicketViewController.updateTotalPrice(younger26CheckBox.isSelected(), older64CheckBox.isSelected(), studentCheckBox.isSelected(), cbxMetroCardID.getValue(), Integer.parseInt(numberRidesTextField.getText())));
 
         // Total Price Hbox
@@ -176,14 +183,13 @@ public class MetroTicketView {
 
         confirmRequestButton.setOnAction((event) -> {
             metroTicketViewController.addRides(cbxMetroCardID.getValue(), Integer.parseInt(numberRidesTextField.getText()));
-            totalPriceTextField.setText("");
-            numberRidesTextField.setText("");});
+            clearInputs();});
 
         // Cancel Request Button
         Button cancelRequestButton = new Button("Cancel request");
         requestHandlingHBox.getChildren().add(cancelRequestButton);
 
-        cancelRequestButton.setOnAction(event -> totalPriceTextField.setText(""));
+        cancelRequestButton.setOnAction(event -> clearInputs());
 
 
         Scene scene = new Scene(rootVBox, bounds.getWidth() / 2, (bounds.getHeight() / 2) - bounds.getMinY());
@@ -202,5 +208,15 @@ public class MetroTicketView {
 
     public void setTotalPrice(String priceString) {
         totalPriceTextField.setText(priceString);
+    }
+
+    private void clearInputs() {
+        totalPriceTextField.setText("");
+        numberRidesTextField.setText("");
+        cbxMetroCardID.valueProperty().set(null);
+        younger26CheckBox.setSelected(false);
+        studentCheckBox.setSelected(false);
+        between26and64CheckBox.setSelected(false);
+        older64CheckBox.setSelected(false);
     }
 }
