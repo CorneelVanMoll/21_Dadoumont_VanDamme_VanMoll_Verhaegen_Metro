@@ -37,6 +37,9 @@ public class ControlCenterPaneController implements Observer {
                 //add alert
                 this.alerts.add("someone tried to scan or walkthrough an inactive gate");
                 break;
+            case EXPIRED_CARD:
+                this.alerts.add("That card has expired");
+                break;
         }
 
         this.controlCenterPane.refresh();

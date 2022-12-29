@@ -39,8 +39,12 @@ public class MetroTicketViewController implements Observer {
             e.printStackTrace();
             return;
         }
-        double totalPrice = metroFacade.getPrice(is24Min, is64Plus, isStudent, metrocard) * amount;
-        metroTicketView.setTotalPrice(euros.format(totalPrice));
+        if (!metrocard.checkExpired()) {
+            double totalPrice = metroFacade.getPrice(is24Min, is64Plus, isStudent, metrocard) * amount;
+            metroTicketView.setTotalPrice(euros.format(totalPrice));
+        } else {
+            metroFacade.expiredCardAlert();
+        }
     }
 
     public void addRides(Integer metroCardId, int amount) {

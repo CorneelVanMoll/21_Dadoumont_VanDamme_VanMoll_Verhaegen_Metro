@@ -140,4 +140,8 @@ public class MetroFacade implements Subject {
         metroDB.addRides(metroCardId, amount);
         fireEvent(MetroEventsEnum.UPDATE_METROCARD);
     }
+
+    public void expiredCardAlert() {
+        fireEvent(MetroEventsEnum.EXPIRED_CARD);
+    }
 }
