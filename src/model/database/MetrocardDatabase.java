@@ -48,8 +48,10 @@ public class MetrocardDatabase {
     }
 
     public void addRides(int id, int amount) {
-        Metrocard metrocard = metrocards.get(id);
-        int currentRides = metrocard.getAvailableTrips();
-        metrocards.get(id).setAvailableTrips(currentRides + amount);
+        metrocards.get(id).addRides(amount);
+    }
+
+    public boolean checkCardExpired(int id) {
+        return metrocards.get(id).checkExpired();
     }
 }
