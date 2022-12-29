@@ -36,10 +36,10 @@ public class ControlCenterPaneController implements Observer {
         switch (event){
             case INVALID_GATE_ACTION:
                 //add alert
-                this.alerts.add(LocalDateTime.now().getHour() + ":" + LocalDateTime.now().getMinute() + " UNAUTHORIZED PASSAGE " + metroFacade.getLastInvalidGate().getName().toUpperCase());
+                this.alerts.add(LocalDateTime.now().getHour() + ":" + LocalDateTime.now().getMinute() + ":" + LocalDateTime.now().getSecond() + " UNAUTHORIZED PASSAGE " + metroFacade.getLastInvalidGate().getName().toUpperCase());
                 break;
             case EXPIRED_CARD:
-                this.alerts.add("That card has expired");
+                this.alerts.add(LocalDateTime.now().getHour() + ":" + LocalDateTime.now().getMinute() + ":" + LocalDateTime.now().getSecond() + " CARD " + metroFacade.getLastExpiredMetroCard().getId() + " EXPIRED");
                 break;
         }
 
